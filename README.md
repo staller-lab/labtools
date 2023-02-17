@@ -1,6 +1,8 @@
 # labtools
 
-Staller lab tools for sequence design and analysis
+tools for sequence design and analysis
+
+[View the in progress documentation.](https://github.com/massivejords/tools/blob/main/docs/docs/html/index.html)
 
 ## Installation
 
