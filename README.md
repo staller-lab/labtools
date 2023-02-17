@@ -2,7 +2,7 @@
 
 tools for sequence design and analysis
 
-[View the in progress documentation.](h[ttps://github.com/massivejords/tools/blob/main/docs/docs/html/index.html](https://htmlpreview.github.io/?https%3A%2F%2Fgithub.com%2Fmassivejords%2Ftools%2Fblob%2Fmain%2Fdocs%2Fdocs%2Fhtml%2Findex.html=))
+[View the in progress documentation.](https://github.com/massivejords/tools/blob/main/docs/docs/html/index.html](https://htmlpreview.github.io/?https%3A%2F%2Fgithub.com%2Fmassivejords%2Ftools%2Fblob%2Fmain%2Fdocs%2Fdocs%2Fhtml%2Findex.html=)
 
 ## Installation
 
