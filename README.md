@@ -1,12 +1,12 @@
 # labtools
 
-Staller lab tools for sequence design and analysis
+tools for sequence design and analysis
+
+[View the in progress documentation.](https://htmlpreview.github.io/?https%3A%2F%2Fgithub.com%2Fmassivejords%2Ftools%2Fblob%2Fmain%2Fdocs%2Fdocs%2Fhtml%2Findex.html=)
 
 ## Installation
 
-```bash
-$ pip install labtools
-```
+WIP
 
 ## Usage
 
