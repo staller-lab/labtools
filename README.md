@@ -4,9 +4,7 @@ Staller lab tools for sequence design and analysis
 
 ## Installation
 
-```bash
-$ pip install labtools
-```
+WIP
 
 ## Usage
 
