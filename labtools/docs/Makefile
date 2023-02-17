@@ -5,7 +5,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
 SPHINXPROJ    = labtools
 SOURCEDIR     = .
-BUILDDIR      = ../../
+BUILDDIR      = _build
 
 # Put it first so that "make" without argument is like "make help".
 help:
