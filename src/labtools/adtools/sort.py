@@ -6,7 +6,19 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 class Sort():
-    """A sort object."""
+    """A sort object.
+    
+    Attributes
+    ----------
+    data_files : list
+        List of str paths to fastq files in order of bins.
+    bin_counts : list
+        List of number of cells per bin in order of data files.
+    bin_values : list
+        List of mean or median fluorescence values per bin in order of data files.
+    design_file : str
+        Path to design csv file containing "ArrayDNA" header with DNA sequences to search
+    """
 
     def __init__(self, data_files, bin_counts, bin_values, design_file = None):
         self.data_files = data_files
@@ -15,7 +27,25 @@ class Sort():
         self.design_file = design_file
 
     def process(self, csv=False, **kwargs):
-        """Calculate the activity for each tile."""
+        """Calculate the activity for each tile.
+        
+        Parameters
+        ----------
+        csv : bool, default False
+            Use a csv input for predetermined AD counts (for example, bowtie output).
+        **kwargs : dict, optional
+            Extra arguments to pull_AD (for example changing the anchor sequences).
+            
+        Returns
+        ----------
+        processed_sort : pandas.DataFrame
+        numreads : 
+        reads :
+       
+        Examples
+        ----------
+        >>>Sort.process()
+        """
 
         sort_list = []
         

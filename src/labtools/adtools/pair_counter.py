@@ -1,10 +1,27 @@
-from adtools.finder import pull_AD
-from adtools.seqlib import read_fastq, read_fastq_big
+from labtools.adtools.finder import pull_AD
+from labtools.adtools.seqlib import read_fastq, read_fastq_big
 import pandas as pd
 
 def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
-    """Count occurences of ADs or AD/bc pairs."""
-
+    """Counts occurences of ADs or AD-barcode pairs.
+    
+    Parameters
+    ----------
+    fastq : str 
+        Path to fastq or fastq.gz file.
+    
+    Returns
+    ----------
+    counts : pandas.core.series.Series
+        Pandas series where indices are AD or AD/barcode sequences and values are counts.
+    
+    Examples
+    ----------
+    >>> seq_counter("../exampledata/mini.fastq")
+    GGTTCTTCTAAATTGAGATGTGATAATAATGCTGCTGCTCATGTTAAATTGGATTCATTTCCAGCTGGTGTTAGATTTGATACATCTGATGAAGAATTGTTGGAACATTTGGCTGCTAAA    1
+    GAAGAATTGTTTTTACATTTGTCTGCTAAGATTGGTAGATCTTCTAGGAAACCACATCCATTCTTGGATGAATTTATTCATACTTTGGTTGAAGAAGATGGTATTTGTAGAACTCATCCA    3
+    dtype: int64
+    """
     seqCounts = {}
     for line in read_fastq_big(fastq):
         AD,bc = pull_AD(line[1], barcoded, **kwargs)
@@ -24,8 +41,28 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
     return counts
 
 def sort_normalizer(pair_counts, bin_counts):
-    """Normalize by reads per sample, reads per tile and reads per bin."""
+    """Normalize by reads per sample, reads per tile and reads per bin.
     
+    Parameters
+    ----------
+    pair_counts : list of pandas.core.series.Series 
+        List of pandas series where indices are AD or AD/barcode sequences and values are counts.
+    bin_counts : list
+        List of number of cells per bin in the same order as the pair counts.
+    
+    Returns
+    ----------
+    df : pandas.DataFrame
+        Pandas dataframe containing the normalized read counts.
+    numreads : 
+        unknown
+    reads :
+        unknown
+    
+    Examples
+    ----------
+    >>> sort_normalizer([count1, count2], [1000,1000])
+    """
     df = pd.DataFrame(pair_counts)
     df.fillna(0, inplace=True)
     # 10 is the read minimum, should make this user defined
@@ -43,6 +80,22 @@ def sort_normalizer(pair_counts, bin_counts):
     return df, numreads, reads
 
 def calculate_activity(df_in, bin_values, min_max = False):
+    """Calculate the activity of a normalized sort df.
+    
+    Parameters
+    ----------
+    df_in : pandas.DataFrame
+        Dataframe output of sort_normalizer()
+    bin_values : list
+        List of mean or median fluorescence values per bin in the same order as the pair counts.
+    min_max : bool, default False
+        Whether to normalize the activity using min 0 max 1.
+    
+    Returns
+    ----------
+    df : pandas.DataFrame
+        Pandas dataframe containing the activity values per sequence or sequence-barcode pair.
+    """
     df = df_in.copy(deep=True)
     activities = df_in.dot(bin_values)
     if min_max:
