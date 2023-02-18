@@ -48,7 +48,6 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Example usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">labtools</span></code></a><ul class="current">
@@ -115,7 +114,7 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.seqlib.read_fasta">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fasta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#labtools.adtools.seqlib.read_fasta" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fasta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#read_fasta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.read_fasta" title="Permalink to this definition"></a></dt>
 <dd><p>Generator for reading entries in a fasta file.</p>
 <p>Yields 2 lines of a fasta file at a time (name, seq).</p>
 <dl class="field-list simple">
@@ -144,7 +143,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.seqlib.read_fastq">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fastq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#labtools.adtools.seqlib.read_fastq" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fastq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#read_fastq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.read_fastq" title="Permalink to this definition"></a></dt>
 <dd><p>Generator for reading entries in a fastq file.</p>
 <p>Yields 4 lines of a fastq file at a time (name, seq, +, error).</p>
 <dl class="field-list simple">
@@ -174,7 +173,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.seqlib.read_fastq_big">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fastq_big</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#labtools.adtools.seqlib.read_fastq_big" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fastq_big</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#read_fastq_big"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.read_fastq_big" title="Permalink to this definition"></a></dt>
 <dd><p>Generator for fastq file without opening into memory.</p>
 <p>Yields 4 lines of a fastq file at a time (name, seq, +, error).
 Useful in situations where the fastq file is large and opening into RAM
@@ -203,7 +202,7 @@ would crash computer. Does not currently support subsetting.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.seqlib.get_numreads">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">get_numreads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#labtools.adtools.seqlib.get_numreads" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">get_numreads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#get_numreads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.get_numreads" title="Permalink to this definition"></a></dt>
 <dd><p>Returns number of reads in a fastq file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

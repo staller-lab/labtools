@@ -22,15 +22,53 @@ Functions
 
 .. py:function:: seq_counter(fastq, design_to_use=None, barcoded=False, **kwargs)
 
-   Count occurences of ADs or AD/bc pairs.
+   Counts occurences of ADs or AD-barcode pairs.
+
+   :param fastq: Path to fastq or fastq.gz file.
+   :type fastq: str
+
+   :returns: **counts** -- Pandas series where indices are AD or AD/barcode sequences and values are counts.
+   :rtype: pandas.core.series.Series
+
+   .. rubric:: Examples
+
+   >>> seq_counter("../exampledata/mini.fastq")
+   GGTTCTTCTAAATTGAGATGTGATAATAATGCTGCTGCTCATGTTAAATTGGATTCATTTCCAGCTGGTGTTAGATTTGATACATCTGATGAAGAATTGTTGGAACATTTGGCTGCTAAA    1
+   GAAGAATTGTTTTTACATTTGTCTGCTAAGATTGGTAGATCTTCTAGGAAACCACATCCATTCTTGGATGAATTTATTCATACTTTGGTTGAAGAAGATGGTATTTGTAGAACTCATCCA    3
+   dtype: int64
 
 
 .. py:function:: sort_normalizer(pair_counts, bin_counts)
 
    Normalize by reads per sample, reads per tile and reads per bin.
 
+   :param pair_counts: List of pandas series where indices are AD or AD/barcode sequences and values are counts.
+   :type pair_counts: list of pandas.core.series.Series
+   :param bin_counts: List of number of cells per bin in the same order as the pair counts.
+   :type bin_counts: list
+
+   :returns: * **df** (*pandas.DataFrame*) -- Pandas dataframe containing the normalized read counts.
+             * *numreads* -- unknown
+             * *reads* -- unknown
+
+   .. rubric:: Examples
+
+   >>> sort_normalizer([count1, count2], [1000,1000])
+
 
 .. py:function:: calculate_activity(df_in, bin_values, min_max=False)
+
+   Calculate the activity of a normalized sort df.
+
+   :param df_in: Dataframe output of sort_normalizer()
+   :type df_in: pandas.DataFrame
+   :param bin_values: List of mean or median fluorescence values per bin in the same order as the pair counts.
+   :type bin_values: list
+   :param min_max: Whether to normalize the activity using min 0 max 1.
+   :type min_max: bool, default False
+
+   :returns: **df** -- Pandas dataframe containing the activity values per sequence or sequence-barcode pair.
+   :rtype: pandas.DataFrame
 
 
 .. py:function:: main()

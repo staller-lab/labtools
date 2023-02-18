@@ -48,7 +48,6 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../../example.html">Example usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../conduct.html">Code of Conduct</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">labtools</span></code></a><ul class="current">
@@ -108,10 +107,72 @@
 <dt class="sig sig-object py" id="labtools.adtools.sort.Sort">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">labtools.adtools.sort.</span></span><span class="sig-name descname"><span class="pre">Sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_counts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#labtools.adtools.sort.Sort" title="Permalink to this definition"></a></dt>
 <dd><p>A sort object.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="labtools.adtools.sort.Sort.data_files">
+<span class="sig-name descname"><span class="pre">data_files</span></span><a class="headerlink" href="#labtools.adtools.sort.Sort.data_files" title="Permalink to this definition"></a></dt>
+<dd><p>List of str paths to fastq files in order of bins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="labtools.adtools.sort.Sort.bin_counts">
+<span class="sig-name descname"><span class="pre">bin_counts</span></span><a class="headerlink" href="#labtools.adtools.sort.Sort.bin_counts" title="Permalink to this definition"></a></dt>
+<dd><p>List of number of cells per bin in order of data files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="labtools.adtools.sort.Sort.bin_values">
+<span class="sig-name descname"><span class="pre">bin_values</span></span><a class="headerlink" href="#labtools.adtools.sort.Sort.bin_values" title="Permalink to this definition"></a></dt>
+<dd><p>List of mean or median fluorescence values per bin in order of data files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="labtools.adtools.sort.Sort.design_file">
+<span class="sig-name descname"><span class="pre">design_file</span></span><a class="headerlink" href="#labtools.adtools.sort.Sort.design_file" title="Permalink to this definition"></a></dt>
+<dd><p>Path to design csv file containing “ArrayDNA” header with DNA sequences to search</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="labtools.adtools.sort.Sort.process">
 <span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#labtools.adtools.sort.Sort.process" title="Permalink to this definition"></a></dt>
 <dd><p>Calculate the activity for each tile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv</strong> (<em>bool</em><em>, </em><em>default False</em>) – Use a csv input for predetermined AD counts (for example, bowtie output).</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Extra arguments to pull_AD (for example changing the anchor sequences).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>processed_sort</strong> (<em>pandas.DataFrame</em>)</p></li>
+<li><p><em>numreads</em></p></li>
+<li><p><em>reads</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>&gt;&gt;&gt;Sort.process()</p>
 </dd></dl>
 
 <dl class="py method">
