@@ -6,7 +6,10 @@ tools for sequence design and analysis
 
 ## Installation
 
-WIP
+'''bash 
+pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.1-py3-none-any.whl?raw=true
+'''
+
 
 ## Usage
 
