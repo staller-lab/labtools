@@ -135,28 +135,28 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;dbeacFGHIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;AedcbfGHIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABfdgecHIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCedgfhIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDghfeiJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEfjhigKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFkjhgiLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGikjhlMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHlmkjiNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIkjnmlOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJnmlokPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKnomplQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLpqnomRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMnqropSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNspqorTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOrspqtUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPstuqrVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQtsuvrWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRvwtusYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRSwuvytXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRSTxuyvwZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRSTUwvyzx&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ceadbFGHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;AedbfcGHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABgdcfeHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCeghdfIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDiegfhJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEhifgjKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFkigjhLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGkjilhMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHjkilmNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHInmljkOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJmnolkPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKnlpomQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLnqpmoRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMnropqSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNsrqopTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOtprqsUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPstrquVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQvtsruWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRwsutvYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSuywvtXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSTyxwuvZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSTUzvxwy&#39;]
 </pre></div>
 </div>
 </div>
@@ -795,6 +795,183 @@ Length: 112, dtype: float64
 <p>77 rows × 5 columns</p>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_index</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;font-size: 6pt;&quot;</span>
+<span class="n">activities_no_design</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap_index</span><span class="p">(</span><span class="n">format_index</span><span class="p">)</span>
+<span class="n">activities_no_design</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">apply</span><span class="p">({</span><span class="s2">&quot;font-size&quot;</span><span class="p">:</span><span class="s2">&quot;6pt&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/IPython/core/formatters.py:342,</span> in <span class="ni">BaseFormatter.__call__</span><span class="nt">(self, obj)</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span>     <span class="n">method</span> <span class="o">=</span> <span class="n">get_real_method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_method</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span>     <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">342</span>         <span class="k">return</span> <span class="n">method</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">343</span>     <span class="k">return</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style.py:385,</span> in <span class="ni">Styler._repr_html_</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">380</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">381</span><span class="sd"> Hooks into Jupyter notebook rich display system, which calls _repr_html_ by</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span><span class="sd"> default if an object is returned at the end of a cell.</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span> <span class="k">if</span> <span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;styler.render.repr&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;html&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">385</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span> <span class="k">return</span> <span class="kc">None</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style.py:1377,</span> in <span class="ni">Styler.to_html</span><span class="nt">(self, buf, table_uuid, table_attributes, sparse_index, sparse_columns, bold_headers, caption, max_rows, max_columns, encoding, doctype_html, exclude_styles, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1374</span>     <span class="n">obj</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="n">caption</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span> <span class="c1"># Build HTML string..</span>
+<span class="ne">-&gt; </span><span class="mi">1377</span> <span class="n">html</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_render_html</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1378</span>     <span class="n">sparse_index</span><span class="o">=</span><span class="n">sparse_index</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1379</span>     <span class="n">sparse_columns</span><span class="o">=</span><span class="n">sparse_columns</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1380</span>     <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1381</span>     <span class="n">max_cols</span><span class="o">=</span><span class="n">max_columns</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1382</span>     <span class="n">exclude_styles</span><span class="o">=</span><span class="n">exclude_styles</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1383</span>     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span> <span class="ow">or</span> <span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;styler.render.encoding&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">1384</span>     <span class="n">doctype_html</span><span class="o">=</span><span class="n">doctype_html</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1385</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1386</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1388</span> <span class="k">return</span> <span class="n">save_to_buffer</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1389</span>     <span class="n">html</span><span class="p">,</span> <span class="n">buf</span><span class="o">=</span><span class="n">buf</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="p">(</span><span class="n">encoding</span> <span class="k">if</span> <span class="n">buf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1390</span> <span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style_render.py:206,</span> in <span class="ni">StylerRenderer._render_html</span><span class="nt">(self, sparse_index, sparse_columns, max_rows, max_cols, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">194</span> <span class="k">def</span> <span class="nf">_render_html</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="n">sparse_index</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">203</span><span class="sd">     Renders the ``Styler`` including all applied styles to HTML.</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span><span class="sd">     Generates a dict with necessary kwargs passed to jinja2 template.</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">206</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">sparse_index</span><span class="p">,</span> <span class="n">sparse_columns</span><span class="p">,</span> <span class="n">max_rows</span><span class="p">,</span> <span class="n">max_cols</span><span class="p">,</span> <span class="s2">&quot;&amp;nbsp;&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_html</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="o">**</span><span class="n">d</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>         <span class="n">html_table_tpl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">template_html_table</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">211</span>         <span class="n">html_style_tpl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">template_html_style</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style_render.py:163,</span> in <span class="ni">StylerRenderer._render</span><span class="nt">(self, sparse_index, sparse_columns, max_rows, max_cols, blank)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>     <span class="n">sparse_index</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>     <span class="n">blank</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">156</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span><span class="sd">     Computes and applies styles and then generates the general render dicts.</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span><span class="sd">     Also extends the `ctx` and `ctx_index` attributes with those of concatenated</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span><span class="sd">     stylers for use within `_translate_latex`</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">163</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_compute</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="n">dxs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="n">ctx_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style_render.py:258,</span> in <span class="ni">StylerRenderer._compute</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">for</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_todo</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">258</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span> <span class="k">return</span> <span class="n">r</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style.py:1736,</span> in <span class="ni">Styler._apply</span><span class="nt">(self, func, axis, subset, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1734</span> <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1735</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1736</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1737</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1738</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># see GH 42005</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/frame.py:9568,</span> in <span class="ni">DataFrame.apply</span><span class="nt">(self, func, axis, raw, result_type, args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9557</span> <span class="kn">from</span> <span class="nn">pandas.core.apply</span> <span class="kn">import</span> <span class="n">frame_apply</span>
+<span class="g g-Whitespace">   </span><span class="mi">9559</span> <span class="n">op</span> <span class="o">=</span> <span class="n">frame_apply</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">9560</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9561</span>     <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9566</span>     <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">9567</span> <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">9568</span> <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;apply&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:735,</span> in <span class="ni">FrameApply.apply</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">733</span> <span class="c1"># dispatch to agg</span>
+<span class="g g-Whitespace">    </span><span class="mi">734</span> <span class="k">if</span> <span class="n">is_list_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">735</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_multiple</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">737</span> <span class="c1"># all empty</span>
+<span class="g g-Whitespace">    </span><span class="mi">738</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:591,</span> in <span class="ni">Apply.apply_multiple</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">582</span> <span class="k">def</span> <span class="nf">apply_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span> <span class="o">|</span> <span class="n">Series</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">583</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">584</span><span class="sd">     Compute apply in case of a list-like or dict-like.</span>
+<span class="g g-Whitespace">    </span><span class="mi">585</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span><span class="sd">         Result when self.f is a list-like or dict-like, None otherwise.</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">591</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/frame.py:9342,</span> in <span class="ni">DataFrame.aggregate</span><span class="nt">(self, func, axis, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9339</span> <span class="n">relabeling</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">reconstruct_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9341</span> <span class="n">op</span> <span class="o">=</span> <span class="n">frame_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">9342</span> <span class="n">result</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">9344</span> <span class="k">if</span> <span class="n">relabeling</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">9345</span>     <span class="c1"># This is to keep the order to columns occurrence unchanged, and also</span>
+<span class="g g-Whitespace">   </span><span class="mi">9346</span>     <span class="c1"># keep the order of new columns occurrence unchanged</span>
+<span class="g g-Whitespace">   </span><span class="mi">9347</span> 
+<span class="g g-Whitespace">   </span><span class="mi">9348</span>     <span class="c1"># For the return values of reconstruct_func, if relabeling is</span>
+<span class="g g-Whitespace">   </span><span class="mi">9349</span>     <span class="c1"># False, columns and order will be None.</span>
+<span class="g g-Whitespace">   </span><span class="mi">9350</span>     <span class="k">assert</span> <span class="n">columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:776,</span> in <span class="ni">FrameApply.agg</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">774</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">775</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">776</span>     <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">777</span> <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">778</span>     <span class="n">exc</span> <span class="o">=</span> <span class="ne">TypeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">779</span>         <span class="s2">&quot;DataFrame constructor called with &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span>         <span class="sa">f</span><span class="s2">&quot;incompatible data and dtype: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:172,</span> in <span class="ni">Apply.agg</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_str</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span> <span class="k">if</span> <span class="n">is_dict_like</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">172</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_dict_like</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span> <span class="k">elif</span> <span class="n">is_list_like</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="c1"># we require a list, but not a &#39;str&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_list_like</span><span class="p">()</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:496,</span> in <span class="ni">Apply.agg_dict_like</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="n">selected_obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_selected_obj</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span>     <span class="n">selection</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_selection</span>
+<span class="ne">--&gt; </span><span class="mi">496</span> <span class="n">arg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_dictlike_arg</span><span class="p">(</span><span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="n">selected_obj</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span> <span class="k">if</span> <span class="n">selected_obj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span>     <span class="c1"># key only used for output</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span>     <span class="n">colg</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_gotitem</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:619,</span> in <span class="ni">Apply.normalize_dictlike_arg</span><span class="nt">(self, how, obj, func)</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">618</span>         <span class="n">cols_sorted</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">safe_sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cols</span><span class="p">)))</span>
+<span class="ne">--&gt; </span><span class="mi">619</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column(s) </span><span class="si">{</span><span class="n">cols_sorted</span><span class="si">}</span><span class="s2"> do not exist&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">621</span> <span class="n">aggregator_types</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">623</span> <span class="c1"># if we have a dict of any non-scalars</span>
+<span class="g g-Whitespace">    </span><span class="mi">624</span> <span class="c1"># eg. {&#39;A&#39; : [&#39;mean&#39;]}, normalize all to</span>
+<span class="g g-Whitespace">    </span><span class="mi">625</span> <span class="c1"># be list-likes</span>
+<span class="g g-Whitespace">    </span><span class="mi">626</span> <span class="c1"># Cannot use func.values() because arg may be a Series</span>
+
+<span class="ne">KeyError</span>: &quot;Column(s) [&#39;font-size&#39;] do not exist&quot;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.io.formats.style.Styler at 0x7ff314bdbdf0&gt;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="support-for-custom-anchor-sequences">
 <h3>Support for custom anchor sequences<a class="headerlink" href="#support-for-custom-anchor-sequences" title="Permalink to this heading"></a></h3>
@@ -828,141 +1005,24 @@ Length: 112, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">activities_barcoded</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>Activity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
-      <th>ATCGTTACGTC</th>
-      <td>0.289081</td>
-      <td>0.312643</td>
-      <td>0.398276</td>
-      <td>0.000000</td>
-      <td>161.683873</td>
-    </tr>
-    <tr>
-      <th>GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA</th>
-      <th>GGAAGGTAGTA</th>
-      <td>0.234149</td>
-      <td>0.557113</td>
-      <td>0.208738</td>
-      <td>0.000000</td>
-      <td>145.229204</td>
-    </tr>
-    <tr>
-      <th>TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG</th>
-      <th>GAGACCAAATC</th>
-      <td>0.331376</td>
-      <td>0.288808</td>
-      <td>0.379816</td>
-      <td>0.000000</td>
-      <td>156.269710</td>
-    </tr>
-    <tr>
-      <th>GATGCTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATGCTCCACCAGAAGCTAGATTGGCTCAAGCTGAATTTGGTTCTCAAGATTCTGCT</th>
-      <th>CAGGAAAATCG</th>
-      <td>0.305253</td>
-      <td>0.558685</td>
-      <td>0.136062</td>
-      <td>0.000000</td>
-      <td>131.546634</td>
-    </tr>
-    <tr>
-      <th>CAAGACTTTATTTGTTCTGTTACTCAAGATGTTGGTATTAATTATACTCATCCACAGAATTTGCCAGGTGTTTCTAAAGATGGTACTTCTGTCTTCTTCTTTAATAAGACTGCTCATGCT</th>
-      <th>ACATGAACTTA</th>
-      <td>0.244871</td>
-      <td>0.416160</td>
-      <td>0.280666</td>
-      <td>0.058303</td>
-      <td>229.301369</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>AATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGATGATTTGAAGATGTTTGATCCATTCTTTGAAGAATTGGATTCTATTCCAGAAGCTGCTTTG</th>
-      <th>CTGTCTTCATA</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1462.000000</td>
-    </tr>
-    <tr>
-      <th>AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTATTGATGCTTTGCAATTTAATGGTTTGGTTCAAGCTGAATCTGCTCAATTGTCTTTGTGTGATGATTTGTTG</th>
-      <th>GTGGCAGTATG</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1462.000000</td>
-    </tr>
-    <tr>
-      <th>TATCCACCAAGAGATGATTATCATGAACAACCATATCCAGTTATGGATACTGAAGGTAATGTTATTGGTTTGACTGATTTGGAATGTGATGAAGAATTGTTGCCAATTTCTTGGGATTGG</th>
-      <th>CACCCACTCCG</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1462.000000</td>
-    </tr>
-    <tr>
-      <th>TCTACTGATTCTACTCCAATGTTTGATTATGATAATTTGGAAGATAATTCTAAAGATTGGACTTCTTTGTTTGATAATGATATTCCAGTTACTACTGATGATGTTTCTTTGGCTGATAAA</th>
-      <th>CTCAGTAATGG</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1462.000000</td>
-    </tr>
-    <tr>
-      <th>AATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGATGAGATGTTTGATCCATTCTTTGAAGAATTGGATTCTATTCCAGAAGCTGCTTTGTGATAA</th>
-      <th>CCAGCAAGAAT</th>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>1462.000000</td>
-    </tr>
-  </tbody>
-</table>
-<p>77 rows × 5 columns</p>
-</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#activities_barcoded.style.set_properties(**{&#39;background-color&#39;: &#39;grey&#39;,&#39;font-size&#39;: &#39;6pt&#39;})</span>
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="example-output-for-pull-ad">
@@ -1022,16 +1082,16 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT  ATCGTTACGTC    11.0
-GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA  ACCATTTAGCG     1.0
-GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA  GGAAGGTAGTA     5.0
-GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA  TAGCTCAAACC     4.0
+GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA  ACCATTTAGCG    1.0 
+GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA  GGAAGGTAGTA    5.0 
+GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA  TAGCTCAAACC    4.0 
 TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG  GAGACCAAATC    21.0
                                                                                                                                          ... 
-CAAGCTATTGCTAATGATCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAATTCTGGTTCTGCTAAAGATAAACAACCATGT  TCGTCTGACAC     1.0
-AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTG  TTCTTTCCCTA     1.0
-CATTTGGGTATTGAAGAAGATGAGAAAGAAGGTGATGAAGTTGTTTCTAAGATCTTCTATCAACAACCACAACAATTGGTTGTTAAGAGAGGTGATAAAGCTGAACAAGAAGTTGATGAA  ACTCCCCGCAA     1.0
-GAAGATCCAACTGCATTTGATTCTGGTGATCAAGCTATCTTGAATGATCAACAAGCTGTTGAAGCTTTGTCTGCTTGTGATGATTTGGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT  GGTTGAAGTGC     1.0
-GAAGAAACTGTTGTCTTGCCACCATCTGTTAAGACTACTAAAGATGGTGATAATTTGCAATCTCAAGATCAGAAATTGTGGGAAGGTGATTCTCAATTTGAATTGTTGGATTCTCAACAA  ACCACCGACGA     1.0
+CAAGCTATTGCTAATGATCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAATTCTGGTTCTGCTAAAGATAAACAACCATGT  TCGTCTGACAC    1.0 
+AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTG  TTCTTTCCCTA    1.0 
+CATTTGGGTATTGAAGAAGATGAGAAAGAAGGTGATGAAGTTGTTTCTAAGATCTTCTATCAACAACCACAACAATTGGTTGTTAAGAGAGGTGATAAAGCTGAACAAGAAGTTGATGAA  ACTCCCCGCAA    1.0 
+GAAGATCCAACTGCATTTGATTCTGGTGATCAAGCTATCTTGAATGATCAACAAGCTGTTGAAGCTTTGTCTGCTTGTGATGATTTGGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT  GGTTGAAGTGC    1.0 
+GAAGAAACTGTTGTCTTGCCACCATCTGTTAAGACTACTAAAGATGGTGATAATTTGCAATCTCAAGATCAGAAATTGTGGGAAGGTGATTCTCAATTTGAATTGTTGGATTCTCAACAA  ACCACCGACGA    1.0 
 Length: 684, dtype: float64
 </pre></div>
 </div>
