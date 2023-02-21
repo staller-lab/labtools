@@ -135,28 +135,28 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ceadbFGHIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;AedbfcGHIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABgdcfeHIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCeghdfIJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDiegfhJKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEhifgjKLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFkigjhLMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGkjilhMNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHjkilmNOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHInmljkOPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJmnolkPQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKnlpomQRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLnqpmoRSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMnropqSTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNsrqopTUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOtprqsUVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPstrquVWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQvtsruWYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRwsutvYXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRSuywvtXZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRSTyxwuvZ&#39;,
- &#39;ABCDEFGHIJKLMNOPQRSTUzvxwy&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ebacdFGHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;AbcefdGHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABcgdefHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCdefhgIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDihgfeJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEhfigjKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFjgkihLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGkihljMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHilmjkNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHInmkljOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJolmnkPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKomlnpQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLnqopmRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMnroqpSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNqpsroTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOrsptqUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPuqrtsVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQurvtsWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRwustvYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSvtyuwXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSTyuwvxZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSTUvxwzy&#39;]
 </pre></div>
 </div>
 </div>
@@ -799,178 +799,933 @@ Length: 112, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_index</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;font-size: 6pt;&quot;</span>
-<span class="n">activities_no_design</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap_index</span><span class="p">(</span><span class="n">format_index</span><span class="p">)</span>
-<span class="n">activities_no_design</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">apply</span><span class="p">({</span><span class="s2">&quot;font-size&quot;</span><span class="p">:</span><span class="s2">&quot;6pt&quot;</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;font-size: 6pt;&quot;</span><span class="p">]</span> <span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">activities_no_design</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap_index</span><span class="p">(</span><span class="n">format_index</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/IPython/core/formatters.py:342,</span> in <span class="ni">BaseFormatter.__call__</span><span class="nt">(self, obj)</span>
-<span class="g g-Whitespace">    </span><span class="mi">340</span>     <span class="n">method</span> <span class="o">=</span> <span class="n">get_real_method</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_method</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">341</span>     <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">342</span>         <span class="k">return</span> <span class="n">method</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">343</span>     <span class="k">return</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">344</span> <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style.py:385,</span> in <span class="ni">Styler._repr_html_</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">380</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">381</span><span class="sd"> Hooks into Jupyter notebook rich display system, which calls _repr_html_ by</span>
-<span class="g g-Whitespace">    </span><span class="mi">382</span><span class="sd"> default if an object is returned at the end of a cell.</span>
-<span class="g g-Whitespace">    </span><span class="mi">383</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">384</span> <span class="k">if</span> <span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;styler.render.repr&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;html&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">385</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">386</span> <span class="k">return</span> <span class="kc">None</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style.py:1377,</span> in <span class="ni">Styler.to_html</span><span class="nt">(self, buf, table_uuid, table_attributes, sparse_index, sparse_columns, bold_headers, caption, max_rows, max_columns, encoding, doctype_html, exclude_styles, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1374</span>     <span class="n">obj</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="n">caption</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1376</span> <span class="c1"># Build HTML string..</span>
-<span class="ne">-&gt; </span><span class="mi">1377</span> <span class="n">html</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_render_html</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1378</span>     <span class="n">sparse_index</span><span class="o">=</span><span class="n">sparse_index</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1379</span>     <span class="n">sparse_columns</span><span class="o">=</span><span class="n">sparse_columns</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1380</span>     <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1381</span>     <span class="n">max_cols</span><span class="o">=</span><span class="n">max_columns</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1382</span>     <span class="n">exclude_styles</span><span class="o">=</span><span class="n">exclude_styles</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1383</span>     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span> <span class="ow">or</span> <span class="n">get_option</span><span class="p">(</span><span class="s2">&quot;styler.render.encoding&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1384</span>     <span class="n">doctype_html</span><span class="o">=</span><span class="n">doctype_html</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1385</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1386</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1388</span> <span class="k">return</span> <span class="n">save_to_buffer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1389</span>     <span class="n">html</span><span class="p">,</span> <span class="n">buf</span><span class="o">=</span><span class="n">buf</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="p">(</span><span class="n">encoding</span> <span class="k">if</span> <span class="n">buf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1390</span> <span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style_render.py:206,</span> in <span class="ni">StylerRenderer._render_html</span><span class="nt">(self, sparse_index, sparse_columns, max_rows, max_cols, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">194</span> <span class="k">def</span> <span class="nf">_render_html</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="n">sparse_index</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">200</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">201</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">202</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span><span class="sd">     Renders the ``Styler`` including all applied styles to HTML.</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span><span class="sd">     Generates a dict with necessary kwargs passed to jinja2 template.</span>
-<span class="g g-Whitespace">    </span><span class="mi">205</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">206</span>     <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">sparse_index</span><span class="p">,</span> <span class="n">sparse_columns</span><span class="p">,</span> <span class="n">max_rows</span><span class="p">,</span> <span class="n">max_cols</span><span class="p">,</span> <span class="s2">&quot;&amp;nbsp;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_html</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="o">**</span><span class="n">d</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">210</span>         <span class="n">html_table_tpl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">template_html_table</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">211</span>         <span class="n">html_style_tpl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">template_html_style</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style_render.py:163,</span> in <span class="ni">StylerRenderer._render</span><span class="nt">(self, sparse_index, sparse_columns, max_rows, max_cols, blank)</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="k">def</span> <span class="nf">_render</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">151</span>     <span class="n">sparse_index</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span>     <span class="n">blank</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">156</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">157</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">158</span><span class="sd">     Computes and applies styles and then generates the general render dicts.</span>
-<span class="g g-Whitespace">    </span><span class="mi">159</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">160</span><span class="sd">     Also extends the `ctx` and `ctx_index` attributes with those of concatenated</span>
-<span class="g g-Whitespace">    </span><span class="mi">161</span><span class="sd">     stylers for use within `_translate_latex`</span>
-<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">163</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_compute</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="n">dxs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="n">ctx_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style_render.py:258,</span> in <span class="ni">StylerRenderer._compute</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">256</span> <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">for</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_todo</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">258</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span> <span class="k">return</span> <span class="n">r</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/io/formats/style.py:1736,</span> in <span class="ni">Styler._apply</span><span class="nt">(self, func, axis, subset, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1734</span> <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">_get_axis_number</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1735</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1736</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1737</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1738</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># see GH 42005</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/frame.py:9568,</span> in <span class="ni">DataFrame.apply</span><span class="nt">(self, func, axis, raw, result_type, args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">9557</span> <span class="kn">from</span> <span class="nn">pandas.core.apply</span> <span class="kn">import</span> <span class="n">frame_apply</span>
-<span class="g g-Whitespace">   </span><span class="mi">9559</span> <span class="n">op</span> <span class="o">=</span> <span class="n">frame_apply</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">9560</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9561</span>     <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">9566</span>     <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">9567</span> <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">9568</span> <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;apply&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:735,</span> in <span class="ni">FrameApply.apply</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">733</span> <span class="c1"># dispatch to agg</span>
-<span class="g g-Whitespace">    </span><span class="mi">734</span> <span class="k">if</span> <span class="n">is_list_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">735</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_multiple</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">737</span> <span class="c1"># all empty</span>
-<span class="g g-Whitespace">    </span><span class="mi">738</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:591,</span> in <span class="ni">Apply.apply_multiple</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">582</span> <span class="k">def</span> <span class="nf">apply_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span> <span class="o">|</span> <span class="n">Series</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">583</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">584</span><span class="sd">     Compute apply in case of a list-like or dict-like.</span>
-<span class="g g-Whitespace">    </span><span class="mi">585</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">    </span><span class="mi">589</span><span class="sd">         Result when self.f is a list-like or dict-like, None otherwise.</span>
-<span class="g g-Whitespace">    </span><span class="mi">590</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">591</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/frame.py:9342,</span> in <span class="ni">DataFrame.aggregate</span><span class="nt">(self, func, axis, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">9339</span> <span class="n">relabeling</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="n">reconstruct_func</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">9341</span> <span class="n">op</span> <span class="o">=</span> <span class="n">frame_apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">9342</span> <span class="n">result</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">9344</span> <span class="k">if</span> <span class="n">relabeling</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">9345</span>     <span class="c1"># This is to keep the order to columns occurrence unchanged, and also</span>
-<span class="g g-Whitespace">   </span><span class="mi">9346</span>     <span class="c1"># keep the order of new columns occurrence unchanged</span>
-<span class="g g-Whitespace">   </span><span class="mi">9347</span> 
-<span class="g g-Whitespace">   </span><span class="mi">9348</span>     <span class="c1"># For the return values of reconstruct_func, if relabeling is</span>
-<span class="g g-Whitespace">   </span><span class="mi">9349</span>     <span class="c1"># False, columns and order will be None.</span>
-<span class="g g-Whitespace">   </span><span class="mi">9350</span>     <span class="k">assert</span> <span class="n">columns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:776,</span> in <span class="ni">FrameApply.agg</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">774</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">775</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">776</span>     <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">777</span> <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">778</span>     <span class="n">exc</span> <span class="o">=</span> <span class="ne">TypeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">779</span>         <span class="s2">&quot;DataFrame constructor called with &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">780</span>         <span class="sa">f</span><span class="s2">&quot;incompatible data and dtype: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:172,</span> in <span class="ni">Apply.agg</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_str</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span> <span class="k">if</span> <span class="n">is_dict_like</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">172</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_dict_like</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">173</span> <span class="k">elif</span> <span class="n">is_list_like</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="c1"># we require a list, but not a &#39;str&#39;</span>
-<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_list_like</span><span class="p">()</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:496,</span> in <span class="ni">Apply.agg_dict_like</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="n">selected_obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_selected_obj</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span>     <span class="n">selection</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_selection</span>
-<span class="ne">--&gt; </span><span class="mi">496</span> <span class="n">arg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_dictlike_arg</span><span class="p">(</span><span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="n">selected_obj</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span> <span class="k">if</span> <span class="n">selected_obj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>     <span class="c1"># key only used for output</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>     <span class="n">colg</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_gotitem</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="nn">File ~/bioinformatics_exploration/.venv/lib/python3.8/site-packages/pandas/core/apply.py:619,</span> in <span class="ni">Apply.normalize_dictlike_arg</span><span class="nt">(self, how, obj, func)</span>
-<span class="g g-Whitespace">    </span><span class="mi">617</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">618</span>         <span class="n">cols_sorted</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">safe_sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cols</span><span class="p">)))</span>
-<span class="ne">--&gt; </span><span class="mi">619</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column(s) </span><span class="si">{</span><span class="n">cols_sorted</span><span class="si">}</span><span class="s2"> do not exist&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">621</span> <span class="n">aggregator_types</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">623</span> <span class="c1"># if we have a dict of any non-scalars</span>
-<span class="g g-Whitespace">    </span><span class="mi">624</span> <span class="c1"># eg. {&#39;A&#39; : [&#39;mean&#39;]}, normalize all to</span>
-<span class="g g-Whitespace">    </span><span class="mi">625</span> <span class="c1"># be list-likes</span>
-<span class="g g-Whitespace">    </span><span class="mi">626</span> <span class="c1"># Cannot use func.values() because arg may be a Series</span>
-
-<span class="ne">KeyError</span>: &quot;Column(s) [&#39;font-size&#39;] do not exist&quot;
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.io.formats.style.Styler at 0x7ff314bdbdf0&gt;
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><style type="text/css">
+#T_f5c66_row0_col0, #T_f5c66_row0_col1, #T_f5c66_row0_col2, #T_f5c66_row0_col3, #T_f5c66_row0_col4, #T_f5c66_row1_col0, #T_f5c66_row1_col1, #T_f5c66_row1_col2, #T_f5c66_row1_col3, #T_f5c66_row1_col4, #T_f5c66_row2_col0, #T_f5c66_row2_col1, #T_f5c66_row2_col2, #T_f5c66_row2_col3, #T_f5c66_row2_col4, #T_f5c66_row3_col0, #T_f5c66_row3_col1, #T_f5c66_row3_col2, #T_f5c66_row3_col3, #T_f5c66_row3_col4, #T_f5c66_row4_col0, #T_f5c66_row4_col1, #T_f5c66_row4_col2, #T_f5c66_row4_col3, #T_f5c66_row4_col4, #T_f5c66_row5_col0, #T_f5c66_row5_col1, #T_f5c66_row5_col2, #T_f5c66_row5_col3, #T_f5c66_row5_col4, #T_f5c66_row6_col0, #T_f5c66_row6_col1, #T_f5c66_row6_col2, #T_f5c66_row6_col3, #T_f5c66_row6_col4, #T_f5c66_row7_col0, #T_f5c66_row7_col1, #T_f5c66_row7_col2, #T_f5c66_row7_col3, #T_f5c66_row7_col4, #T_f5c66_row8_col0, #T_f5c66_row8_col1, #T_f5c66_row8_col2, #T_f5c66_row8_col3, #T_f5c66_row8_col4, #T_f5c66_row9_col0, #T_f5c66_row9_col1, #T_f5c66_row9_col2, #T_f5c66_row9_col3, #T_f5c66_row9_col4, #T_f5c66_row10_col0, #T_f5c66_row10_col1, #T_f5c66_row10_col2, #T_f5c66_row10_col3, #T_f5c66_row10_col4, #T_f5c66_row11_col0, #T_f5c66_row11_col1, #T_f5c66_row11_col2, #T_f5c66_row11_col3, #T_f5c66_row11_col4, #T_f5c66_row12_col0, #T_f5c66_row12_col1, #T_f5c66_row12_col2, #T_f5c66_row12_col3, #T_f5c66_row12_col4, #T_f5c66_row13_col0, #T_f5c66_row13_col1, #T_f5c66_row13_col2, #T_f5c66_row13_col3, #T_f5c66_row13_col4, #T_f5c66_row14_col0, #T_f5c66_row14_col1, #T_f5c66_row14_col2, #T_f5c66_row14_col3, #T_f5c66_row14_col4, #T_f5c66_row15_col0, #T_f5c66_row15_col1, #T_f5c66_row15_col2, #T_f5c66_row15_col3, #T_f5c66_row15_col4, #T_f5c66_row16_col0, #T_f5c66_row16_col1, #T_f5c66_row16_col2, #T_f5c66_row16_col3, #T_f5c66_row16_col4, #T_f5c66_row17_col0, #T_f5c66_row17_col1, #T_f5c66_row17_col2, #T_f5c66_row17_col3, #T_f5c66_row17_col4, #T_f5c66_row18_col0, #T_f5c66_row18_col1, #T_f5c66_row18_col2, #T_f5c66_row18_col3, #T_f5c66_row18_col4, #T_f5c66_row19_col0, #T_f5c66_row19_col1, #T_f5c66_row19_col2, #T_f5c66_row19_col3, #T_f5c66_row19_col4, #T_f5c66_row20_col0, #T_f5c66_row20_col1, #T_f5c66_row20_col2, #T_f5c66_row20_col3, #T_f5c66_row20_col4, #T_f5c66_row21_col0, #T_f5c66_row21_col1, #T_f5c66_row21_col2, #T_f5c66_row21_col3, #T_f5c66_row21_col4, #T_f5c66_row22_col0, #T_f5c66_row22_col1, #T_f5c66_row22_col2, #T_f5c66_row22_col3, #T_f5c66_row22_col4, #T_f5c66_row23_col0, #T_f5c66_row23_col1, #T_f5c66_row23_col2, #T_f5c66_row23_col3, #T_f5c66_row23_col4, #T_f5c66_row24_col0, #T_f5c66_row24_col1, #T_f5c66_row24_col2, #T_f5c66_row24_col3, #T_f5c66_row24_col4, #T_f5c66_row25_col0, #T_f5c66_row25_col1, #T_f5c66_row25_col2, #T_f5c66_row25_col3, #T_f5c66_row25_col4, #T_f5c66_row26_col0, #T_f5c66_row26_col1, #T_f5c66_row26_col2, #T_f5c66_row26_col3, #T_f5c66_row26_col4, #T_f5c66_row27_col0, #T_f5c66_row27_col1, #T_f5c66_row27_col2, #T_f5c66_row27_col3, #T_f5c66_row27_col4, #T_f5c66_row28_col0, #T_f5c66_row28_col1, #T_f5c66_row28_col2, #T_f5c66_row28_col3, #T_f5c66_row28_col4, #T_f5c66_row29_col0, #T_f5c66_row29_col1, #T_f5c66_row29_col2, #T_f5c66_row29_col3, #T_f5c66_row29_col4, #T_f5c66_row30_col0, #T_f5c66_row30_col1, #T_f5c66_row30_col2, #T_f5c66_row30_col3, #T_f5c66_row30_col4, #T_f5c66_row31_col0, #T_f5c66_row31_col1, #T_f5c66_row31_col2, #T_f5c66_row31_col3, #T_f5c66_row31_col4, #T_f5c66_row32_col0, #T_f5c66_row32_col1, #T_f5c66_row32_col2, #T_f5c66_row32_col3, #T_f5c66_row32_col4, #T_f5c66_row33_col0, #T_f5c66_row33_col1, #T_f5c66_row33_col2, #T_f5c66_row33_col3, #T_f5c66_row33_col4, #T_f5c66_row34_col0, #T_f5c66_row34_col1, #T_f5c66_row34_col2, #T_f5c66_row34_col3, #T_f5c66_row34_col4, #T_f5c66_row35_col0, #T_f5c66_row35_col1, #T_f5c66_row35_col2, #T_f5c66_row35_col3, #T_f5c66_row35_col4, #T_f5c66_row36_col0, #T_f5c66_row36_col1, #T_f5c66_row36_col2, #T_f5c66_row36_col3, #T_f5c66_row36_col4, #T_f5c66_row37_col0, #T_f5c66_row37_col1, #T_f5c66_row37_col2, #T_f5c66_row37_col3, #T_f5c66_row37_col4, #T_f5c66_row38_col0, #T_f5c66_row38_col1, #T_f5c66_row38_col2, #T_f5c66_row38_col3, #T_f5c66_row38_col4, #T_f5c66_row39_col0, #T_f5c66_row39_col1, #T_f5c66_row39_col2, #T_f5c66_row39_col3, #T_f5c66_row39_col4, #T_f5c66_row40_col0, #T_f5c66_row40_col1, #T_f5c66_row40_col2, #T_f5c66_row40_col3, #T_f5c66_row40_col4, #T_f5c66_row41_col0, #T_f5c66_row41_col1, #T_f5c66_row41_col2, #T_f5c66_row41_col3, #T_f5c66_row41_col4, #T_f5c66_row42_col0, #T_f5c66_row42_col1, #T_f5c66_row42_col2, #T_f5c66_row42_col3, #T_f5c66_row42_col4, #T_f5c66_row43_col0, #T_f5c66_row43_col1, #T_f5c66_row43_col2, #T_f5c66_row43_col3, #T_f5c66_row43_col4, #T_f5c66_row44_col0, #T_f5c66_row44_col1, #T_f5c66_row44_col2, #T_f5c66_row44_col3, #T_f5c66_row44_col4, #T_f5c66_row45_col0, #T_f5c66_row45_col1, #T_f5c66_row45_col2, #T_f5c66_row45_col3, #T_f5c66_row45_col4, #T_f5c66_row46_col0, #T_f5c66_row46_col1, #T_f5c66_row46_col2, #T_f5c66_row46_col3, #T_f5c66_row46_col4, #T_f5c66_row47_col0, #T_f5c66_row47_col1, #T_f5c66_row47_col2, #T_f5c66_row47_col3, #T_f5c66_row47_col4, #T_f5c66_row48_col0, #T_f5c66_row48_col1, #T_f5c66_row48_col2, #T_f5c66_row48_col3, #T_f5c66_row48_col4, #T_f5c66_row49_col0, #T_f5c66_row49_col1, #T_f5c66_row49_col2, #T_f5c66_row49_col3, #T_f5c66_row49_col4, #T_f5c66_row50_col0, #T_f5c66_row50_col1, #T_f5c66_row50_col2, #T_f5c66_row50_col3, #T_f5c66_row50_col4, #T_f5c66_row51_col0, #T_f5c66_row51_col1, #T_f5c66_row51_col2, #T_f5c66_row51_col3, #T_f5c66_row51_col4, #T_f5c66_row52_col0, #T_f5c66_row52_col1, #T_f5c66_row52_col2, #T_f5c66_row52_col3, #T_f5c66_row52_col4, #T_f5c66_row53_col0, #T_f5c66_row53_col1, #T_f5c66_row53_col2, #T_f5c66_row53_col3, #T_f5c66_row53_col4, #T_f5c66_row54_col0, #T_f5c66_row54_col1, #T_f5c66_row54_col2, #T_f5c66_row54_col3, #T_f5c66_row54_col4, #T_f5c66_row55_col0, #T_f5c66_row55_col1, #T_f5c66_row55_col2, #T_f5c66_row55_col3, #T_f5c66_row55_col4, #T_f5c66_row56_col0, #T_f5c66_row56_col1, #T_f5c66_row56_col2, #T_f5c66_row56_col3, #T_f5c66_row56_col4, #T_f5c66_row57_col0, #T_f5c66_row57_col1, #T_f5c66_row57_col2, #T_f5c66_row57_col3, #T_f5c66_row57_col4, #T_f5c66_row58_col0, #T_f5c66_row58_col1, #T_f5c66_row58_col2, #T_f5c66_row58_col3, #T_f5c66_row58_col4, #T_f5c66_row59_col0, #T_f5c66_row59_col1, #T_f5c66_row59_col2, #T_f5c66_row59_col3, #T_f5c66_row59_col4, #T_f5c66_row60_col0, #T_f5c66_row60_col1, #T_f5c66_row60_col2, #T_f5c66_row60_col3, #T_f5c66_row60_col4, #T_f5c66_row61_col0, #T_f5c66_row61_col1, #T_f5c66_row61_col2, #T_f5c66_row61_col3, #T_f5c66_row61_col4, #T_f5c66_row62_col0, #T_f5c66_row62_col1, #T_f5c66_row62_col2, #T_f5c66_row62_col3, #T_f5c66_row62_col4, #T_f5c66_row63_col0, #T_f5c66_row63_col1, #T_f5c66_row63_col2, #T_f5c66_row63_col3, #T_f5c66_row63_col4, #T_f5c66_row64_col0, #T_f5c66_row64_col1, #T_f5c66_row64_col2, #T_f5c66_row64_col3, #T_f5c66_row64_col4, #T_f5c66_row65_col0, #T_f5c66_row65_col1, #T_f5c66_row65_col2, #T_f5c66_row65_col3, #T_f5c66_row65_col4, #T_f5c66_row66_col0, #T_f5c66_row66_col1, #T_f5c66_row66_col2, #T_f5c66_row66_col3, #T_f5c66_row66_col4, #T_f5c66_row67_col0, #T_f5c66_row67_col1, #T_f5c66_row67_col2, #T_f5c66_row67_col3, #T_f5c66_row67_col4, #T_f5c66_row68_col0, #T_f5c66_row68_col1, #T_f5c66_row68_col2, #T_f5c66_row68_col3, #T_f5c66_row68_col4, #T_f5c66_row69_col0, #T_f5c66_row69_col1, #T_f5c66_row69_col2, #T_f5c66_row69_col3, #T_f5c66_row69_col4, #T_f5c66_row70_col0, #T_f5c66_row70_col1, #T_f5c66_row70_col2, #T_f5c66_row70_col3, #T_f5c66_row70_col4, #T_f5c66_row71_col0, #T_f5c66_row71_col1, #T_f5c66_row71_col2, #T_f5c66_row71_col3, #T_f5c66_row71_col4, #T_f5c66_row72_col0, #T_f5c66_row72_col1, #T_f5c66_row72_col2, #T_f5c66_row72_col3, #T_f5c66_row72_col4, #T_f5c66_row73_col0, #T_f5c66_row73_col1, #T_f5c66_row73_col2, #T_f5c66_row73_col3, #T_f5c66_row73_col4, #T_f5c66_row74_col0, #T_f5c66_row74_col1, #T_f5c66_row74_col2, #T_f5c66_row74_col3, #T_f5c66_row74_col4, #T_f5c66_row75_col0, #T_f5c66_row75_col1, #T_f5c66_row75_col2, #T_f5c66_row75_col3, #T_f5c66_row75_col4, #T_f5c66_row76_col0, #T_f5c66_row76_col1, #T_f5c66_row76_col2, #T_f5c66_row76_col3, #T_f5c66_row76_col4, #T_f5c66_row77_col0, #T_f5c66_row77_col1, #T_f5c66_row77_col2, #T_f5c66_row77_col3, #T_f5c66_row77_col4, #T_f5c66_row78_col0, #T_f5c66_row78_col1, #T_f5c66_row78_col2, #T_f5c66_row78_col3, #T_f5c66_row78_col4, #T_f5c66_row79_col0, #T_f5c66_row79_col1, #T_f5c66_row79_col2, #T_f5c66_row79_col3, #T_f5c66_row79_col4, #T_f5c66_row80_col0, #T_f5c66_row80_col1, #T_f5c66_row80_col2, #T_f5c66_row80_col3, #T_f5c66_row80_col4, #T_f5c66_row81_col0, #T_f5c66_row81_col1, #T_f5c66_row81_col2, #T_f5c66_row81_col3, #T_f5c66_row81_col4, #T_f5c66_row82_col0, #T_f5c66_row82_col1, #T_f5c66_row82_col2, #T_f5c66_row82_col3, #T_f5c66_row82_col4, #T_f5c66_row83_col0, #T_f5c66_row83_col1, #T_f5c66_row83_col2, #T_f5c66_row83_col3, #T_f5c66_row83_col4, #T_f5c66_row84_col0, #T_f5c66_row84_col1, #T_f5c66_row84_col2, #T_f5c66_row84_col3, #T_f5c66_row84_col4, #T_f5c66_row85_col0, #T_f5c66_row85_col1, #T_f5c66_row85_col2, #T_f5c66_row85_col3, #T_f5c66_row85_col4, #T_f5c66_row86_col0, #T_f5c66_row86_col1, #T_f5c66_row86_col2, #T_f5c66_row86_col3, #T_f5c66_row86_col4, #T_f5c66_row87_col0, #T_f5c66_row87_col1, #T_f5c66_row87_col2, #T_f5c66_row87_col3, #T_f5c66_row87_col4, #T_f5c66_row88_col0, #T_f5c66_row88_col1, #T_f5c66_row88_col2, #T_f5c66_row88_col3, #T_f5c66_row88_col4, #T_f5c66_row89_col0, #T_f5c66_row89_col1, #T_f5c66_row89_col2, #T_f5c66_row89_col3, #T_f5c66_row89_col4, #T_f5c66_row90_col0, #T_f5c66_row90_col1, #T_f5c66_row90_col2, #T_f5c66_row90_col3, #T_f5c66_row90_col4, #T_f5c66_row91_col0, #T_f5c66_row91_col1, #T_f5c66_row91_col2, #T_f5c66_row91_col3, #T_f5c66_row91_col4, #T_f5c66_row92_col0, #T_f5c66_row92_col1, #T_f5c66_row92_col2, #T_f5c66_row92_col3, #T_f5c66_row92_col4, #T_f5c66_row93_col0, #T_f5c66_row93_col1, #T_f5c66_row93_col2, #T_f5c66_row93_col3, #T_f5c66_row93_col4, #T_f5c66_row94_col0, #T_f5c66_row94_col1, #T_f5c66_row94_col2, #T_f5c66_row94_col3, #T_f5c66_row94_col4, #T_f5c66_row95_col0, #T_f5c66_row95_col1, #T_f5c66_row95_col2, #T_f5c66_row95_col3, #T_f5c66_row95_col4, #T_f5c66_row96_col0, #T_f5c66_row96_col1, #T_f5c66_row96_col2, #T_f5c66_row96_col3, #T_f5c66_row96_col4, #T_f5c66_row97_col0, #T_f5c66_row97_col1, #T_f5c66_row97_col2, #T_f5c66_row97_col3, #T_f5c66_row97_col4, #T_f5c66_row98_col0, #T_f5c66_row98_col1, #T_f5c66_row98_col2, #T_f5c66_row98_col3, #T_f5c66_row98_col4, #T_f5c66_row99_col0, #T_f5c66_row99_col1, #T_f5c66_row99_col2, #T_f5c66_row99_col3, #T_f5c66_row99_col4, #T_f5c66_row100_col0, #T_f5c66_row100_col1, #T_f5c66_row100_col2, #T_f5c66_row100_col3, #T_f5c66_row100_col4, #T_f5c66_row101_col0, #T_f5c66_row101_col1, #T_f5c66_row101_col2, #T_f5c66_row101_col3, #T_f5c66_row101_col4, #T_f5c66_row102_col0, #T_f5c66_row102_col1, #T_f5c66_row102_col2, #T_f5c66_row102_col3, #T_f5c66_row102_col4, #T_f5c66_row103_col0, #T_f5c66_row103_col1, #T_f5c66_row103_col2, #T_f5c66_row103_col3, #T_f5c66_row103_col4, #T_f5c66_row104_col0, #T_f5c66_row104_col1, #T_f5c66_row104_col2, #T_f5c66_row104_col3, #T_f5c66_row104_col4, #T_f5c66_row105_col0, #T_f5c66_row105_col1, #T_f5c66_row105_col2, #T_f5c66_row105_col3, #T_f5c66_row105_col4, #T_f5c66_row106_col0, #T_f5c66_row106_col1, #T_f5c66_row106_col2, #T_f5c66_row106_col3, #T_f5c66_row106_col4, #T_f5c66_row107_col0, #T_f5c66_row107_col1, #T_f5c66_row107_col2, #T_f5c66_row107_col3, #T_f5c66_row107_col4, #T_f5c66_row108_col0, #T_f5c66_row108_col1, #T_f5c66_row108_col2, #T_f5c66_row108_col3, #T_f5c66_row108_col4, #T_f5c66_row109_col0, #T_f5c66_row109_col1, #T_f5c66_row109_col2, #T_f5c66_row109_col3, #T_f5c66_row109_col4, #T_f5c66_row110_col0, #T_f5c66_row110_col1, #T_f5c66_row110_col2, #T_f5c66_row110_col3, #T_f5c66_row110_col4, #T_f5c66_row111_col0, #T_f5c66_row111_col1, #T_f5c66_row111_col2, #T_f5c66_row111_col3, #T_f5c66_row111_col4 {
+  font-size: 6pt;
+}
+#T_f5c66_level0_row0, #T_f5c66_level0_row1, #T_f5c66_level0_row2, #T_f5c66_level0_row3, #T_f5c66_level0_row4, #T_f5c66_level0_row5, #T_f5c66_level0_row6, #T_f5c66_level0_row7, #T_f5c66_level0_row8, #T_f5c66_level0_row9, #T_f5c66_level0_row10, #T_f5c66_level0_row11, #T_f5c66_level0_row12, #T_f5c66_level0_row13, #T_f5c66_level0_row14, #T_f5c66_level0_row15, #T_f5c66_level0_row16, #T_f5c66_level0_row17, #T_f5c66_level0_row18, #T_f5c66_level0_row19, #T_f5c66_level0_row20, #T_f5c66_level0_row21, #T_f5c66_level0_row22, #T_f5c66_level0_row23, #T_f5c66_level0_row24, #T_f5c66_level0_row25, #T_f5c66_level0_row26, #T_f5c66_level0_row27, #T_f5c66_level0_row28, #T_f5c66_level0_row29, #T_f5c66_level0_row30, #T_f5c66_level0_row31, #T_f5c66_level0_row32, #T_f5c66_level0_row33, #T_f5c66_level0_row34, #T_f5c66_level0_row35, #T_f5c66_level0_row36, #T_f5c66_level0_row37, #T_f5c66_level0_row38, #T_f5c66_level0_row39, #T_f5c66_level0_row40, #T_f5c66_level0_row41, #T_f5c66_level0_row42, #T_f5c66_level0_row43, #T_f5c66_level0_row44, #T_f5c66_level0_row45, #T_f5c66_level0_row46, #T_f5c66_level0_row47, #T_f5c66_level0_row48, #T_f5c66_level0_row49, #T_f5c66_level0_row50, #T_f5c66_level0_row51, #T_f5c66_level0_row52, #T_f5c66_level0_row53, #T_f5c66_level0_row54, #T_f5c66_level0_row55, #T_f5c66_level0_row56, #T_f5c66_level0_row57, #T_f5c66_level0_row58, #T_f5c66_level0_row59, #T_f5c66_level0_row60, #T_f5c66_level0_row61, #T_f5c66_level0_row62, #T_f5c66_level0_row63, #T_f5c66_level0_row64, #T_f5c66_level0_row65, #T_f5c66_level0_row66, #T_f5c66_level0_row67, #T_f5c66_level0_row68, #T_f5c66_level0_row69, #T_f5c66_level0_row70, #T_f5c66_level0_row71, #T_f5c66_level0_row72, #T_f5c66_level0_row73, #T_f5c66_level0_row74, #T_f5c66_level0_row75, #T_f5c66_level0_row76, #T_f5c66_level0_row77, #T_f5c66_level0_row78, #T_f5c66_level0_row79, #T_f5c66_level0_row80, #T_f5c66_level0_row81, #T_f5c66_level0_row82, #T_f5c66_level0_row83, #T_f5c66_level0_row84, #T_f5c66_level0_row85, #T_f5c66_level0_row86, #T_f5c66_level0_row87, #T_f5c66_level0_row88, #T_f5c66_level0_row89, #T_f5c66_level0_row90, #T_f5c66_level0_row91, #T_f5c66_level0_row92, #T_f5c66_level0_row93, #T_f5c66_level0_row94, #T_f5c66_level0_row95, #T_f5c66_level0_row96, #T_f5c66_level0_row97, #T_f5c66_level0_row98, #T_f5c66_level0_row99, #T_f5c66_level0_row100, #T_f5c66_level0_row101, #T_f5c66_level0_row102, #T_f5c66_level0_row103, #T_f5c66_level0_row104, #T_f5c66_level0_row105, #T_f5c66_level0_row106, #T_f5c66_level0_row107, #T_f5c66_level0_row108, #T_f5c66_level0_row109, #T_f5c66_level0_row110, #T_f5c66_level0_row111 {
+  font-size: 6pt;
+}
+</style>
+<table id="T_f5c66">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_f5c66_level0_col0" class="col_heading level0 col0" >0</th>
+      <th id="T_f5c66_level0_col1" class="col_heading level0 col1" >1</th>
+      <th id="T_f5c66_level0_col2" class="col_heading level0 col2" >2</th>
+      <th id="T_f5c66_level0_col3" class="col_heading level0 col3" >3</th>
+      <th id="T_f5c66_level0_col4" class="col_heading level0 col4" >Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_f5c66_level0_row0" class="row_heading level0 row0" >GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row0_col0" class="data row0 col0" >0.269721</td>
+      <td id="T_f5c66_row0_col1" class="data row0 col1" >0.290977</td>
+      <td id="T_f5c66_row0_col2" class="data row0 col2" >0.439302</td>
+      <td id="T_f5c66_row0_col3" class="data row0 col3" >0.000000</td>
+      <td id="T_f5c66_row0_col4" class="data row0 col4" >167.745576</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row1" class="row_heading level0 row1" >GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA</th>
+      <td id="T_f5c66_row1_col0" class="data row1 col0" >0.106476</td>
+      <td id="T_f5c66_row1_col1" class="data row1 col1" >0.534574</td>
+      <td id="T_f5c66_row1_col2" class="data row1 col2" >0.333835</td>
+      <td id="T_f5c66_row1_col3" class="data row1 col3" >0.025115</td>
+      <td id="T_f5c66_row1_col4" class="data row1 col4" >202.380348</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row2" class="row_heading level0 row2" >GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA</th>
+      <td id="T_f5c66_row2_col0" class="data row2 col0" >0.368831</td>
+      <td id="T_f5c66_row2_col1" class="data row2 col1" >0.495122</td>
+      <td id="T_f5c66_row2_col2" class="data row2 col2" >0.136047</td>
+      <td id="T_f5c66_row2_col3" class="data row2 col3" >0.000000</td>
+      <td id="T_f5c66_row2_col4" class="data row2 col4" >126.458644</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row3" class="row_heading level0 row3" >GGTTAATTAAGGCGCGCCACTTCTAAATAAGCGA</th>
+      <td id="T_f5c66_row3_col0" class="data row3 col0" >0.224803</td>
+      <td id="T_f5c66_row3_col1" class="data row3 col1" >0.533542</td>
+      <td id="T_f5c66_row3_col2" class="data row3 col2" >0.241655</td>
+      <td id="T_f5c66_row3_col3" class="data row3 col3" >0.000000</td>
+      <td id="T_f5c66_row3_col4" class="data row3 col4" >149.597758</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row4" class="row_heading level0 row4" >TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG</th>
+      <td id="T_f5c66_row4_col0" class="data row4 col0" >0.351449</td>
+      <td id="T_f5c66_row4_col1" class="data row4 col1" >0.278970</td>
+      <td id="T_f5c66_row4_col2" class="data row4 col2" >0.369581</td>
+      <td id="T_f5c66_row4_col3" class="data row4 col3" >0.000000</td>
+      <td id="T_f5c66_row4_col4" class="data row4 col4" >153.537999</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row5" class="row_heading level0 row5" >AATCATGAAAGACCATCTTCTGGTCCAGAAGCTGAACATGGTTTGGAGAATGGTGCTAAAGAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAA</th>
+      <td id="T_f5c66_row5_col0" class="data row5 col0" >0.601117</td>
+      <td id="T_f5c66_row5_col1" class="data row5 col1" >0.249419</td>
+      <td id="T_f5c66_row5_col2" class="data row5 col2" >0.097906</td>
+      <td id="T_f5c66_row5_col3" class="data row5 col3" >0.051559</td>
+      <td id="T_f5c66_row5_col4" class="data row5 col4" >171.789477</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row6" class="row_heading level0 row6" >CCATCTGATTATGTTTCTGCTCATGAAGTTTCTTTGGCTGAAACTTCTGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCATCTTCTGGTCCAGAA</th>
+      <td id="T_f5c66_row6_col0" class="data row6 col0" >0.148835</td>
+      <td id="T_f5c66_row6_col1" class="data row6 col1" >0.362300</td>
+      <td id="T_f5c66_row6_col2" class="data row6 col2" >0.488865</td>
+      <td id="T_f5c66_row6_col3" class="data row6 col3" >0.000000</td>
+      <td id="T_f5c66_row6_col4" class="data row6 col4" >182.868328</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row7" class="row_heading level0 row7" >GATGCTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATGCTCCACCAGAAGCTAGATTGGCTCAAGCTGAATTTGGTTCTCAAGATTCTGCT</th>
+      <td id="T_f5c66_row7_col0" class="data row7 col0" >0.341150</td>
+      <td id="T_f5c66_row7_col1" class="data row7 col1" >0.506048</td>
+      <td id="T_f5c66_row7_col2" class="data row7 col2" >0.152801</td>
+      <td id="T_f5c66_row7_col3" class="data row7 col3" >0.000000</td>
+      <td id="T_f5c66_row7_col4" class="data row7 col4" >130.516131</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row8" class="row_heading level0 row8" >GAAGGTAATTCTTCTAAAGCTGAAACTTGTCAACCACAACCAAGATCTAATAGAGAAATTGTTGTTGGTGCTTCTGTTTCTGATGTTTCTAGAGGTACTTTGATTACTCCTAAGAGAGAT</th>
+      <td id="T_f5c66_row8_col0" class="data row8 col0" >0.512160</td>
+      <td id="T_f5c66_row8_col1" class="data row8 col1" >0.327263</td>
+      <td id="T_f5c66_row8_col2" class="data row8 col2" >0.160578</td>
+      <td id="T_f5c66_row8_col3" class="data row8 col3" >0.000000</td>
+      <td id="T_f5c66_row8_col4" class="data row8 col4" >117.690761</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row9" class="row_heading level0 row9" >CAAGACTTTATTTGTTCTGTTACTCAAGATGTTGGTATTAATTATACTCATCCACAGAATTTGCCAGGTGTTTCTAAAGATGGTACTTCTGTCTTCTTCTTTAATAAGACTGCTCATGCT</th>
+      <td id="T_f5c66_row9_col0" class="data row9 col0" >0.236315</td>
+      <td id="T_f5c66_row9_col1" class="data row9 col1" >0.455403</td>
+      <td id="T_f5c66_row9_col2" class="data row9 col2" >0.258734</td>
+      <td id="T_f5c66_row9_col3" class="data row9 col3" >0.049547</td>
+      <td id="T_f5c66_row9_col4" class="data row9 col4" >216.006969</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row10" class="row_heading level0 row10" >TTTCATAAGACTGTTCAAGCTTATGGTACTGGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATG</th>
+      <td id="T_f5c66_row10_col0" class="data row10 col0" >0.362325</td>
+      <td id="T_f5c66_row10_col1" class="data row10 col1" >0.408566</td>
+      <td id="T_f5c66_row10_col2" class="data row10 col2" >0.229109</td>
+      <td id="T_f5c66_row10_col3" class="data row10 col3" >0.000000</td>
+      <td id="T_f5c66_row10_col4" class="data row10 col4" >137.215988</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row11" class="row_heading level0 row11" >CAGAAGATTGTTGCTGATCCATCTAATATTGAAGCTGATACTCCACCAGAAGCTAGAGCTGCTCAAGCTGAAGCTGGTGCTCAAGATTCTGCTGCTGCTGCTGGTACTGGTAAGACTAAT</th>
+      <td id="T_f5c66_row11_col0" class="data row11 col0" >0.436457</td>
+      <td id="T_f5c66_row11_col1" class="data row11 col1" >0.383091</td>
+      <td id="T_f5c66_row11_col2" class="data row11 col2" >0.180452</td>
+      <td id="T_f5c66_row11_col3" class="data row11 col3" >0.000000</td>
+      <td id="T_f5c66_row11_col4" class="data row11 col4" >125.933108</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row12" class="row_heading level0 row12" >CAAGCTATTGCTAATGATCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTGATCAAGATAGAGAAGAGAATACTAATTCTGGTTCTGCTAAAGATAAACAACCATGT</th>
+      <td id="T_f5c66_row12_col0" class="data row12 col0" >0.423257</td>
+      <td id="T_f5c66_row12_col1" class="data row12 col1" >0.429294</td>
+      <td id="T_f5c66_row12_col2" class="data row12 col2" >0.147449</td>
+      <td id="T_f5c66_row12_col3" class="data row12 col3" >0.000000</td>
+      <td id="T_f5c66_row12_col4" class="data row12 col4" >123.358801</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row13" class="row_heading level0 row13" >GCTGGTGCTTTGAAAGATAAACAACCATGTATTGCTGACTTTGCTCATTTGGGTCCAGAAGACTTTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTCTTGGATCCAGCTAATATTGAA</th>
+      <td id="T_f5c66_row13_col0" class="data row13 col0" >0.205835</td>
+      <td id="T_f5c66_row13_col1" class="data row13 col1" >0.563681</td>
+      <td id="T_f5c66_row13_col2" class="data row13 col2" >0.230484</td>
+      <td id="T_f5c66_row13_col3" class="data row13 col3" >0.000000</td>
+      <td id="T_f5c66_row13_col4" class="data row13 col4" >149.886436</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row14" class="row_heading level0 row14" >CATTTGGGTATTGAAGAAGATGAGAAAGAAGGTGATGAAGTTGTTGATAAGATCTTTGAACAACAACCACAACAATTGGTTGTTAAGAGAGGTGATAAAGCTGAACAAGAAGTTGATGAA</th>
+      <td id="T_f5c66_row14_col0" class="data row14 col0" >0.577446</td>
+      <td id="T_f5c66_row14_col1" class="data row14 col1" >0.289063</td>
+      <td id="T_f5c66_row14_col2" class="data row14 col2" >0.133491</td>
+      <td id="T_f5c66_row14_col3" class="data row14 col3" >0.000000</td>
+      <td id="T_f5c66_row14_col4" class="data row14 col4" >109.488279</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row15" class="row_heading level0 row15" >CAAGCTATTGCTAATTCTCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTGATCAAGATAGAGAAGAGAATACTAATTCTGGTTCTGCTAAAGATAAACAACCATGT</th>
+      <td id="T_f5c66_row15_col0" class="data row15 col0" >0.514651</td>
+      <td id="T_f5c66_row15_col1" class="data row15 col1" >0.274046</td>
+      <td id="T_f5c66_row15_col2" class="data row15 col2" >0.211303</td>
+      <td id="T_f5c66_row15_col3" class="data row15 col3" >0.000000</td>
+      <td id="T_f5c66_row15_col4" class="data row15 col4" >123.071249</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row16" class="row_heading level0 row16" >CCAACTCAATCTGGTAGAGGTTCTGAAATGACTGTTATGGGTAAATCTGATCATTTGACTTCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGT</th>
+      <td id="T_f5c66_row16_col0" class="data row16 col0" >0.414201</td>
+      <td id="T_f5c66_row16_col1" class="data row16 col1" >0.462119</td>
+      <td id="T_f5c66_row16_col2" class="data row16 col2" >0.123680</td>
+      <td id="T_f5c66_row16_col3" class="data row16 col3" >0.000000</td>
+      <td id="T_f5c66_row16_col4" class="data row16 col4" >121.468804</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row17" class="row_heading level0 row17" >GAAGATCCAACTGCTGCTGATTCTGGTGATCAAGCTATTGCTAATGATCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTGATCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row17_col0" class="data row17 col0" >0.635389</td>
+      <td id="T_f5c66_row17_col1" class="data row17 col1" >0.274740</td>
+      <td id="T_f5c66_row17_col2" class="data row17 col2" >0.089871</td>
+      <td id="T_f5c66_row17_col3" class="data row17 col3" >0.000000</td>
+      <td id="T_f5c66_row17_col4" class="data row17 col4" >100.054663</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row18" class="row_heading level0 row18" >GGATTTCAAGCTCCAGGTTTGTCTGGTTATTCTCCATCTGTTTCTGTTGTTACTAGAGGTTTGCCACCATTGTCTCCATTGTCTTGTAAACCATCTAGAACTGCTAAACAATTGTATGCT</th>
+      <td id="T_f5c66_row18_col0" class="data row18 col0" >0.541233</td>
+      <td id="T_f5c66_row18_col1" class="data row18 col1" >0.458767</td>
+      <td id="T_f5c66_row18_col2" class="data row18 col2" >0.000000</td>
+      <td id="T_f5c66_row18_col3" class="data row18 col3" >0.000000</td>
+      <td id="T_f5c66_row18_col4" class="data row18 col4" >97.701385</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row19" class="row_heading level0 row19" >CAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATACTCCACCAGAAGCTAGATTGTCTCAAGCTGAATTTGGTGCTCAAGATTCTGCTTTGGCTGCTGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row19_col0" class="data row19 col0" >0.257968</td>
+      <td id="T_f5c66_row19_col1" class="data row19 col1" >0.549459</td>
+      <td id="T_f5c66_row19_col2" class="data row19 col2" >0.192573</td>
+      <td id="T_f5c66_row19_col3" class="data row19 col3" >0.000000</td>
+      <td id="T_f5c66_row19_col4" class="data row19 col4" >141.545624</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row20" class="row_heading level0 row20" >GATTCTCATATTGCTTCTGATTATGTTACTCCATCTGATTATGTTTCTGCTCATGAAGTTTCTTTGGCTGAAACTTCTGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCA</th>
+      <td id="T_f5c66_row20_col0" class="data row20 col0" >0.288289</td>
+      <td id="T_f5c66_row20_col1" class="data row20 col1" >0.263161</td>
+      <td id="T_f5c66_row20_col2" class="data row20 col2" >0.430416</td>
+      <td id="T_f5c66_row20_col3" class="data row20 col3" >0.018133</td>
+      <td id="T_f5c66_row20_col4" class="data row20 col4" >189.236597</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row21" class="row_heading level0 row21" >AAGAATAGAAATAATCAGAATCAAGGTCAACAGAATCCAACTTGGTTTAATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTCAAGCTTTGTCTTTGTGTAATAATGCTGCT</th>
+      <td id="T_f5c66_row21_col0" class="data row21 col0" >0.506486</td>
+      <td id="T_f5c66_row21_col1" class="data row21 col1" >0.396290</td>
+      <td id="T_f5c66_row21_col2" class="data row21 col2" >0.097224</td>
+      <td id="T_f5c66_row21_col3" class="data row21 col3" >0.000000</td>
+      <td id="T_f5c66_row21_col4" class="data row21 col4" >111.175737</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row22" class="row_heading level0 row22" >GGTGATGAAGTTGTTGATAAGATCTTTGAACAACAACCACAACAATTGGTTGTTAAGAGAGGTGATAAAGCTGAACAAGAAGTTGATGAAGATATCTTTGCTGCTGTTGATCCAGATGCT</th>
+      <td id="T_f5c66_row22_col0" class="data row22 col0" >0.294321</td>
+      <td id="T_f5c66_row22_col1" class="data row22 col1" >0.422191</td>
+      <td id="T_f5c66_row22_col2" class="data row22 col2" >0.263653</td>
+      <td id="T_f5c66_row22_col3" class="data row22 col3" >0.019835</td>
+      <td id="T_f5c66_row22_col4" class="data row22 col4" >172.658057</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row23" class="row_heading level0 row23" >GAAGATCCAACTGCTGCTGATTCTGGTTCTCAAGCTATTGCTAATGATCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTGATCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row23_col0" class="data row23 col0" >0.537524</td>
+      <td id="T_f5c66_row23_col1" class="data row23 col1" >0.269870</td>
+      <td id="T_f5c66_row23_col2" class="data row23 col2" >0.192606</td>
+      <td id="T_f5c66_row23_col3" class="data row23 col3" >0.000000</td>
+      <td id="T_f5c66_row23_col4" class="data row23 col4" >119.184701</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row24" class="row_heading level0 row24" >GGTTAATTAAGGCGCGCCACTTCTAAATAAGCGATA</th>
+      <td id="T_f5c66_row24_col0" class="data row24 col0" >0.502998</td>
+      <td id="T_f5c66_row24_col1" class="data row24 col1" >0.292190</td>
+      <td id="T_f5c66_row24_col2" class="data row24 col2" >0.204812</td>
+      <td id="T_f5c66_row24_col3" class="data row24 col3" >0.000000</td>
+      <td id="T_f5c66_row24_col4" class="data row24 col4" >123.289454</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row25" class="row_heading level0 row25" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCT</th>
+      <td id="T_f5c66_row25_col0" class="data row25 col0" >0.417750</td>
+      <td id="T_f5c66_row25_col1" class="data row25 col1" >0.381338</td>
+      <td id="T_f5c66_row25_col2" class="data row25 col2" >0.174636</td>
+      <td id="T_f5c66_row25_col3" class="data row25 col3" >0.026276</td>
+      <td id="T_f5c66_row25_col4" class="data row25 col4" >161.500817</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row26" class="row_heading level0 row26" >GTCTTCTTCTTTAATAAGACTGCTCATGCTTATCAGAATGGTCAAAGGAAGAGAAGAAGAATTACTCCAACTTCTTTGAAAGATGATACTGTTAGATGGCATAAGACTGGTCAAACTAAA</th>
+      <td id="T_f5c66_row26_col0" class="data row26 col0" >0.570718</td>
+      <td id="T_f5c66_row26_col1" class="data row26 col1" >0.173657</td>
+      <td id="T_f5c66_row26_col2" class="data row26 col2" >0.255625</td>
+      <td id="T_f5c66_row26_col3" class="data row26 col3" >0.000000</td>
+      <td id="T_f5c66_row26_col4" class="data row26 col4" >123.461300</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row27" class="row_heading level0 row27" >TCTGGTTCTTTGAAAGATAAACAACCATGTATTCCAGATTATGGTCATCCAGGTCCAGAAGACTTTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTCTTGGATCCATCTAATATTGAA</th>
+      <td id="T_f5c66_row27_col0" class="data row27 col0" >0.485268</td>
+      <td id="T_f5c66_row27_col1" class="data row27 col1" >0.406056</td>
+      <td id="T_f5c66_row27_col2" class="data row27 col2" >0.108676</td>
+      <td id="T_f5c66_row27_col3" class="data row27 col3" >0.000000</td>
+      <td id="T_f5c66_row27_col4" class="data row27 col4" >114.132911</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row28" class="row_heading level0 row28" >TCTCCATCTGTTTCTGTTGTTACTAGAGGTTTGCCACCATTGTCTCCATTGTCTTGTAAACCATCTAGAACTGCTAAACAATTGTATGCTGAACCAACTGAATCTAATTCTGAAATCTTT</th>
+      <td id="T_f5c66_row28_col0" class="data row28 col0" >0.269063</td>
+      <td id="T_f5c66_row28_col1" class="data row28 col1" >0.421046</td>
+      <td id="T_f5c66_row28_col2" class="data row28 col2" >0.309891</td>
+      <td id="T_f5c66_row28_col3" class="data row28 col3" >0.000000</td>
+      <td id="T_f5c66_row28_col4" class="data row28 col4" >153.563030</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row29" class="row_heading level0 row29" >GAAGATGAAGTTGAAGGTCAATATGTTGTTTCTAAATTGTTGTTTCAACAACAATTTAAACCAGGTGAGAAGAATGCTCAAGATTTGACTTCTGCTGATGCTTTGGAATCTATTGTTGCT</th>
+      <td id="T_f5c66_row29_col0" class="data row29 col0" >0.435859</td>
+      <td id="T_f5c66_row29_col1" class="data row29 col1" >0.341030</td>
+      <td id="T_f5c66_row29_col2" class="data row29 col2" >0.223110</td>
+      <td id="T_f5c66_row29_col3" class="data row29 col3" >0.000000</td>
+      <td id="T_f5c66_row29_col4" class="data row29 col4" >130.673395</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row30" class="row_heading level0 row30" >ATTGCTGATGCTGCTCATTTGGGTCCAGAAGATGCTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATACTCCACCAGAAGCTAGATTGTCT</th>
+      <td id="T_f5c66_row30_col0" class="data row30 col0" >0.255626</td>
+      <td id="T_f5c66_row30_col1" class="data row30 col1" >0.400019</td>
+      <td id="T_f5c66_row30_col2" class="data row30 col2" >0.327128</td>
+      <td id="T_f5c66_row30_col3" class="data row30 col3" >0.017227</td>
+      <td id="T_f5c66_row30_col4" class="data row30 col4" >179.291094</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row31" class="row_heading level0 row31" >CAAATGTTGAATAATAAACAACAACAACAGAAGAATAGAAATAATCAGAATCAAGGTCAACAGAATCCAACTTGGTTTAATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTT</th>
+      <td id="T_f5c66_row31_col0" class="data row31 col0" >0.253458</td>
+      <td id="T_f5c66_row31_col1" class="data row31 col1" >0.462732</td>
+      <td id="T_f5c66_row31_col2" class="data row31 col2" >0.283810</td>
+      <td id="T_f5c66_row31_col3" class="data row31 col3" >0.000000</td>
+      <td id="T_f5c66_row31_col4" class="data row31 col4" >151.942454</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row32" class="row_heading level0 row32" >AACTTTAAGAGAGATTTGCAAGAATGTCAGAAGATTGTCTTGAATCCATCTAATATTGAATTGAATACTCCACCAGAATTTAGATTGGCTCAATTGCAATTTGGTGCTCAAGATTCATTT</th>
+      <td id="T_f5c66_row32_col0" class="data row32 col0" >0.099626</td>
+      <td id="T_f5c66_row32_col1" class="data row32 col1" >0.424399</td>
+      <td id="T_f5c66_row32_col2" class="data row32 col2" >0.475975</td>
+      <td id="T_f5c66_row32_col3" class="data row32 col3" >0.000000</td>
+      <td id="T_f5c66_row32_col4" class="data row32 col4" >185.387159</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row33" class="row_heading level0 row33" >CAGAAGATTGTTGCTAAACCATCTAATATTAAAGCTAAGACTCCACCTAAAGCTAGAGCTTCTCAAGCTAAAGCTGGTTCTCAGAAATCTGCTGCTGCTGCTGGTAAGACTAAATGATAA</th>
+      <td id="T_f5c66_row33_col0" class="data row33 col0" >0.653139</td>
+      <td id="T_f5c66_row33_col1" class="data row33 col1" >0.298104</td>
+      <td id="T_f5c66_row33_col2" class="data row33 col2" >0.048757</td>
+      <td id="T_f5c66_row33_col3" class="data row33 col3" >0.000000</td>
+      <td id="T_f5c66_row33_col4" class="data row33 col4" >94.112161</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row34" class="row_heading level0 row34" >ATTGCTGATGCTGCTCATGCTGGTCCAGAAGATGCTAAGAGAGATGCTGAAGAATGTCAGAAGATTGTTGCTGATCCATCTAATATTGAAGCTGATACTCCACCAGAAGCTAGAGCTGAT</th>
+      <td id="T_f5c66_row34_col0" class="data row34 col0" >0.525122</td>
+      <td id="T_f5c66_row34_col1" class="data row34 col1" >0.239675</td>
+      <td id="T_f5c66_row34_col2" class="data row34 col2" >0.235202</td>
+      <td id="T_f5c66_row34_col3" class="data row34 col3" >0.000000</td>
+      <td id="T_f5c66_row34_col4" class="data row34 col4" >124.862498</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row35" class="row_heading level0 row35" >GGTGCTCAAGATAGAGAAGAGAATGCTAATGCTGGTGCTTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAAGACTTTAAGAGAGATTTGGAAGAATGTCAA</th>
+      <td id="T_f5c66_row35_col0" class="data row35 col0" >0.268711</td>
+      <td id="T_f5c66_row35_col1" class="data row35 col1" >0.490578</td>
+      <td id="T_f5c66_row35_col2" class="data row35 col2" >0.240711</td>
+      <td id="T_f5c66_row35_col3" class="data row35 col3" >0.000000</td>
+      <td id="T_f5c66_row35_col4" class="data row35 col4" >145.981386</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row36" class="row_heading level0 row36" >AATCCAGATGAAGGTGAATCTTCTTCTGGTGTTAGAGGTGGTCCAACTACTCCTAAGACTAATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGAT</th>
+      <td id="T_f5c66_row36_col0" class="data row36 col0" >0.413966</td>
+      <td id="T_f5c66_row36_col1" class="data row36 col1" >0.354265</td>
+      <td id="T_f5c66_row36_col2" class="data row36 col2" >0.231769</td>
+      <td id="T_f5c66_row36_col3" class="data row36 col3" >0.000000</td>
+      <td id="T_f5c66_row36_col4" class="data row36 col4" >133.377369</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row37" class="row_heading level0 row37" >TGGTGGGAAGGTGAATCTCAATTCTTGTTGGATTCTCAACAATTGGCTGAGAATTTGGCTATTTGTGATGAGTTCTTGCAATCTCAATCTCAAACTTCTTGTGGTGGTGGTGATGATGAA</th>
+      <td id="T_f5c66_row37_col0" class="data row37 col0" >0.052837</td>
+      <td id="T_f5c66_row37_col1" class="data row37 col1" >0.000000</td>
+      <td id="T_f5c66_row37_col2" class="data row37 col2" >0.000000</td>
+      <td id="T_f5c66_row37_col3" class="data row37 col3" >0.947163</td>
+      <td id="T_f5c66_row37_col4" class="data row37 col4" >1387.975983</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row38" class="row_heading level0 row38" >ATTCATCAATATCATTTGGGTACTGGTGAAGATGAAAGAGATGGTGAATATGTTGTTTCTAAGATCTTCTTTCAACAACAATTTAAACCAAGAGATAAGAATGCTCAAGAATTGACTACT</th>
+      <td id="T_f5c66_row38_col0" class="data row38 col0" >0.331853</td>
+      <td id="T_f5c66_row38_col1" class="data row38 col1" >0.403903</td>
+      <td id="T_f5c66_row38_col2" class="data row38 col2" >0.264244</td>
+      <td id="T_f5c66_row38_col3" class="data row38 col3" >0.000000</td>
+      <td id="T_f5c66_row38_col4" class="data row38 col4" >143.518573</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row39" class="row_heading level0 row39" >CAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATACTCCACCAGAAGCTAGAGCTTCTTGATAACTAGCTGAGGGCCCGGCGTGAAAAAAGGCGCGCCACTTCTAAATAAGCGAT</th>
+      <td id="T_f5c66_row39_col0" class="data row39 col0" >0.668287</td>
+      <td id="T_f5c66_row39_col1" class="data row39 col1" >0.277290</td>
+      <td id="T_f5c66_row39_col2" class="data row39 col2" >0.054423</td>
+      <td id="T_f5c66_row39_col3" class="data row39 col3" >0.000000</td>
+      <td id="T_f5c66_row39_col4" class="data row39 col4" >93.523535</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row40" class="row_heading level0 row40" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row40_col0" class="data row40 col0" >0.184452</td>
+      <td id="T_f5c66_row40_col1" class="data row40 col1" >0.269400</td>
+      <td id="T_f5c66_row40_col2" class="data row40 col2" >0.528745</td>
+      <td id="T_f5c66_row40_col3" class="data row40 col3" >0.017403</td>
+      <td id="T_f5c66_row40_col4" class="data row40 col4" >207.394926</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row41" class="row_heading level0 row41" >GCTGAACATGGTGCTGAGAATGGTGCTAAAGAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCTGCTGATTCTGGTTCT</th>
+      <td id="T_f5c66_row41_col0" class="data row41 col0" >0.545700</td>
+      <td id="T_f5c66_row41_col1" class="data row41 col1" >0.332090</td>
+      <td id="T_f5c66_row41_col2" class="data row41 col2" >0.122210</td>
+      <td id="T_f5c66_row41_col3" class="data row41 col3" >0.000000</td>
+      <td id="T_f5c66_row41_col4" class="data row41 col4" >110.787050</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row42" class="row_heading level0 row42" >GAGAATTTGCCAGGTGTTAAGAAAGATGGTTCTTCTTGTCATTACTTTCATAGACCATCTATGGCTTATACTACTGGTACTAGGAAGAGAAGGAAGATTCAAACTGATGATGTTCCAGAT</th>
+      <td id="T_f5c66_row42_col0" class="data row42 col0" >0.543021</td>
+      <td id="T_f5c66_row42_col1" class="data row42 col1" >0.283251</td>
+      <td id="T_f5c66_row42_col2" class="data row42 col2" >0.173728</td>
+      <td id="T_f5c66_row42_col3" class="data row42 col3" >0.000000</td>
+      <td id="T_f5c66_row42_col4" class="data row42 col4" >116.668419</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row43" class="row_heading level0 row43" >CAGAAGATTGTCTTGAATCCATCTAATATTGAATTGAATGCTCCACCAGAATTTAGATTGTCTCAATTGCAATTTGGTGCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTAAT</th>
+      <td id="T_f5c66_row43_col0" class="data row43 col0" >0.197759</td>
+      <td id="T_f5c66_row43_col1" class="data row43 col1" >0.270783</td>
+      <td id="T_f5c66_row43_col2" class="data row43 col2" >0.531458</td>
+      <td id="T_f5c66_row43_col3" class="data row43 col3" >0.000000</td>
+      <td id="T_f5c66_row43_col4" class="data row43 col4" >183.639686</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row44" class="row_heading level0 row44" >GGTTAATTAAGGCGCGCCACTTCTAAATAAGCGAT</th>
+      <td id="T_f5c66_row44_col0" class="data row44 col0" >0.547884</td>
+      <td id="T_f5c66_row44_col1" class="data row44 col1" >0.318263</td>
+      <td id="T_f5c66_row44_col2" class="data row44 col2" >0.133853</td>
+      <td id="T_f5c66_row44_col3" class="data row44 col3" >0.000000</td>
+      <td id="T_f5c66_row44_col4" class="data row44 col4" >111.893155</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row45" class="row_heading level0 row45" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCTGCTGATTCTGGTTCTCAAGCTATTGCTAATTCTCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCT</th>
+      <td id="T_f5c66_row45_col0" class="data row45 col0" >0.279497</td>
+      <td id="T_f5c66_row45_col1" class="data row45 col1" >0.595316</td>
+      <td id="T_f5c66_row45_col2" class="data row45 col2" >0.125187</td>
+      <td id="T_f5c66_row45_col3" class="data row45 col3" >0.000000</td>
+      <td id="T_f5c66_row45_col4" class="data row45 col4" >132.410785</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row46" class="row_heading level0 row46" >TTCTTGGAAGCTAAATGTGGTATTGGTGGTTCTGAACCACATGTCTTGATTGAAGAATTTATTAGACCAGTTACTGAAGATGTTGGTATTAATTATACTCATCCACAGAATTTGCCAGGT</th>
+      <td id="T_f5c66_row46_col0" class="data row46 col0" >0.071917</td>
+      <td id="T_f5c66_row46_col1" class="data row46 col1" >0.492366</td>
+      <td id="T_f5c66_row46_col2" class="data row46 col2" >0.418753</td>
+      <td id="T_f5c66_row46_col3" class="data row46 col3" >0.016963</td>
+      <td id="T_f5c66_row46_col4" class="data row46 col4" >203.718018</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row47" class="row_heading level0 row47" >CAGAAGATTGTCTTGAATCCATCTAATATTCAATTGAATGATCCACCACAATTTAGATTGTCTCAATTGCAATTTGGTTCTCAAAATTCATTCTTGGCTTGGGGTACTGGTAAGACTAAT</th>
+      <td id="T_f5c66_row47_col0" class="data row47 col0" >0.367544</td>
+      <td id="T_f5c66_row47_col1" class="data row47 col1" >0.369059</td>
+      <td id="T_f5c66_row47_col2" class="data row47 col2" >0.263397</td>
+      <td id="T_f5c66_row47_col3" class="data row47 col3" >0.000000</td>
+      <td id="T_f5c66_row47_col4" class="data row47 col4" >140.570150</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row48" class="row_heading level0 row48" >AAGAATAGAAATAATCAGAATCAAGGTCAACAGAATCCAACTTGGTTTAATTCTGGTGATCAATTTATCTTGAATGATCAACAATTGGTTCAAGCTTTGTCTTTGTGTAAGAAAGCTGCT</th>
+      <td id="T_f5c66_row48_col0" class="data row48 col0" >0.101894</td>
+      <td id="T_f5c66_row48_col1" class="data row48 col1" >0.372050</td>
+      <td id="T_f5c66_row48_col2" class="data row48 col2" >0.502022</td>
+      <td id="T_f5c66_row48_col3" class="data row48 col3" >0.024034</td>
+      <td id="T_f5c66_row48_col4" class="data row48 col4" >219.819745</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row49" class="row_heading level0 row49" >AATAATGAAGATAATGCTGTTGAAGATGTTGCTCATATGGCTACTGAGAAACATAATCCATCTTCTCAAGATCCTAAATGGTGGGAAGGTGAATCTCAATTCTTGTTGTGATAACTAGCT</th>
+      <td id="T_f5c66_row49_col0" class="data row49 col0" >0.059479</td>
+      <td id="T_f5c66_row49_col1" class="data row49 col1" >0.054294</td>
+      <td id="T_f5c66_row49_col2" class="data row49 col2" >0.745934</td>
+      <td id="T_f5c66_row49_col3" class="data row49 col3" >0.140293</td>
+      <td id="T_f5c66_row49_col4" class="data row49 col4" >403.622108</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row50" class="row_heading level0 row50" >CCAGATAGAAATGATACATTCTGGAATCAAGGTGAAGATGAGAAAGAAGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTCTTGTGTTTGGAAGATTCTTTGGATGCTTTG</th>
+      <td id="T_f5c66_row50_col0" class="data row50 col0" >0.109935</td>
+      <td id="T_f5c66_row50_col1" class="data row50 col1" >0.200706</td>
+      <td id="T_f5c66_row50_col2" class="data row50 col2" >0.689359</td>
+      <td id="T_f5c66_row50_col3" class="data row50 col3" >0.000000</td>
+      <td id="T_f5c66_row50_col4" class="data row50 col4" >208.034734</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row51" class="row_heading level0 row51" >CAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATACTCCACCAGAAGCTAGAGCTTCTCAATTGGAATTTGGTTCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row51_col0" class="data row51 col0" >0.058338</td>
+      <td id="T_f5c66_row51_col1" class="data row51 col1" >0.053253</td>
+      <td id="T_f5c66_row51_col2" class="data row51 col2" >0.888409</td>
+      <td id="T_f5c66_row51_col3" class="data row51 col3" >0.000000</td>
+      <td id="T_f5c66_row51_col4" class="data row51 col4" >234.057909</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row52" class="row_heading level0 row52" >TCTGGTTCTTTGAAGAATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCACAAGACTTTAAGAGAAATTTGGAACAATGTCAGAAGATTGTCTTGGATCCATCTAATATTCAA</th>
+      <td id="T_f5c66_row52_col0" class="data row52 col0" >0.192402</td>
+      <td id="T_f5c66_row52_col1" class="data row52 col1" >0.175632</td>
+      <td id="T_f5c66_row52_col2" class="data row52 col2" >0.631966</td>
+      <td id="T_f5c66_row52_col3" class="data row52 col3" >0.000000</td>
+      <td id="T_f5c66_row52_col4" class="data row52 col4" >195.124024</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row53" class="row_heading level0 row53" >AAGAATAGAAATAATCAGAATCAAGGTCAACAGAATCCAACTTGGTTTAATTCTGGTGATCAATTTATCTTGAATGATCAACAATTGGTTCAAGCTTTGTCTTTGTGTAATAATGCTGCT</th>
+      <td id="T_f5c66_row53_col0" class="data row53 col0" >0.068796</td>
+      <td id="T_f5c66_row53_col1" class="data row53 col1" >0.188398</td>
+      <td id="T_f5c66_row53_col2" class="data row53 col2" >0.677899</td>
+      <td id="T_f5c66_row53_col3" class="data row53 col3" >0.064908</td>
+      <td id="T_f5c66_row53_col4" class="data row53 col4" >295.808580</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row54" class="row_heading level0 row54" >TGTCCATCTTGTGGTCATCATGTTGGTAGAAGAACTGCTATGGATTGGGTTGGTTTGCCAGCTGGTGTTAGATTTGATCCATCTGATGAAGAATTGTTGAGACATTTGGCTGCTAAAGTT</th>
+      <td id="T_f5c66_row54_col0" class="data row54 col0" >0.062313</td>
+      <td id="T_f5c66_row54_col1" class="data row54 col1" >0.000000</td>
+      <td id="T_f5c66_row54_col2" class="data row54 col2" >0.055820</td>
+      <td id="T_f5c66_row54_col3" class="data row54 col3" >0.881868</td>
+      <td id="T_f5c66_row54_col4" class="data row54 col4" >1307.102567</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row55" class="row_heading level0 row55" >ATTGCTGATGAAGCTCATTTGGGTCCAGAAGACTTTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTCTTGGATCCAGATAATATTGAATTGGATGATCCACCAGAATTTAGATTGGAT</th>
+      <td id="T_f5c66_row55_col0" class="data row55 col0" >0.000000</td>
+      <td id="T_f5c66_row55_col1" class="data row55 col1" >0.059875</td>
+      <td id="T_f5c66_row55_col2" class="data row55 col2" >0.940125</td>
+      <td id="T_f5c66_row55_col3" class="data row55 col3" >0.000000</td>
+      <td id="T_f5c66_row55_col4" class="data row55 col4" >244.413726</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row56" class="row_heading level0 row56" >AATAATGAAGATAATGCTGTTGAAGATGTTGCTCATATGGCTACTGAGAAACCAGAAGATGGTGATAATCCATCTTCTCAAGATCCTAAATGGTGGGAAGGTGAATCTCAATTCTTGTTG</th>
+      <td id="T_f5c66_row56_col0" class="data row56 col0" >0.000000</td>
+      <td id="T_f5c66_row56_col1" class="data row56 col1" >0.030185</td>
+      <td id="T_f5c66_row56_col2" class="data row56 col2" >0.829419</td>
+      <td id="T_f5c66_row56_col3" class="data row56 col3" >0.140396</td>
+      <td id="T_f5c66_row56_col4" class="data row56 col4" >417.698757</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row57" class="row_heading level0 row57" >GAAATGTTGGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTGATCAATTTATCTTGAATGATCAACAATTGGTT</th>
+      <td id="T_f5c66_row57_col0" class="data row57 col0" >0.000000</td>
+      <td id="T_f5c66_row57_col1" class="data row57 col1" >0.178668</td>
+      <td id="T_f5c66_row57_col2" class="data row57 col2" >0.759777</td>
+      <td id="T_f5c66_row57_col3" class="data row57 col3" >0.061556</td>
+      <td id="T_f5c66_row57_col4" class="data row57 col4" >305.890481</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row58" class="row_heading level0 row58" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCTGCTGATTCTGGTGATCAATTTATCTTGAATGATCAACAAGCTGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row58_col0" class="data row58 col0" >0.000000</td>
+      <td id="T_f5c66_row58_col1" class="data row58 col1" >0.063613</td>
+      <td id="T_f5c66_row58_col2" class="data row58 col2" >0.936387</td>
+      <td id="T_f5c66_row58_col3" class="data row58 col3" >0.000000</td>
+      <td id="T_f5c66_row58_col4" class="data row58 col4" >244.002572</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row59" class="row_heading level0 row59" >TCTACTGGTCAAGTCTTGTTCTCTATTGATGACTTTAGATGGTTGTTGTCTCCAACTGATGAACAATTGGGTAAAGAAGCTATCTTGTCTGATCAATTTGGTAAACCAACTCCAGAGAAT</th>
+      <td id="T_f5c66_row59_col0" class="data row59 col0" >0.000000</td>
+      <td id="T_f5c66_row59_col1" class="data row59 col1" >0.107891</td>
+      <td id="T_f5c66_row59_col2" class="data row59 col2" >0.000000</td>
+      <td id="T_f5c66_row59_col3" class="data row59 col3" >0.892109</td>
+      <td id="T_f5c66_row59_col4" class="data row59 col4" >1319.476275</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row60" class="row_heading level0 row60" >CAGAATGAGAATGCTATGGCTGCTGTTGAATATCCACCAAGAGATGATTATCATGAACAACCATATCCAGTTATGGATACTGAAGGTAATGTTATTGGTTTGACTGATTTGGAATGTGAT</th>
+      <td id="T_f5c66_row60_col0" class="data row60 col0" >0.000000</td>
+      <td id="T_f5c66_row60_col1" class="data row60 col1" >0.164502</td>
+      <td id="T_f5c66_row60_col2" class="data row60 col2" >0.807160</td>
+      <td id="T_f5c66_row60_col3" class="data row60 col3" >0.028338</td>
+      <td id="T_f5c66_row60_col4" class="data row60 col4" >267.221665</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row61" class="row_heading level0 row61" >CAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATGATCCACCAGAAGCTAGAGCTGATCAATTGGAATTTGGTGATCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row61_col0" class="data row61 col0" >0.000000</td>
+      <td id="T_f5c66_row61_col1" class="data row61 col1" >0.078271</td>
+      <td id="T_f5c66_row61_col2" class="data row61 col2" >0.921729</td>
+      <td id="T_f5c66_row61_col3" class="data row61 col3" >0.000000</td>
+      <td id="T_f5c66_row61_col4" class="data row61 col4" >242.390140</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row62" class="row_heading level0 row62" >CATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTGTTCTCTGAGAATGGTTCTCCAGATTTGTAT</th>
+      <td id="T_f5c66_row62_col0" class="data row62 col0" >0.000000</td>
+      <td id="T_f5c66_row62_col1" class="data row62 col1" >0.036851</td>
+      <td id="T_f5c66_row62_col2" class="data row62 col2" >0.867927</td>
+      <td id="T_f5c66_row62_col3" class="data row62 col3" >0.095222</td>
+      <td id="T_f5c66_row62_col4" class="data row62 col4" >362.260145</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row63" class="row_heading level0 row63" >TGGGATGAAACTCCATTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGAATGATCAAGAATTGTCTAGAGATAATGAATTGGATTCTTTGTGTGGTACT</th>
+      <td id="T_f5c66_row63_col0" class="data row63 col0" >0.000000</td>
+      <td id="T_f5c66_row63_col1" class="data row63 col1" >0.000000</td>
+      <td id="T_f5c66_row63_col2" class="data row63 col2" >0.954313</td>
+      <td id="T_f5c66_row63_col3" class="data row63 col3" >0.045687</td>
+      <td id="T_f5c66_row63_col4" class="data row63 col4" >306.327057</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row64" class="row_heading level0 row64" >ATTGCTGACTTTGCTCATTTGGGTCCAGAAGACTTTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTCTTGGATCCAGCTAATATTGAATTGGATGCTCCACCAGAATTTAGATTGGCT</th>
+      <td id="T_f5c66_row64_col0" class="data row64 col0" >0.000000</td>
+      <td id="T_f5c66_row64_col1" class="data row64 col1" >0.000000</td>
+      <td id="T_f5c66_row64_col2" class="data row64 col2" >0.594705</td>
+      <td id="T_f5c66_row64_col3" class="data row64 col3" >0.405295</td>
+      <td id="T_f5c66_row64_col4" class="data row64 col4" >741.811850</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row65" class="row_heading level0 row65" >TTGCAATTGTCTACTCAAGCTGATAGATTGTGGAATGACTTTCAAGAAGCTGCTATTCCAACTGCATTTGTTGAAGATTTGGATGGTTTGAATGGTTTGGAAGATTGTAATTCTGAACAA</th>
+      <td id="T_f5c66_row65_col0" class="data row65 col0" >0.000000</td>
+      <td id="T_f5c66_row65_col1" class="data row65 col1" >0.000000</td>
+      <td id="T_f5c66_row65_col2" class="data row65 col2" >0.404117</td>
+      <td id="T_f5c66_row65_col3" class="data row65 col3" >0.595883</td>
+      <td id="T_f5c66_row65_col4" class="data row65 col4" >972.613954</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row66" class="row_heading level0 row66" >GGTAAGATGTGGTCTAAGAAAGCTAGAATGGATGAAGAATTTGTTGTTAATTTGTCTGAAGATAATTTGATTTGTGATGAATCTATGGAAGCTTCTTCTTTGTGGGAGAATCAAGTCTTG</th>
+      <td id="T_f5c66_row66_col0" class="data row66 col0" >0.000000</td>
+      <td id="T_f5c66_row66_col1" class="data row66 col1" >0.000000</td>
+      <td id="T_f5c66_row66_col2" class="data row66 col2" >0.262562</td>
+      <td id="T_f5c66_row66_col3" class="data row66 col3" >0.737438</td>
+      <td id="T_f5c66_row66_col4" class="data row66 col4" >1144.037632</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row67" class="row_heading level0 row67" >GGTATTGATGATGATGAAGATTTGGCTTTGGCTGAGAATGCTCCAGAACAAGCTTTGCAAACTTGGCAATTGGAATTGTTTGGTTGTCAAGACTTCTTGAATGCTACTGCTGTTAGAAAT</th>
+      <td id="T_f5c66_row67_col0" class="data row67 col0" >0.000000</td>
+      <td id="T_f5c66_row67_col1" class="data row67 col1" >0.000000</td>
+      <td id="T_f5c66_row67_col2" class="data row67 col2" >0.081736</td>
+      <td id="T_f5c66_row67_col3" class="data row67 col3" >0.918264</td>
+      <td id="T_f5c66_row67_col4" class="data row67 col4" >1363.017673</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row68" class="row_heading level0 row68" >AATGAACAGAATGAAGATGATAGAACTGAACCTAAAGATGGTTGGTTTGATTCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGTCTTTGGATGTTTGTGATTTGGCTTTGGAATTG</th>
+      <td id="T_f5c66_row68_col0" class="data row68 col0" >0.000000</td>
+      <td id="T_f5c66_row68_col1" class="data row68 col1" >0.000000</td>
+      <td id="T_f5c66_row68_col2" class="data row68 col2" >0.226090</td>
+      <td id="T_f5c66_row68_col3" class="data row68 col3" >0.773910</td>
+      <td id="T_f5c66_row68_col4" class="data row68 col4" >1188.204796</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row69" class="row_heading level0 row69" >GGTGAAGATGAATCATTTCAAGCTGTTAATTTGGATGAAGAAGGTTCTTGGGGTTTGGATCAAGTTATGGAAGCTGAACATATTGAACAAGATCCATCTATTATGGGTTTGTTGTGTGAT</th>
+      <td id="T_f5c66_row69_col0" class="data row69 col0" >0.000000</td>
+      <td id="T_f5c66_row69_col1" class="data row69 col1" >0.000000</td>
+      <td id="T_f5c66_row69_col2" class="data row69 col2" >0.202035</td>
+      <td id="T_f5c66_row69_col3" class="data row69 col3" >0.797965</td>
+      <td id="T_f5c66_row69_col4" class="data row69 col4" >1217.335319</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row70" class="row_heading level0 row70" >CAGAAGATTGTCTTGAATCCATCTAATATTGAATTGAATGATCCACCAGAATTTAGATTGTCTCAATTGCAATTTGGTGATCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTAAT</th>
+      <td id="T_f5c66_row70_col0" class="data row70 col0" >0.000000</td>
+      <td id="T_f5c66_row70_col1" class="data row70 col1" >0.000000</td>
+      <td id="T_f5c66_row70_col2" class="data row70 col2" >0.321909</td>
+      <td id="T_f5c66_row70_col3" class="data row70 col3" >0.678091</td>
+      <td id="T_f5c66_row70_col4" class="data row70 col4" >1072.168468</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row71" class="row_heading level0 row71" >TTGCAATGTATTCCATGGGAAGATGGTTTGTTTGCTGATGCTAGAAATCAATCTGAACAATTTGATAAAGGTGCTGATAATAATGAAGATACTCAATTGGAATTGTCTTTGGTCTTGGAT</th>
+      <td id="T_f5c66_row71_col0" class="data row71 col0" >0.000000</td>
+      <td id="T_f5c66_row71_col1" class="data row71 col1" >0.000000</td>
+      <td id="T_f5c66_row71_col2" class="data row71 col2" >0.052896</td>
+      <td id="T_f5c66_row71_col3" class="data row71 col3" >0.947104</td>
+      <td id="T_f5c66_row71_col4" class="data row71 col4" >1397.942858</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row72" class="row_heading level0 row72" >ACTGGTTTGTCTCAAGATGATGACTTTGTTCCATGGTTGAATCATCATCCATCTTTGGATGGTTATTGTTCTGACTTCTTGAGAGATGTTTCTTCTCCAGTTACTGTTAATGAACAAGAA</th>
+      <td id="T_f5c66_row72_col0" class="data row72 col0" >0.000000</td>
+      <td id="T_f5c66_row72_col1" class="data row72 col1" >0.000000</td>
+      <td id="T_f5c66_row72_col2" class="data row72 col2" >0.093089</td>
+      <td id="T_f5c66_row72_col3" class="data row72 col3" >0.906911</td>
+      <td id="T_f5c66_row72_col4" class="data row72 col4" >1349.269394</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row73" class="row_heading level0 row73" >GACTTTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATACTCCACCAGAATTTAGATTGGCTCAATTGGAATTTGGTGCTCAAGATTCATTT</th>
+      <td id="T_f5c66_row73_col0" class="data row73 col0" >0.000000</td>
+      <td id="T_f5c66_row73_col1" class="data row73 col1" >0.000000</td>
+      <td id="T_f5c66_row73_col2" class="data row73 col2" >0.213387</td>
+      <td id="T_f5c66_row73_col3" class="data row73 col3" >0.786613</td>
+      <td id="T_f5c66_row73_col4" class="data row73 col4" >1203.588431</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row74" class="row_heading level0 row74" >GGTAATGAAAGAGATAATGATGATCAATTTCCAGAAGAGAAGACTTGGGATTCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTTGTGCTTTGTTGTTGGAATTGGATTCTGAT</th>
+      <td id="T_f5c66_row74_col0" class="data row74 col0" >0.000000</td>
+      <td id="T_f5c66_row74_col1" class="data row74 col1" >0.000000</td>
+      <td id="T_f5c66_row74_col2" class="data row74 col2" >0.090862</td>
+      <td id="T_f5c66_row74_col3" class="data row74 col3" >0.909138</td>
+      <td id="T_f5c66_row74_col4" class="data row74 col4" >1351.966438</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row75" class="row_heading level0 row75" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCTTTGCAAGAACAGAATGACTTCTTTGTTGCTTCTATTTGGGGTCAAGCTTTGTTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row75_col0" class="data row75 col0" >0.000000</td>
+      <td id="T_f5c66_row75_col1" class="data row75 col1" >0.000000</td>
+      <td id="T_f5c66_row75_col2" class="data row75 col2" >0.073320</td>
+      <td id="T_f5c66_row75_col3" class="data row75 col3" >0.926680</td>
+      <td id="T_f5c66_row75_col4" class="data row75 col4" >1373.209332</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row76" class="row_heading level0 row76" >TCTTTGTCTTATGATGTTGGTTGTTCTGTTGAAGAAGAATTGTTTAGAGTCTTGACTGGTGTTGAAAGATCTGTTGTTGATCCAGCTTTGGATGCTTTGGAATTGGATACTCCACCAGAT</th>
+      <td id="T_f5c66_row76_col0" class="data row76 col0" >0.000000</td>
+      <td id="T_f5c66_row76_col1" class="data row76 col1" >0.000000</td>
+      <td id="T_f5c66_row76_col2" class="data row76 col2" >0.000000</td>
+      <td id="T_f5c66_row76_col3" class="data row76 col3" >1.000000</td>
+      <td id="T_f5c66_row76_col4" class="data row76 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row77" class="row_heading level0 row77" >TCTCAAGATCAGAAATTGTGGGAAGGTGATTCTCAATTTGAATTGTTGGATTCTCAACAATTGGCTGAAGGTTTGGCTTTGTGTGATGAGTTCTTGTTGTCTCAATCTCAAACTTCTTGT</th>
+      <td id="T_f5c66_row77_col0" class="data row77 col0" >0.000000</td>
+      <td id="T_f5c66_row77_col1" class="data row77 col1" >0.000000</td>
+      <td id="T_f5c66_row77_col2" class="data row77 col2" >0.000000</td>
+      <td id="T_f5c66_row77_col3" class="data row77 col3" >1.000000</td>
+      <td id="T_f5c66_row77_col4" class="data row77 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row78" class="row_heading level0 row78" >GTTAGAGGTGGTCCAACTACTCCTAAGACTAATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGATGATTTGAAGATGTTTGATCCATTCTTTTAA</th>
+      <td id="T_f5c66_row78_col0" class="data row78 col0" >0.000000</td>
+      <td id="T_f5c66_row78_col1" class="data row78 col1" >0.000000</td>
+      <td id="T_f5c66_row78_col2" class="data row78 col2" >0.000000</td>
+      <td id="T_f5c66_row78_col3" class="data row78 col3" >1.000000</td>
+      <td id="T_f5c66_row78_col4" class="data row78 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row79" class="row_heading level0 row79" >GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTGAATGATCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row79_col0" class="data row79 col0" >0.000000</td>
+      <td id="T_f5c66_row79_col1" class="data row79 col1" >0.000000</td>
+      <td id="T_f5c66_row79_col2" class="data row79 col2" >0.000000</td>
+      <td id="T_f5c66_row79_col3" class="data row79 col3" >1.000000</td>
+      <td id="T_f5c66_row79_col4" class="data row79 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row80" class="row_heading level0 row80" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTGATCAATTTATCTTGAATGATCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCT</th>
+      <td id="T_f5c66_row80_col0" class="data row80 col0" >0.000000</td>
+      <td id="T_f5c66_row80_col1" class="data row80 col1" >0.000000</td>
+      <td id="T_f5c66_row80_col2" class="data row80 col2" >0.000000</td>
+      <td id="T_f5c66_row80_col3" class="data row80 col3" >1.000000</td>
+      <td id="T_f5c66_row80_col4" class="data row80 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row81" class="row_heading level0 row81" >CAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATACTCCACCAGAATTTAGATTGTCTCAATTGGAATTTGGTGCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row81_col0" class="data row81 col0" >0.000000</td>
+      <td id="T_f5c66_row81_col1" class="data row81 col1" >0.000000</td>
+      <td id="T_f5c66_row81_col2" class="data row81 col2" >0.000000</td>
+      <td id="T_f5c66_row81_col3" class="data row81 col3" >1.000000</td>
+      <td id="T_f5c66_row81_col4" class="data row81 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row82" class="row_heading level0 row82" >TTGCAATTGTCTACTCAAGCTGATAGATTGTGGAATGACTTTCAAGAAGATGATATTCCAACTGACTTTGTTGAAGATTTGGATGGTTTGAATGGTTTGGAAGATTGTAATTCTGAACAA</th>
+      <td id="T_f5c66_row82_col0" class="data row82 col0" >0.000000</td>
+      <td id="T_f5c66_row82_col1" class="data row82 col1" >0.000000</td>
+      <td id="T_f5c66_row82_col2" class="data row82 col2" >0.000000</td>
+      <td id="T_f5c66_row82_col3" class="data row82 col3" >1.000000</td>
+      <td id="T_f5c66_row82_col4" class="data row82 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row83" class="row_heading level0 row83" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTGATCAAGCTATTGCTAATGATCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row83_col0" class="data row83 col0" >0.000000</td>
+      <td id="T_f5c66_row83_col1" class="data row83 col1" >0.000000</td>
+      <td id="T_f5c66_row83_col2" class="data row83 col2" >0.000000</td>
+      <td id="T_f5c66_row83_col3" class="data row83 col3" >1.000000</td>
+      <td id="T_f5c66_row83_col4" class="data row83 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row84" class="row_heading level0 row84" >GAAGATCCAACTTGGTTTGTTCAAGATGATATTAATTTGTCTGAAGATGGTCAATTGGCATTTCAATTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row84_col0" class="data row84 col0" >0.000000</td>
+      <td id="T_f5c66_row84_col1" class="data row84 col1" >0.000000</td>
+      <td id="T_f5c66_row84_col2" class="data row84 col2" >0.000000</td>
+      <td id="T_f5c66_row84_col3" class="data row84 col3" >1.000000</td>
+      <td id="T_f5c66_row84_col4" class="data row84 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row85" class="row_heading level0 row85" >CAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATACTCCACCAGAGTTCTTTCAATTGTTGGAATCTAGAGGTTCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row85_col0" class="data row85 col0" >0.000000</td>
+      <td id="T_f5c66_row85_col1" class="data row85 col1" >0.000000</td>
+      <td id="T_f5c66_row85_col2" class="data row85 col2" >0.000000</td>
+      <td id="T_f5c66_row85_col3" class="data row85 col3" >1.000000</td>
+      <td id="T_f5c66_row85_col4" class="data row85 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row86" class="row_heading level0 row86" >AATACTCAATTGGCTCAAGGTGATTTGGATATTGATTTGTTTGATAAATGGGGTTTTCCATTCTTGGGTGAAATTGATGTTCCAGAACAAGATCCATTGTCTGAAACTAGATCTAAAGAT</th>
+      <td id="T_f5c66_row86_col0" class="data row86 col0" >0.000000</td>
+      <td id="T_f5c66_row86_col1" class="data row86 col1" >0.000000</td>
+      <td id="T_f5c66_row86_col2" class="data row86 col2" >0.000000</td>
+      <td id="T_f5c66_row86_col3" class="data row86 col3" >1.000000</td>
+      <td id="T_f5c66_row86_col4" class="data row86 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row87" class="row_heading level0 row87" >AAGAATAGAGATAATCAGAATCAAGGTGAACAAGATCCAACTTGGTTTAATTCTGGTTCTCAATTTATCTTGAATGATCAACAATTGGTTGAAGCTTTGTCTTTGTGTAATGATTTGTTG</th>
+      <td id="T_f5c66_row87_col0" class="data row87 col0" >0.000000</td>
+      <td id="T_f5c66_row87_col1" class="data row87 col1" >0.000000</td>
+      <td id="T_f5c66_row87_col2" class="data row87 col2" >0.000000</td>
+      <td id="T_f5c66_row87_col3" class="data row87 col3" >1.000000</td>
+      <td id="T_f5c66_row87_col4" class="data row87 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row88" class="row_heading level0 row88" >TATCCACCAAGAGATGATTATCATGAACAACCATATCCAGTTATGGATACTGAAGGTAATGTTATTGGTTTGACTGATTTGGAATGTGATGAAGAATTGTTGCCAATTTCTTGGGATTGG</th>
+      <td id="T_f5c66_row88_col0" class="data row88 col0" >0.000000</td>
+      <td id="T_f5c66_row88_col1" class="data row88 col1" >0.000000</td>
+      <td id="T_f5c66_row88_col2" class="data row88 col2" >0.000000</td>
+      <td id="T_f5c66_row88_col3" class="data row88 col3" >1.000000</td>
+      <td id="T_f5c66_row88_col4" class="data row88 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row89" class="row_heading level0 row89" >ACTGTTGGTGACTTTGATGGATTCTCTATTTCTGATTTGGAGAATGCTGATTTGGGTACTCCACCAGACTTCTTGACTTTGGCTTCTCAAGAATCTTTGTTGAATTGGATTGGTTGGTTG</th>
+      <td id="T_f5c66_row89_col0" class="data row89 col0" >0.000000</td>
+      <td id="T_f5c66_row89_col1" class="data row89 col1" >0.000000</td>
+      <td id="T_f5c66_row89_col2" class="data row89 col2" >0.000000</td>
+      <td id="T_f5c66_row89_col3" class="data row89 col3" >1.000000</td>
+      <td id="T_f5c66_row89_col4" class="data row89 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row90" class="row_heading level0 row90" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCTTTGCAAGAACAGAATGACTTCTTTGTTTCTTCTATTTGGGGTCAATCTTTGTTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row90_col0" class="data row90 col0" >0.000000</td>
+      <td id="T_f5c66_row90_col1" class="data row90 col1" >0.000000</td>
+      <td id="T_f5c66_row90_col2" class="data row90 col2" >0.000000</td>
+      <td id="T_f5c66_row90_col3" class="data row90 col3" >1.000000</td>
+      <td id="T_f5c66_row90_col4" class="data row90 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row91" class="row_heading level0 row91" >GACCCAACTGAATGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTCAATGTTTGGATGATAATTTGACTAGAGAATTGGAATCTAATGATGGTTCTTTG</th>
+      <td id="T_f5c66_row91_col0" class="data row91 col0" >0.000000</td>
+      <td id="T_f5c66_row91_col1" class="data row91 col1" >0.000000</td>
+      <td id="T_f5c66_row91_col2" class="data row91 col2" >0.000000</td>
+      <td id="T_f5c66_row91_col3" class="data row91 col3" >1.000000</td>
+      <td id="T_f5c66_row91_col4" class="data row91 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row92" class="row_heading level0 row92" >CAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATGCTCCACCAGAATTTAGATTGTCTCAATTGGAATTTGGTGCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row92_col0" class="data row92 col0" >0.000000</td>
+      <td id="T_f5c66_row92_col1" class="data row92 col1" >0.000000</td>
+      <td id="T_f5c66_row92_col2" class="data row92 col2" >0.000000</td>
+      <td id="T_f5c66_row92_col3" class="data row92 col3" >1.000000</td>
+      <td id="T_f5c66_row92_col4" class="data row92 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row93" class="row_heading level0 row93" >GATGCTAATTTGGATATTGAAGGTGGTGGTGGTGTTGATGGTTTGTTGGATACTCCATATCACTTTAATCCACATACTGATTACTTCTATACATTTGATGAATATTTGTTGTCTACTCCA</th>
+      <td id="T_f5c66_row93_col0" class="data row93 col0" >0.000000</td>
+      <td id="T_f5c66_row93_col1" class="data row93 col1" >0.000000</td>
+      <td id="T_f5c66_row93_col2" class="data row93 col2" >0.000000</td>
+      <td id="T_f5c66_row93_col3" class="data row93 col3" >1.000000</td>
+      <td id="T_f5c66_row93_col4" class="data row93 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row94" class="row_heading level0 row94" >GAAGAATTGTTGCCAATTTCTTGGGATTGGGATGCTAATTTGGATATTGAAGGTGGTGGTGGTGTTGATGGTTTGTTGGATACTCCATATCACTTTAATCCACATACTGATTACTTCTAT</th>
+      <td id="T_f5c66_row94_col0" class="data row94 col0" >0.000000</td>
+      <td id="T_f5c66_row94_col1" class="data row94 col1" >0.000000</td>
+      <td id="T_f5c66_row94_col2" class="data row94 col2" >0.000000</td>
+      <td id="T_f5c66_row94_col3" class="data row94 col3" >1.000000</td>
+      <td id="T_f5c66_row94_col4" class="data row94 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row95" class="row_heading level0 row95" >GAAGATCCAACTTTGGATTTGTTCTCTGATGTTGATGAACAATTTGGTAATCAAGCTCAATGGATCTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row95_col0" class="data row95 col0" >0.000000</td>
+      <td id="T_f5c66_row95_col1" class="data row95 col1" >0.000000</td>
+      <td id="T_f5c66_row95_col2" class="data row95 col2" >0.000000</td>
+      <td id="T_f5c66_row95_col3" class="data row95 col3" >1.000000</td>
+      <td id="T_f5c66_row95_col4" class="data row95 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row96" class="row_heading level0 row96" >CCAAATCCATCTTTGGGTACTGTTGGTGACTTTGATGGATTCTCTATTTCTGATTTGGAGAATGCTGATTTGGGTACTCCACCAGACTTCTTGACTTTGGCTTCTCAAGAATCTTTGTTG</th>
+      <td id="T_f5c66_row96_col0" class="data row96 col0" >0.000000</td>
+      <td id="T_f5c66_row96_col1" class="data row96 col1" >0.000000</td>
+      <td id="T_f5c66_row96_col2" class="data row96 col2" >0.000000</td>
+      <td id="T_f5c66_row96_col3" class="data row96 col3" >1.000000</td>
+      <td id="T_f5c66_row96_col4" class="data row96 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row97" class="row_heading level0 row97" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCTTTGCAAGAACAGAATGACTTCTTTGTTGATTCTATTTGGGGTCAAGATTTGTTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row97_col0" class="data row97 col0" >0.000000</td>
+      <td id="T_f5c66_row97_col1" class="data row97 col1" >0.000000</td>
+      <td id="T_f5c66_row97_col2" class="data row97 col2" >0.000000</td>
+      <td id="T_f5c66_row97_col3" class="data row97 col3" >1.000000</td>
+      <td id="T_f5c66_row97_col4" class="data row97 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row98" class="row_heading level0 row98" >AAGATTATTGCTGATAGACAACCAGGTTTGCAGAAGACTAATGACTTCTTTGCTTTGTCTACTGAATTTGGTGATTTGTGGGCTCCAGCTTTGTCTCCAGGTTTGGTTCAAGATGAAGAA</th>
+      <td id="T_f5c66_row98_col0" class="data row98 col0" >0.000000</td>
+      <td id="T_f5c66_row98_col1" class="data row98 col1" >0.000000</td>
+      <td id="T_f5c66_row98_col2" class="data row98 col2" >0.000000</td>
+      <td id="T_f5c66_row98_col3" class="data row98 col3" >1.000000</td>
+      <td id="T_f5c66_row98_col4" class="data row98 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row99" class="row_heading level0 row99" >CAGAAGATTGTCTTGGATCCATCTAATATTGAATTGGATGCTCCACCAGAATTGGAACAATTGTTTGCTAGATTTGGTGCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row99_col0" class="data row99 col0" >0.000000</td>
+      <td id="T_f5c66_row99_col1" class="data row99 col1" >0.000000</td>
+      <td id="T_f5c66_row99_col2" class="data row99 col2" >0.000000</td>
+      <td id="T_f5c66_row99_col3" class="data row99 col3" >1.000000</td>
+      <td id="T_f5c66_row99_col4" class="data row99 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row100" class="row_heading level0 row100" >CAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATACTCCACCAGAATTTAGATTGTCTCAATTGGAATTTGGTTCTCAAGATTCATTCTTGGCTTGGGGTACTGGTAAGACTGAT</th>
+      <td id="T_f5c66_row100_col0" class="data row100 col0" >0.000000</td>
+      <td id="T_f5c66_row100_col1" class="data row100 col1" >0.000000</td>
+      <td id="T_f5c66_row100_col2" class="data row100 col2" >0.000000</td>
+      <td id="T_f5c66_row100_col3" class="data row100 col3" >1.000000</td>
+      <td id="T_f5c66_row100_col4" class="data row100 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row101" class="row_heading level0 row101" >AATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGATGATTTGAAGATGTTTGATCCATTCTTTGAAGAATTGGATTCTATTCCAGAAGCTGCTTTG</th>
+      <td id="T_f5c66_row101_col0" class="data row101 col0" >0.000000</td>
+      <td id="T_f5c66_row101_col1" class="data row101 col1" >0.000000</td>
+      <td id="T_f5c66_row101_col2" class="data row101 col2" >0.000000</td>
+      <td id="T_f5c66_row101_col3" class="data row101 col3" >1.000000</td>
+      <td id="T_f5c66_row101_col4" class="data row101 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row102" class="row_heading level0 row102" >CCATGGCCAGGTTTGCCTAAAGGTGTTAAATTTGAACCAACTGATGAAGATATTATTGAGTTCTTGGAAGCTAAATGTGGTATTGGTGGTTCTGAACCACATGTCTTGATTGAAGAATTT</th>
+      <td id="T_f5c66_row102_col0" class="data row102 col0" >0.000000</td>
+      <td id="T_f5c66_row102_col1" class="data row102 col1" >0.000000</td>
+      <td id="T_f5c66_row102_col2" class="data row102 col2" >0.000000</td>
+      <td id="T_f5c66_row102_col3" class="data row102 col3" >1.000000</td>
+      <td id="T_f5c66_row102_col4" class="data row102 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row103" class="row_heading level0 row103" >GAAGAAGAATTGTTTAGAGTCTTGACTGGTGTTGAAAGATCTGTTGTTGATCCAGCTTTGGATGCTTTGGAATTGGATACTCCACCAGATATGTTGGAATATCCAGTTGTTACTTCTCAA</th>
+      <td id="T_f5c66_row103_col0" class="data row103 col0" >0.000000</td>
+      <td id="T_f5c66_row103_col1" class="data row103 col1" >0.000000</td>
+      <td id="T_f5c66_row103_col2" class="data row103 col2" >0.000000</td>
+      <td id="T_f5c66_row103_col3" class="data row103 col3" >1.000000</td>
+      <td id="T_f5c66_row103_col4" class="data row103 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row104" class="row_heading level0 row104" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTATTGATGCTTTGCAATTTAATGGTTTGGTTCAAGCTGAATCTGCTCAATTGTCTTTGTGTGATGATTTGTTG</th>
+      <td id="T_f5c66_row104_col0" class="data row104 col0" >0.000000</td>
+      <td id="T_f5c66_row104_col1" class="data row104 col1" >0.000000</td>
+      <td id="T_f5c66_row104_col2" class="data row104 col2" >0.000000</td>
+      <td id="T_f5c66_row104_col3" class="data row104 col3" >1.000000</td>
+      <td id="T_f5c66_row104_col4" class="data row104 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row105" class="row_heading level0 row105" >GACCCAACTGAATGGTTTGATTCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTCAATGTTTGGATGATAATTTGACTAGAGAATTGGAATCTAATGATGGTGCTTTG</th>
+      <td id="T_f5c66_row105_col0" class="data row105 col0" >0.000000</td>
+      <td id="T_f5c66_row105_col1" class="data row105 col1" >0.000000</td>
+      <td id="T_f5c66_row105_col2" class="data row105 col2" >0.000000</td>
+      <td id="T_f5c66_row105_col3" class="data row105 col3" >1.000000</td>
+      <td id="T_f5c66_row105_col4" class="data row105 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row106" class="row_heading level0 row106" >GAAGATCCAGATTGGTTTGATGATGGTGATCAATTTATCTTGAATGATCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row106_col0" class="data row106 col0" >0.000000</td>
+      <td id="T_f5c66_row106_col1" class="data row106 col1" >0.000000</td>
+      <td id="T_f5c66_row106_col2" class="data row106 col2" >0.000000</td>
+      <td id="T_f5c66_row106_col3" class="data row106 col3" >1.000000</td>
+      <td id="T_f5c66_row106_col4" class="data row106 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row107" class="row_heading level0 row107" >TCTACTGATTCTACTCCAATGTTTGATTATGATAATTTGGAAGATAATTCTAAAGATTGGACTTCTTTGTTTGATAATGATATTCCAGTTACTACTGATGATGTTTCTTTGGCTGATAAA</th>
+      <td id="T_f5c66_row107_col0" class="data row107 col0" >0.000000</td>
+      <td id="T_f5c66_row107_col1" class="data row107 col1" >0.000000</td>
+      <td id="T_f5c66_row107_col2" class="data row107 col2" >0.000000</td>
+      <td id="T_f5c66_row107_col3" class="data row107 col3" >1.000000</td>
+      <td id="T_f5c66_row107_col4" class="data row107 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row108" class="row_heading level0 row108" >TCTACTGGTCAAGTCTTGTTTGATATTGATGACTTTAGATGGTTGTTGGATCCAGATGATGAACAATTGGGTAAAGAAGCTATCTTGTCTGATCAATTTGGTAAACCAACTCCAGAGAAT</th>
+      <td id="T_f5c66_row108_col0" class="data row108 col0" >0.000000</td>
+      <td id="T_f5c66_row108_col1" class="data row108 col1" >0.000000</td>
+      <td id="T_f5c66_row108_col2" class="data row108 col2" >0.000000</td>
+      <td id="T_f5c66_row108_col3" class="data row108 col3" >1.000000</td>
+      <td id="T_f5c66_row108_col4" class="data row108 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row109" class="row_heading level0 row109" >AATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGATGAGATGTTTGATCCATTCTTTGAAGAATTGGATTCTATTCCAGAAGCTGCTTTGTGATAA</th>
+      <td id="T_f5c66_row109_col0" class="data row109 col0" >0.000000</td>
+      <td id="T_f5c66_row109_col1" class="data row109 col1" >0.000000</td>
+      <td id="T_f5c66_row109_col2" class="data row109 col2" >0.000000</td>
+      <td id="T_f5c66_row109_col3" class="data row109 col3" >1.000000</td>
+      <td id="T_f5c66_row109_col4" class="data row109 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row110" class="row_heading level0 row110" >GAAGATCCAACTTCTGATTCTGCTATTCAACAATTGTGGAATCAAGGATTCTTGTTTGTTGAATCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_f5c66_row110_col0" class="data row110 col0" >0.000000</td>
+      <td id="T_f5c66_row110_col1" class="data row110 col1" >0.000000</td>
+      <td id="T_f5c66_row110_col2" class="data row110 col2" >0.000000</td>
+      <td id="T_f5c66_row110_col3" class="data row110 col3" >1.000000</td>
+      <td id="T_f5c66_row110_col4" class="data row110 col4" >1462.000000</td>
+    </tr>
+    <tr>
+      <th id="T_f5c66_level0_row111" class="row_heading level0 row111" >GAAATTGATCAAATTTCTGATCCAGATAAATTGCCAGTTAATTTGGAACCATTTAGATTGGATCAATTGGAATTTACTGGTGATGATACTTCTGGTGCTGGTTTGAAATTTCAATGGGAT</th>
+      <td id="T_f5c66_row111_col0" class="data row111 col0" >0.000000</td>
+      <td id="T_f5c66_row111_col1" class="data row111 col1" >0.000000</td>
+      <td id="T_f5c66_row111_col2" class="data row111 col2" >0.000000</td>
+      <td id="T_f5c66_row111_col3" class="data row111 col3" >1.000000</td>
+      <td id="T_f5c66_row111_col4" class="data row111 col4" >1462.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
 </section>
 <section id="support-for-custom-anchor-sequences">
