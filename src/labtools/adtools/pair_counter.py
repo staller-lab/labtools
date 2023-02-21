@@ -66,7 +66,7 @@ def sort_normalizer(pair_counts, bin_counts):
     df = pd.DataFrame(pair_counts)
     df.fillna(0, inplace=True)
     # 10 is the read minimum, should make this user defined
-    df = df.loc[:, (df > 10).any(axis=0)]
+    df = df.loc[:, (df.sum() > 10)]
     df = df.transpose()
     numreads = df.sum(axis = 1)
     reads = df.copy(deep = True)
