@@ -15,10 +15,8 @@ def read_fasta(filename):
     
     Yields
     ----------
-    name : str
-        Name of sequence.
-    seq : str
-        Biological sequence.
+    (name, seq) : (str, str)
+        Name of sequence, biological sequence.
     
     Examples
     ----------
@@ -71,7 +69,7 @@ def read_fastq(filename, subset=None):
     
     Yields
     ----------
-    (name, seq, qual) : tup
+    (name, seq, qual) : (str, str, str)
         tuple of str containing name, seq and quality for entry.
     
     Examples
@@ -123,7 +121,7 @@ def read_fastq_big(filename):
     
     Yields
     ----------
-    (name, seq, qual) : tup
+    (name, seq, qual) : (str, str, str)
         tuple of str containing name, seq and quality for entry.
     
     Examples
