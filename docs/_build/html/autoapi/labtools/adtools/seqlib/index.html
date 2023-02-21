@@ -122,10 +122,7 @@
 <dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to fasta or fasta.gz file.</p>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em>) – Name of sequence.</p></li>
-<li><p><strong>seq</strong> (<em>str</em>) – Biological sequence.</p></li>
-</ul>
+<dd class="field-even"><p><strong>(name, seq)</strong> (<em>(str, str)</em>) – Name of sequence, biological sequence.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -154,7 +151,7 @@
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>(name, seq, qual)</strong> (<em>tup</em>) – tuple of str containing name, seq and quality for entry.</p>
+<dd class="field-even"><p><strong>(name, seq, qual)</strong> (<em>(str, str, str)</em>) – tuple of str containing name, seq and quality for entry.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -183,7 +180,7 @@ would crash computer. Does not currently support subsetting.</p>
 <dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to fastq or fastq.gz file.</p>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>(name, seq, qual)</strong> (<em>tup</em>) – tuple of str containing name, seq and quality for entry.</p>
+<dd class="field-even"><p><strong>(name, seq, qual)</strong> (<em>(str, str, str)</em>) – tuple of str containing name, seq and quality for entry.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>

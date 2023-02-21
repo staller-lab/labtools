@@ -10,7 +10,6 @@ Subpackages
    :titlesonly:
    :maxdepth: 3
 
-   alternative/index.rst
    tests/index.rst
 
 

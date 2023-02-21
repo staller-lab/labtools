@@ -29,8 +29,7 @@ Functions
    :param filename: Path to fasta or fasta.gz file.
    :type filename: str
 
-   :Yields: * **name** (*str*) -- Name of sequence.
-            * **seq** (*str*) -- Biological sequence.
+   :Yields: **(name, seq)** (*(str, str)*) -- Name of sequence, biological sequence.
 
    .. rubric:: Examples
 
@@ -55,7 +54,7 @@ Functions
    :param subset: Number of reads to randomly sample from the fastq file.
    :type subset: int, optional
 
-   :Yields: **(name, seq, qual)** (*tup*) -- tuple of str containing name, seq and quality for entry.
+   :Yields: **(name, seq, qual)** (*(str, str, str)*) -- tuple of str containing name, seq and quality for entry.
 
    .. rubric:: Examples
 
@@ -81,7 +80,7 @@ Functions
    :param filename: Path to fastq or fastq.gz file.
    :type filename: str
 
-   :Yields: **(name, seq, qual)** (*tup*) -- tuple of str containing name, seq and quality for entry.
+   :Yields: **(name, seq, qual)** (*(str, str, str)*) -- tuple of str containing name, seq and quality for entry.
 
    .. rubric:: Examples
 
