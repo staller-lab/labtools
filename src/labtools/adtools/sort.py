@@ -1,6 +1,6 @@
-from adtools.pair_counter import *
-from adtools.seqlib import get_numreads
-from adtools.pair_counter import seq_counter
+from labtools.adtools.pair_counter import *
+from labtools.adtools.seqlib import get_numreads
+from labtools.adtools.pair_counter import seq_counter
 import seaborn as sns
 from matplotlib import pyplot as plt
 import pandas as pd
