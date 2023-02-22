@@ -10,7 +10,11 @@ pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.1-
 
 ## Usage
 
-[View the in progress documentation.](https://massivejords.github.io/tools/docs/_build/html/index.html)
+[View the in progress documentation webpage.](https://massivejords.github.io/tools/docs/_build/html/index.html)
+
+[See examples](https://massivejords.github.io/tools/docs/_build/html/example.html)
+
+[Look at functions and classes (with examples)](https://massivejords.github.io/tools/docs/_build/html/autoapi/index.html)
 
 ```python
 import labtools
