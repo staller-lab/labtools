@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example usage &mdash; labtools  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="labtools" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            labtools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sequence-design-tools">Sequence Design Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shuffle-a-sequence">Shuffle a sequence</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sequencing-analysis-tools">Sequencing Analysis Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sort-processing-example">Sort Processing Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-you-need">What you need</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#what-you-get-out">What you get out</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-sequence-directly-preceding-the-ad-tile-as-an-anchor-sequence-additional-characters-between-ad-tile-and-preceding-anchor-seqeunce-will-not-work">Use the sequence directly preceding the AD/tile as an anchor sequence. Additional characters between AD/tile and preceding anchor seqeunce will not work</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-a-sort">Initialize a sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-activity-values">Get activity values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#locate-any-tiles-not-just-perfect-matches">Locate any tiles, not just perfect matches</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#get-data-for-reads-that-include-barcodes-and-tiles">Get data for reads that include barcodes AND tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#support-for-custom-anchor-sequences">Support for custom anchor sequences</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Use the sequence directly preceding the AD/tile as an anchor sequence. Additional characters between AD/tile and preceding anchor seqeunce will not work</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specify-alternate-values-in-a-dictionary-and-pass-that-dictionary-to-sort-process">Specify alternate values in a dictionary and pass that dictionary to Sort.process()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-output-for-pull-ad">Example output for pull_AD</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#counting-tiles-in-a-fastq-file">Counting tiles in a fastq file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predictors-coming-soon">Predictors (coming soon?)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">labtools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/example.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-usage">
+<h1>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this heading"></a></h1>
+<p>The poorly named <code class="docutils literal notranslate"><span class="pre">labtools</span></code> python package is a collection of diverse modules that might be of use to Staller Lab members and collaborators.</p>
+<ul class="simple">
+<li><p>simple tools to shuffle/mutate sequences for library design</p></li>
+<li><p>tools to analyze raw sequencing data</p></li>
+<li><p>(hopefully) tools to run in-house neural net</p></li>
+</ul>
+<section id="sequence-design-tools">
+<h2>Sequence Design Tools<a class="headerlink" href="#sequence-design-tools" title="Permalink to this heading"></a></h2>
+<section id="imports">
+<h3>Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">labtools</span> <span class="kn">import</span> <span class="n">shuffle</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="shuffle-a-sequence">
+<h3>Shuffle a sequence<a class="headerlink" href="#shuffle-a-sequence" title="Permalink to this heading"></a></h3>
+<p>Create shuffles of the alphabet:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shuffles_list</span><span class="p">,</span> <span class="n">names_list</span> <span class="o">=</span> <span class="n">shuffle</span><span class="o">.</span><span class="n">windowed_shuffle</span><span class="p">(</span><span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWYXZ&quot;</span><span class="p">)</span>
+<span class="n">shuffles_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;adbecFGHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;AdbcefGHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABgfecdHIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCfeghdIJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDfhegiJKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEfhigjKLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFhikjgLMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGhjlkiMNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHlikmjNOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIjnmlkOPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJlomknPQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKnmpolQRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLmqnpoRSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMorqpnSTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNqrposTUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOqsrptUVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPqutsrVWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQurstvWYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRswuvtYXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSwuyvtXZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSTxywvuZ&#39;,
+ &#39;ABCDEFGHIJKLMNOPQRSTUxzwvy&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Following code is used to style and truncate the pandas dataframe outputs for easier example viewing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_index</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;font-size: 8pt; max-width: 250px; text-overflow: ellipsis; overflow: hidden&quot;</span>
+<span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;font-size: 10pt;&quot;</span><span class="p">]</span> <span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">display_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">disp</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap_index</span><span class="p">(</span><span class="n">format_index</span><span class="p">)</span>
+    <span class="n">disp</span> <span class="o">=</span> <span class="n">disp</span><span class="o">.</span><span class="n">applymap_index</span><span class="p">(</span><span class="n">format_index</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">disp</span> <span class="o">=</span> <span class="n">disp</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">disp</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sequencing-analysis-tools">
+<h2>Sequencing Analysis Tools<a class="headerlink" href="#sequencing-analysis-tools" title="Permalink to this heading"></a></h2>
+<section id="sort-processing-example">
+<h3>Sort Processing Example<a class="headerlink" href="#sort-processing-example" title="Permalink to this heading"></a></h3>
+<section id="what-you-need">
+<h4>What you need<a class="headerlink" href="#what-you-need" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>fastq file for each sample in the sort</p></li>
+<li><p>bin counts (cells per bin) and bin values (mean or median fluorescence of the bin)</p></li>
+<li><p><strong>if you want perfect matches</strong>: a csv with one column headered as “ArrayDNA” which contains your 120 bp AD sequences as DNA</p></li>
+<li><p>the sequence directly preceding your AD sequence in your reads (anchor sequence)</p></li>
+<li><p>if you have barcodes, you need the sequence directly preceding them and anteceding them (anchor sequences), otherwise ignore these. See the example with barcodes below.</p></li>
+</ul>
+</section>
+<section id="what-you-get-out">
+<h4>What you get out<a class="headerlink" href="#what-you-get-out" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p>a dataframe with your AD tiles as indices, normalized scores for tile at each bin, and the tile Activity value</p></li>
+</ul>
+<p><strong>NOTE: the read cutoff is 10 reads total summed across all bins</strong> This means that if a tile is not found at least 10 times combined across any of the fastq files, it will not be analysed.</p>
+</section>
+<section id="use-the-sequence-directly-preceding-the-ad-tile-as-an-anchor-sequence-additional-characters-between-ad-tile-and-preceding-anchor-seqeunce-will-not-work">
+<h4>Use the sequence directly preceding the AD/tile as an anchor sequence. Additional characters between AD/tile and preceding anchor seqeunce will not work<a class="headerlink" href="#use-the-sequence-directly-preceding-the-ad-tile-as-an-anchor-sequence-additional-characters-between-ad-tile-and-preceding-anchor-seqeunce-will-not-work" title="Permalink to this heading"></a></h4>
+<p>My preceding anchor sequence is in blue while my AD/tile sequence is in green in this example read.</p>
+<p>The anchor sequence preceding the barcode is purple while the anchor sequence anteceding is red. Barcode length is 11 by default. (Not necessary if you don’t have barcodes)</p>
+<section id="example-read-showing-the-default-values-no-need-to-change-anything-if-your-sequence-matches-the-defaults">
+<h5>Example read showing the default values. No need to change anything if your sequence matches the defaults.<a class="headerlink" href="#example-read-showing-the-default-values-no-need-to-change-anything-if-your-sequence-matches-the-defaults" title="Permalink to this heading"></a></h5>
+<p><span style="font-size:10px">TCCCTGCGGGCTCTACTTCATCG<span style="color:blue;font-weight:800">GCTAGC</span><span style="color:green;font-weight:500;font-size:10px"><strong>GGTTCTT…CTGCTAAA</strong></span>TGATAAATAGATGA<span style="color:purple;font-weight:800">GGGCCCG</span>TCAACATAGAA<span style="color:red;font-weight:800">GGAGAGAA</span>ACATCTAAAAAAGCGATA</span></p>
+</section>
+</section>
+</section>
+<section id="id1">
+<h3>Imports<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">labtools.adtools</span> <span class="kn">import</span> <span class="n">sort</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initialize-a-sort">
+<h3>Initialize a sort<a class="headerlink" href="#initialize-a-sort" title="Permalink to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_sort</span> <span class="o">=</span> <span class="n">sort</span><span class="o">.</span><span class="n">Sort</span><span class="p">([</span><span class="s2">&quot;../exampledata/bin1.fastq&quot;</span><span class="p">,</span> <span class="s2">&quot;../exampledata/bin2.fastq&quot;</span><span class="p">,</span> <span class="s2">&quot;../exampledata/bin3.fastq&quot;</span><span class="p">,</span> 
+                <span class="s2">&quot;../exampledata/bin4.fastq&quot;</span><span class="p">],</span> <span class="n">bin_counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100000</span><span class="p">,</span><span class="mi">100000</span><span class="p">,</span><span class="mi">100000</span><span class="p">,</span><span class="mi">100000</span><span class="p">],</span> 
+               <span class="n">bin_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">61</span><span class="p">,</span><span class="mi">141</span><span class="p">,</span><span class="mi">251</span><span class="p">,</span><span class="mi">1462</span><span class="p">],</span> <span class="n">design_file</span> <span class="o">=</span> <span class="s2">&quot;../exampledata/unique_seqs.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-activity-values">
+<h3>Get activity values<a class="headerlink" href="#get-activity-values" title="Permalink to this heading"></a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">activities</span><span class="p">,</span> <span class="n">total_reads</span><span class="p">,</span> <span class="n">reads_per_bin</span> <span class="o">=</span> <span class="n">my_sort</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># activity + normalized abundance in each bin</span>
+<span class="n">display_df</span><span class="p">(</span><span class="n">activities</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_24c34_row0_col0, #T_24c34_row0_col1, #T_24c34_row0_col2, #T_24c34_row0_col3, #T_24c34_row0_col4, #T_24c34_row1_col0, #T_24c34_row1_col1, #T_24c34_row1_col2, #T_24c34_row1_col3, #T_24c34_row1_col4, #T_24c34_row2_col0, #T_24c34_row2_col1, #T_24c34_row2_col2, #T_24c34_row2_col3, #T_24c34_row2_col4, #T_24c34_row3_col0, #T_24c34_row3_col1, #T_24c34_row3_col2, #T_24c34_row3_col3, #T_24c34_row3_col4, #T_24c34_row4_col0, #T_24c34_row4_col1, #T_24c34_row4_col2, #T_24c34_row4_col3, #T_24c34_row4_col4, #T_24c34_row5_col0, #T_24c34_row5_col1, #T_24c34_row5_col2, #T_24c34_row5_col3, #T_24c34_row5_col4, #T_24c34_row6_col0, #T_24c34_row6_col1, #T_24c34_row6_col2, #T_24c34_row6_col3, #T_24c34_row6_col4, #T_24c34_row7_col0, #T_24c34_row7_col1, #T_24c34_row7_col2, #T_24c34_row7_col3, #T_24c34_row7_col4, #T_24c34_row8_col0, #T_24c34_row8_col1, #T_24c34_row8_col2, #T_24c34_row8_col3, #T_24c34_row8_col4, #T_24c34_row9_col0, #T_24c34_row9_col1, #T_24c34_row9_col2, #T_24c34_row9_col3, #T_24c34_row9_col4 {
+  font-size: 10pt;
+}
+#T_24c34_level0_row0, #T_24c34_level0_row1, #T_24c34_level0_row2, #T_24c34_level0_row3, #T_24c34_level0_row4, #T_24c34_level0_row5, #T_24c34_level0_row6, #T_24c34_level0_row7, #T_24c34_level0_row8, #T_24c34_level0_row9 {
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>
+<table id="T_24c34">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_24c34_level0_col0" class="col_heading level0 col0" >0</th>
+      <th id="T_24c34_level0_col1" class="col_heading level0 col1" >1</th>
+      <th id="T_24c34_level0_col2" class="col_heading level0 col2" >2</th>
+      <th id="T_24c34_level0_col3" class="col_heading level0 col3" >3</th>
+      <th id="T_24c34_level0_col4" class="col_heading level0 col4" >Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_24c34_level0_row0" class="row_heading level0 row0" >GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_24c34_row0_col0" class="data row0 col0" >0.251461</td>
+      <td id="T_24c34_row0_col1" class="data row0 col1" >0.288201</td>
+      <td id="T_24c34_row0_col2" class="data row0 col2" >0.460339</td>
+      <td id="T_24c34_row0_col3" class="data row0 col3" >0.000000</td>
+      <td id="T_24c34_row0_col4" class="data row0 col4" >171.520411</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row1" class="row_heading level0 row1" >GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA</th>
+      <td id="T_24c34_row1_col0" class="data row1 col0" >0.097356</td>
+      <td id="T_24c34_row1_col1" class="data row1 col1" >0.519277</td>
+      <td id="T_24c34_row1_col2" class="data row1 col2" >0.343084</td>
+      <td id="T_24c34_row1_col3" class="data row1 col3" >0.040284</td>
+      <td id="T_24c34_row1_col4" class="data row1 col4" >224.165635</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row2" class="row_heading level0 row2" >GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA</th>
+      <td id="T_24c34_row2_col0" class="data row2 col0" >0.352021</td>
+      <td id="T_24c34_row2_col1" class="data row2 col1" >0.502035</td>
+      <td id="T_24c34_row2_col2" class="data row2 col2" >0.145944</td>
+      <td id="T_24c34_row2_col3" class="data row2 col3" >0.000000</td>
+      <td id="T_24c34_row2_col4" class="data row2 col4" >128.892233</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row3" class="row_heading level0 row3" >GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA</th>
+      <td id="T_24c34_row3_col0" class="data row3 col0" >0.378641</td>
+      <td id="T_24c34_row3_col1" class="data row3 col1" >0.367199</td>
+      <td id="T_24c34_row3_col2" class="data row3 col2" >0.254160</td>
+      <td id="T_24c34_row3_col3" class="data row3 col3" >0.000000</td>
+      <td id="T_24c34_row3_col4" class="data row3 col4" >138.666285</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row4" class="row_heading level0 row4" >TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG</th>
+      <td id="T_24c34_row4_col0" class="data row4 col0" >0.330550</td>
+      <td id="T_24c34_row4_col1" class="data row4 col1" >0.278750</td>
+      <td id="T_24c34_row4_col2" class="data row4 col2" >0.390700</td>
+      <td id="T_24c34_row4_col3" class="data row4 col3" >0.000000</td>
+      <td id="T_24c34_row4_col4" class="data row4 col4" >157.533007</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row5" class="row_heading level0 row5" >GAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGGCTGATTCTGGTGATCAATTTATTGCTAATTCTCAACAATTGGTT</th>
+      <td id="T_24c34_row5_col0" class="data row5 col0" >0.361290</td>
+      <td id="T_24c34_row5_col1" class="data row5 col1" >0.420448</td>
+      <td id="T_24c34_row5_col2" class="data row5 col2" >0.218262</td>
+      <td id="T_24c34_row5_col3" class="data row5 col3" >0.000000</td>
+      <td id="T_24c34_row5_col4" class="data row5 col4" >136.105579</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row6" class="row_heading level0 row6" >TCTGAACCACATGTCTTGATTGAAGAATTTATTAGACCAGTTACTGAAGATGTTGGTATTAATTATACTCATCCACAGAATTTGCCAGGTGCTAATAAAGATGGTGTTTCTGTCTTCTTT</th>
+      <td id="T_24c34_row6_col0" class="data row6 col0" >0.315398</td>
+      <td id="T_24c34_row6_col1" class="data row6 col1" >0.367040</td>
+      <td id="T_24c34_row6_col2" class="data row6 col2" >0.317562</td>
+      <td id="T_24c34_row6_col3" class="data row6 col3" >0.000000</td>
+      <td id="T_24c34_row6_col4" class="data row6 col4" >150.700019</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row7" class="row_heading level0 row7" >CAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAATTCTGGTTCTTTGAAAGATAAACAACCATGT</th>
+      <td id="T_24c34_row7_col0" class="data row7 col0" >0.393467</td>
+      <td id="T_24c34_row7_col1" class="data row7 col1" >0.254385</td>
+      <td id="T_24c34_row7_col2" class="data row7 col2" >0.352148</td>
+      <td id="T_24c34_row7_col3" class="data row7 col3" >0.000000</td>
+      <td id="T_24c34_row7_col4" class="data row7 col4" >148.258990</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row8" class="row_heading level0 row8" >ATTATTTGGCATTTGTTGGCTAAATCTGGTTTGTCTGGTTTGTCTTCTCATCCATTTATTGATGAATTTATTCCAACTGTTAATCAAGATGATGGTATTTGTTATACTCATCCTAAGAAT</th>
+      <td id="T_24c34_row8_col0" class="data row8 col0" >0.566048</td>
+      <td id="T_24c34_row8_col1" class="data row8 col1" >0.243975</td>
+      <td id="T_24c34_row8_col2" class="data row8 col2" >0.189977</td>
+      <td id="T_24c34_row8_col3" class="data row8 col3" >0.000000</td>
+      <td id="T_24c34_row8_col4" class="data row8 col4" >116.613702</td>
+    </tr>
+    <tr>
+      <th id="T_24c34_level0_row9" class="row_heading level0 row9" >AAGAAGAGGAAGAATAAGAATCAAGGTAAGAAGAAACCAACTTGGTTTAAATCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTAAAGCTGCTTCTGCTTGTAAGAAATTGTTG</th>
+      <td id="T_24c34_row9_col0" class="data row9 col0" >0.253394</td>
+      <td id="T_24c34_row9_col1" class="data row9 col1" >0.491474</td>
+      <td id="T_24c34_row9_col2" class="data row9 col2" >0.255133</td>
+      <td id="T_24c34_row9_col3" class="data row9 col3" >0.000000</td>
+      <td id="T_24c34_row9_col4" class="data row9 col4" >148.793098</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the total reads for each sequence</span>
+<span class="n">total_reads</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT    44.0
+GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA    21.0
+GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA    49.0
+GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA    16.0
+TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG    70.0
+                                                                                                                            ... 
+GACCCAACTGAATGGTTTGATTCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTCAATGTTTGGATGATAATTTGACTAGAGAATTGGAATCTAATGATGGTGCTTTG    23.0
+TCTACTGATTCTACTCCAATGTTTGATTATGATAATTTGGAAGATAATTCTAAAGATTGGACTTCTTTGTTTGATAATGATATTCCAGTTACTACTGATGATGTTTCTTTGGCTGATAAA    24.0
+TCTACTGGTCAAGTCTTGTTTGATATTGATGACTTTAGATGGTTGTTGGATCCAGATGATGAACAATTGGGTAAAGAAGCTATCTTGTCTGATCAATTTGGTAAACCAACTCCAGAGAAT    12.0
+GAAGATCCAACTTCTGATTCTGCTATTCAACAATTGTGGAATCAAGGATTCTTGTTTGTTGAATCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAAT    11.0
+GAAATTGATCAAATTTCTGATCCAGATAAATTGCCAGTTAATTTGGAACCATTTAGATTGGATCAATTGGAATTTACTGGTGATGATACTTCTGGTGCTGGTTTGAAATTTCAATGGGAT    13.0
+Length: 200, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the reads of each tile per bin</span>
+<span class="n">display_df</span><span class="p">(</span><span class="n">reads_per_bin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_8f0f4_row0_col0, #T_8f0f4_row0_col1, #T_8f0f4_row0_col2, #T_8f0f4_row0_col3, #T_8f0f4_row1_col0, #T_8f0f4_row1_col1, #T_8f0f4_row1_col2, #T_8f0f4_row1_col3, #T_8f0f4_row2_col0, #T_8f0f4_row2_col1, #T_8f0f4_row2_col2, #T_8f0f4_row2_col3, #T_8f0f4_row3_col0, #T_8f0f4_row3_col1, #T_8f0f4_row3_col2, #T_8f0f4_row3_col3, #T_8f0f4_row4_col0, #T_8f0f4_row4_col1, #T_8f0f4_row4_col2, #T_8f0f4_row4_col3, #T_8f0f4_row5_col0, #T_8f0f4_row5_col1, #T_8f0f4_row5_col2, #T_8f0f4_row5_col3, #T_8f0f4_row6_col0, #T_8f0f4_row6_col1, #T_8f0f4_row6_col2, #T_8f0f4_row6_col3, #T_8f0f4_row7_col0, #T_8f0f4_row7_col1, #T_8f0f4_row7_col2, #T_8f0f4_row7_col3, #T_8f0f4_row8_col0, #T_8f0f4_row8_col1, #T_8f0f4_row8_col2, #T_8f0f4_row8_col3, #T_8f0f4_row9_col0, #T_8f0f4_row9_col1, #T_8f0f4_row9_col2, #T_8f0f4_row9_col3 {
+  font-size: 10pt;
+}
+#T_8f0f4_level0_row0, #T_8f0f4_level0_row1, #T_8f0f4_level0_row2, #T_8f0f4_level0_row3, #T_8f0f4_level0_row4, #T_8f0f4_level0_row5, #T_8f0f4_level0_row6, #T_8f0f4_level0_row7, #T_8f0f4_level0_row8, #T_8f0f4_level0_row9 {
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>
+<table id="T_8f0f4">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_8f0f4_level0_col0" class="col_heading level0 col0" >0</th>
+      <th id="T_8f0f4_level0_col1" class="col_heading level0 col1" >1</th>
+      <th id="T_8f0f4_level0_col2" class="col_heading level0 col2" >2</th>
+      <th id="T_8f0f4_level0_col3" class="col_heading level0 col3" >3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_8f0f4_level0_row0" class="row_heading level0 row0" >GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_8f0f4_row0_col0" class="data row0 col0" >11.000000</td>
+      <td id="T_8f0f4_row0_col1" class="data row0 col1" >13.000000</td>
+      <td id="T_8f0f4_row0_col2" class="data row0 col2" >20.000000</td>
+      <td id="T_8f0f4_row0_col3" class="data row0 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row1" class="row_heading level0 row1" >GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA</th>
+      <td id="T_8f0f4_row1_col0" class="data row1 col0" >2.000000</td>
+      <td id="T_8f0f4_row1_col1" class="data row1 col1" >11.000000</td>
+      <td id="T_8f0f4_row1_col2" class="data row1 col2" >7.000000</td>
+      <td id="T_8f0f4_row1_col3" class="data row1 col3" >1.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row2" class="row_heading level0 row2" >GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA</th>
+      <td id="T_8f0f4_row2_col0" class="data row2 col0" >17.000000</td>
+      <td id="T_8f0f4_row2_col1" class="data row2 col1" >25.000000</td>
+      <td id="T_8f0f4_row2_col2" class="data row2 col2" >7.000000</td>
+      <td id="T_8f0f4_row2_col3" class="data row2 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row3" class="row_heading level0 row3" >GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA</th>
+      <td id="T_8f0f4_row3_col0" class="data row3 col0" >6.000000</td>
+      <td id="T_8f0f4_row3_col1" class="data row3 col1" >6.000000</td>
+      <td id="T_8f0f4_row3_col2" class="data row3 col2" >4.000000</td>
+      <td id="T_8f0f4_row3_col3" class="data row3 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row4" class="row_heading level0 row4" >TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG</th>
+      <td id="T_8f0f4_row4_col0" class="data row4 col0" >23.000000</td>
+      <td id="T_8f0f4_row4_col1" class="data row4 col1" >20.000000</td>
+      <td id="T_8f0f4_row4_col2" class="data row4 col2" >27.000000</td>
+      <td id="T_8f0f4_row4_col3" class="data row4 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row5" class="row_heading level0 row5" >GAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGGCTGATTCTGGTGATCAATTTATTGCTAATTCTCAACAATTGGTT</th>
+      <td id="T_8f0f4_row5_col0" class="data row5 col0" >5.000000</td>
+      <td id="T_8f0f4_row5_col1" class="data row5 col1" >6.000000</td>
+      <td id="T_8f0f4_row5_col2" class="data row5 col2" >3.000000</td>
+      <td id="T_8f0f4_row5_col3" class="data row5 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row6" class="row_heading level0 row6" >TCTGAACCACATGTCTTGATTGAAGAATTTATTAGACCAGTTACTGAAGATGTTGGTATTAATTATACTCATCCACAGAATTTGCCAGGTGCTAATAAAGATGGTGTTTCTGTCTTCTTT</th>
+      <td id="T_8f0f4_row6_col0" class="data row6 col0" >5.000000</td>
+      <td id="T_8f0f4_row6_col1" class="data row6 col1" >6.000000</td>
+      <td id="T_8f0f4_row6_col2" class="data row6 col2" >5.000000</td>
+      <td id="T_8f0f4_row6_col3" class="data row6 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row7" class="row_heading level0 row7" >CAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAATTCTGGTTCTTTGAAAGATAAACAACCATGT</th>
+      <td id="T_8f0f4_row7_col0" class="data row7 col0" >9.000000</td>
+      <td id="T_8f0f4_row7_col1" class="data row7 col1" >6.000000</td>
+      <td id="T_8f0f4_row7_col2" class="data row7 col2" >8.000000</td>
+      <td id="T_8f0f4_row7_col3" class="data row7 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row8" class="row_heading level0 row8" >ATTATTTGGCATTTGTTGGCTAAATCTGGTTTGTCTGGTTTGTCTTCTCATCCATTTATTGATGAATTTATTCCAACTGTTAATCAAGATGATGGTATTTGTTATACTCATCCTAAGAAT</th>
+      <td id="T_8f0f4_row8_col0" class="data row8 col0" >9.000000</td>
+      <td id="T_8f0f4_row8_col1" class="data row8 col1" >4.000000</td>
+      <td id="T_8f0f4_row8_col2" class="data row8 col2" >3.000000</td>
+      <td id="T_8f0f4_row8_col3" class="data row8 col3" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_8f0f4_level0_row9" class="row_heading level0 row9" >AAGAAGAGGAAGAATAAGAATCAAGGTAAGAAGAAACCAACTTGGTTTAAATCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTAAAGCTGCTTCTGCTTGTAAGAAATTGTTG</th>
+      <td id="T_8f0f4_row9_col0" class="data row9 col0" >5.000000</td>
+      <td id="T_8f0f4_row9_col1" class="data row9 col1" >10.000000</td>
+      <td id="T_8f0f4_row9_col2" class="data row9 col2" >5.000000</td>
+      <td id="T_8f0f4_row9_col3" class="data row9 col3" >0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<section id="locate-any-tiles-not-just-perfect-matches">
+<h4>Locate any tiles, not just perfect matches<a class="headerlink" href="#locate-any-tiles-not-just-perfect-matches" title="Permalink to this heading"></a></h4>
+<p>Simply do not include the design file. A short (less than 120 bp) tile will probably appear with a significant number of reads. This is <strong>probably</strong> your untransformed background (cells transformed with a plasmid that did not get a tile). Most of the non-perfect matching tiles will be sequencing errors. You might find a way to map these back to their true tile. A few of the non-perfect matching tiles (likely those with a significant number of reads) will be sequencing library PCR amplification errors. An even fewer number of the non-perfect matching reads could be mutants that arose within the actual cell, or free tiles. Someone may put in the effort to distinguish these categories in the future.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_sort</span> <span class="o">=</span> <span class="n">sort</span><span class="o">.</span><span class="n">Sort</span><span class="p">([</span><span class="s2">&quot;../exampledata/bin1.fastq&quot;</span><span class="p">,</span> <span class="s2">&quot;../exampledata/bin2.fastq&quot;</span><span class="p">,</span> <span class="s2">&quot;../exampledata/bin3.fastq&quot;</span><span class="p">,</span> 
+                <span class="s2">&quot;../exampledata/bin4.fastq&quot;</span><span class="p">],</span> <span class="n">bin_counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100000</span><span class="p">,</span><span class="mi">100000</span><span class="p">,</span><span class="mi">100000</span><span class="p">,</span><span class="mi">100000</span><span class="p">],</span> 
+               <span class="n">bin_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">61</span><span class="p">,</span><span class="mi">141</span><span class="p">,</span><span class="mi">251</span><span class="p">,</span><span class="mi">1462</span><span class="p">])</span>
+<span class="n">activities_no_design</span><span class="p">,</span> <span class="n">numreads_total</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">my_sort</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display_df</span><span class="p">(</span><span class="n">activities_no_design</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_8f7bb_row0_col0, #T_8f7bb_row0_col1, #T_8f7bb_row0_col2, #T_8f7bb_row0_col3, #T_8f7bb_row0_col4, #T_8f7bb_row1_col0, #T_8f7bb_row1_col1, #T_8f7bb_row1_col2, #T_8f7bb_row1_col3, #T_8f7bb_row1_col4, #T_8f7bb_row2_col0, #T_8f7bb_row2_col1, #T_8f7bb_row2_col2, #T_8f7bb_row2_col3, #T_8f7bb_row2_col4, #T_8f7bb_row3_col0, #T_8f7bb_row3_col1, #T_8f7bb_row3_col2, #T_8f7bb_row3_col3, #T_8f7bb_row3_col4, #T_8f7bb_row4_col0, #T_8f7bb_row4_col1, #T_8f7bb_row4_col2, #T_8f7bb_row4_col3, #T_8f7bb_row4_col4, #T_8f7bb_row5_col0, #T_8f7bb_row5_col1, #T_8f7bb_row5_col2, #T_8f7bb_row5_col3, #T_8f7bb_row5_col4, #T_8f7bb_row6_col0, #T_8f7bb_row6_col1, #T_8f7bb_row6_col2, #T_8f7bb_row6_col3, #T_8f7bb_row6_col4, #T_8f7bb_row7_col0, #T_8f7bb_row7_col1, #T_8f7bb_row7_col2, #T_8f7bb_row7_col3, #T_8f7bb_row7_col4, #T_8f7bb_row8_col0, #T_8f7bb_row8_col1, #T_8f7bb_row8_col2, #T_8f7bb_row8_col3, #T_8f7bb_row8_col4, #T_8f7bb_row9_col0, #T_8f7bb_row9_col1, #T_8f7bb_row9_col2, #T_8f7bb_row9_col3, #T_8f7bb_row9_col4 {
+  font-size: 10pt;
+}
+#T_8f7bb_level0_row0, #T_8f7bb_level0_row1, #T_8f7bb_level0_row2, #T_8f7bb_level0_row3, #T_8f7bb_level0_row4, #T_8f7bb_level0_row5, #T_8f7bb_level0_row6, #T_8f7bb_level0_row7, #T_8f7bb_level0_row8, #T_8f7bb_level0_row9 {
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>
+<table id="T_8f7bb">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_8f7bb_level0_col0" class="col_heading level0 col0" >0</th>
+      <th id="T_8f7bb_level0_col1" class="col_heading level0 col1" >1</th>
+      <th id="T_8f7bb_level0_col2" class="col_heading level0 col2" >2</th>
+      <th id="T_8f7bb_level0_col3" class="col_heading level0 col3" >3</th>
+      <th id="T_8f7bb_level0_col4" class="col_heading level0 col4" >Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_8f7bb_level0_row0" class="row_heading level0 row0" >GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <td id="T_8f7bb_row0_col0" class="data row0 col0" >0.249091</td>
+      <td id="T_8f7bb_row0_col1" class="data row0 col1" >0.283698</td>
+      <td id="T_8f7bb_row0_col2" class="data row0 col2" >0.467211</td>
+      <td id="T_8f7bb_row0_col3" class="data row0 col3" >0.000000</td>
+      <td id="T_8f7bb_row0_col4" class="data row0 col4" >172.465991</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row1" class="row_heading level0 row1" >GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA</th>
+      <td id="T_8f7bb_row1_col0" class="data row1 col0" >0.096596</td>
+      <td id="T_8f7bb_row1_col1" class="data row1 col1" >0.512002</td>
+      <td id="T_8f7bb_row1_col2" class="data row1 col2" >0.348777</td>
+      <td id="T_8f7bb_row1_col3" class="data row1 col3" >0.042625</td>
+      <td id="T_8f7bb_row1_col4" class="data row1 col4" >227.945173</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row2" class="row_heading level0 row2" >GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA</th>
+      <td id="T_8f7bb_row2_col0" class="data row2 col0" >0.351864</td>
+      <td id="T_8f7bb_row2_col1" class="data row2 col1" >0.498670</td>
+      <td id="T_8f7bb_row2_col2" class="data row2 col2" >0.149466</td>
+      <td id="T_8f7bb_row2_col3" class="data row2 col3" >0.000000</td>
+      <td id="T_8f7bb_row2_col4" class="data row2 col4" >129.292147</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row3" class="row_heading level0 row3" >GGTTAATTAAGGCGCGCCACTTCTAAATAAGCGA</th>
+      <td id="T_8f7bb_row3_col0" class="data row3 col0" >0.210811</td>
+      <td id="T_8f7bb_row3_col1" class="data row3 col1" >0.528218</td>
+      <td id="T_8f7bb_row3_col2" class="data row3 col2" >0.260971</td>
+      <td id="T_8f7bb_row3_col3" class="data row3 col3" >0.000000</td>
+      <td id="T_8f7bb_row3_col4" class="data row3 col4" >152.841957</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row4" class="row_heading level0 row4" >GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA</th>
+      <td id="T_8f7bb_row4_col0" class="data row4 col0" >0.377151</td>
+      <td id="T_8f7bb_row4_col1" class="data row4 col1" >0.363465</td>
+      <td id="T_8f7bb_row4_col2" class="data row4 col2" >0.259384</td>
+      <td id="T_8f7bb_row4_col3" class="data row4 col3" >0.000000</td>
+      <td id="T_8f7bb_row4_col4" class="data row4 col4" >139.360114</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row5" class="row_heading level0 row5" >TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG</th>
+      <td id="T_8f7bb_row5_col0" class="data row5 col0" >0.327972</td>
+      <td id="T_8f7bb_row5_col1" class="data row5 col1" >0.274844</td>
+      <td id="T_8f7bb_row5_col2" class="data row5 col2" >0.397184</td>
+      <td id="T_8f7bb_row5_col3" class="data row5 col3" >0.000000</td>
+      <td id="T_8f7bb_row5_col4" class="data row5 col4" >158.452427</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row6" class="row_heading level0 row6" >GAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGGCTGATTCTGGTGATCAATTTATTGCTAATTCTCAACAATTGGTT</th>
+      <td id="T_8f7bb_row6_col0" class="data row6 col0" >0.360305</td>
+      <td id="T_8f7bb_row6_col1" class="data row6 col1" >0.416677</td>
+      <td id="T_8f7bb_row6_col2" class="data row6 col2" >0.223018</td>
+      <td id="T_8f7bb_row6_col3" class="data row6 col3" >0.000000</td>
+      <td id="T_8f7bb_row6_col4" class="data row6 col4" >136.707585</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row7" class="row_heading level0 row7" >TCTGAACCACATGTCTTGATTGAAGAATTTATTAGACCAGTTACTGAAGATGTTGGTATTAATTATACTCATCCACAGAATTTGCCAGGTGCTAATAAAGATGGTGTTTCTGTCTTCTTT</th>
+      <td id="T_8f7bb_row7_col0" class="data row7 col0" >0.313669</td>
+      <td id="T_8f7bb_row7_col1" class="data row7 col1" >0.362744</td>
+      <td id="T_8f7bb_row7_col2" class="data row7 col2" >0.323586</td>
+      <td id="T_8f7bb_row7_col3" class="data row7 col3" >0.000000</td>
+      <td id="T_8f7bb_row7_col4" class="data row7 col4" >151.500974</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row8" class="row_heading level0 row8" >CAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAATTCTGGTTCTTTGAAAGATAAACAACCATGT</th>
+      <td id="T_8f7bb_row8_col0" class="data row8 col0" >0.390706</td>
+      <td id="T_8f7bb_row8_col1" class="data row8 col1" >0.251019</td>
+      <td id="T_8f7bb_row8_col2" class="data row8 col2" >0.358275</td>
+      <td id="T_8f7bb_row8_col3" class="data row8 col3" >0.000000</td>
+      <td id="T_8f7bb_row8_col4" class="data row8 col4" >149.153731</td>
+    </tr>
+    <tr>
+      <th id="T_8f7bb_level0_row9" class="row_heading level0 row9" >ATTATTTGGCATTTGTTGGCTAAATCTGGTTTGTCTGGTTTGTCTTCTCATCCATTTATTGATGAATTTATTCCAACTGTTAATCAAGATGATGGTATTTGTTATACTCATCCTAAGAAT</th>
+      <td id="T_8f7bb_row9_col0" class="data row9 col0" >0.564274</td>
+      <td id="T_8f7bb_row9_col1" class="data row9 col1" >0.241688</td>
+      <td id="T_8f7bb_row9_col2" class="data row9 col2" >0.194038</td>
+      <td id="T_8f7bb_row9_col3" class="data row9 col3" >0.000000</td>
+      <td id="T_8f7bb_row9_col4" class="data row9 col4" >117.202291</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numreads_total</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT    44.0
+GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA    21.0
+GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA    49.0
+GGTTAATTAAGGCGCGCCACTTCTAAATAAGCGA                                                                                          24.0
+GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA    16.0
+                                                                                                                            ... 
+TCTACTGATTCTACTCCAATGTTTGATTATGATAATTTGGAAGATAATTCTAAAGATTGGACTTCTTTGTTTGATAATGATATTCCAGTTACTACTGATGATGTTTCTTTGGCTGATAAA    24.0
+TCTACTGGTCAAGTCTTGTTTGATATTGATGACTTTAGATGGTTGTTGGATCCAGATGATGAACAATTGGGTAAAGAAGCTATCTTGTCTGATCAATTTGGTAAACCAACTCCAGAGAAT    12.0
+AATACTCCAACTCCACCATCTTTGGTTGATGGTGTTGCTGGTGATGAAGAAGCATTTGATGAGATGTTTGATCCATTCTTTGAAGAATTGGATTCTATTCCAGAAGCTGCTTTGTGATAA    14.0
+GAAGATCCAACTTCTGATTCTGCTATTCAACAATTGTGGAATCAAGGATTCTTGTTTGTTGAATCTTTGTCTTTGTGTGATGATTTGTTGGGTTCTCAAGATAGAGAAGAGAATACTAAT    11.0
+GAAATTGATCAAATTTCTGATCCAGATAAATTGCCAGTTAATTTGGAACCATTTAGATTGGATCAATTGGAATTTACTGGTGATGATACTTCTGGTGCTGGTTTGAAATTTCAATGGGAT    13.0
+Length: 220, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="get-data-for-reads-that-include-barcodes-and-tiles">
+<h3>Get data for reads that include barcodes AND tiles<a class="headerlink" href="#get-data-for-reads-that-include-barcodes-and-tiles" title="Permalink to this heading"></a></h3>
+<p>Support for barcoded only data may or may not be added in the future.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">activities_barcoded</span><span class="p">,</span> <span class="n">total_reads</span><span class="p">,</span> <span class="n">reads_per_bin</span> <span class="o">=</span> <span class="n">my_sort</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">barcoded</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that you get back less tiles using this method. The reason for this is because the read must have a locatable barcode AND tile, which is less likely than having one or the other. The primary reason for doing this analysis is assessing per-transformant variation. The assumption is that unique tile-barcode pairs come from unique original transformants.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display_df</span><span class="p">(</span><span class="n">activities_barcoded</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_ef27c_row0_col0, #T_ef27c_row0_col1, #T_ef27c_row0_col2, #T_ef27c_row0_col3, #T_ef27c_row0_col4, #T_ef27c_row1_col0, #T_ef27c_row1_col1, #T_ef27c_row1_col2, #T_ef27c_row1_col3, #T_ef27c_row1_col4, #T_ef27c_row2_col0, #T_ef27c_row2_col1, #T_ef27c_row2_col2, #T_ef27c_row2_col3, #T_ef27c_row2_col4, #T_ef27c_row3_col0, #T_ef27c_row3_col1, #T_ef27c_row3_col2, #T_ef27c_row3_col3, #T_ef27c_row3_col4, #T_ef27c_row4_col0, #T_ef27c_row4_col1, #T_ef27c_row4_col2, #T_ef27c_row4_col3, #T_ef27c_row4_col4, #T_ef27c_row5_col0, #T_ef27c_row5_col1, #T_ef27c_row5_col2, #T_ef27c_row5_col3, #T_ef27c_row5_col4, #T_ef27c_row6_col0, #T_ef27c_row6_col1, #T_ef27c_row6_col2, #T_ef27c_row6_col3, #T_ef27c_row6_col4, #T_ef27c_row7_col0, #T_ef27c_row7_col1, #T_ef27c_row7_col2, #T_ef27c_row7_col3, #T_ef27c_row7_col4, #T_ef27c_row8_col0, #T_ef27c_row8_col1, #T_ef27c_row8_col2, #T_ef27c_row8_col3, #T_ef27c_row8_col4, #T_ef27c_row9_col0, #T_ef27c_row9_col1, #T_ef27c_row9_col2, #T_ef27c_row9_col3, #T_ef27c_row9_col4 {
+  font-size: 10pt;
+}
+#T_ef27c_level0_row0, #T_ef27c_level1_row0, #T_ef27c_level0_row1, #T_ef27c_level1_row1, #T_ef27c_level0_row2, #T_ef27c_level1_row2, #T_ef27c_level0_row3, #T_ef27c_level1_row3, #T_ef27c_level0_row4, #T_ef27c_level1_row4, #T_ef27c_level0_row5, #T_ef27c_level1_row5, #T_ef27c_level0_row6, #T_ef27c_level1_row6, #T_ef27c_level0_row7, #T_ef27c_level1_row7, #T_ef27c_level0_row8, #T_ef27c_level1_row8, #T_ef27c_level0_row9, #T_ef27c_level1_row9 {
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 8pt;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>
+<table id="T_ef27c">
+  <thead>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_ef27c_level0_col0" class="col_heading level0 col0" >0</th>
+      <th id="T_ef27c_level0_col1" class="col_heading level0 col1" >1</th>
+      <th id="T_ef27c_level0_col2" class="col_heading level0 col2" >2</th>
+      <th id="T_ef27c_level0_col3" class="col_heading level0 col3" >3</th>
+      <th id="T_ef27c_level0_col4" class="col_heading level0 col4" >Activity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_ef27c_level0_row0" class="row_heading level0 row0" >GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT</th>
+      <th id="T_ef27c_level1_row0" class="row_heading level1 row0" >ATCGTTACGTC</th>
+      <td id="T_ef27c_row0_col0" class="data row0 col0" >0.266147</td>
+      <td id="T_ef27c_row0_col1" class="data row0 col1" >0.298408</td>
+      <td id="T_ef27c_row0_col2" class="data row0 col2" >0.435445</td>
+      <td id="T_ef27c_row0_col3" class="data row0 col3" >0.000000</td>
+      <td id="T_ef27c_row0_col4" class="data row0 col4" >167.607130</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row1" class="row_heading level0 row1" >GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA</th>
+      <th id="T_ef27c_level1_row1" class="row_heading level1 row1" >GGAAGGTAGTA</th>
+      <td id="T_ef27c_row1_col0" class="data row1 col0" >0.220979</td>
+      <td id="T_ef27c_row1_col1" class="data row1 col1" >0.545081</td>
+      <td id="T_ef27c_row1_col2" class="data row1 col2" >0.233940</td>
+      <td id="T_ef27c_row1_col3" class="data row1 col3" >0.000000</td>
+      <td id="T_ef27c_row1_col4" class="data row1 col4" >149.055134</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row2" class="row_heading level0 row2" >TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG</th>
+      <th id="T_ef27c_level1_row2" class="row_heading level1 row2" >GAGACCAAATC</th>
+      <td id="T_ef27c_row2_col0" class="data row2 col0" >0.306310</td>
+      <td id="T_ef27c_row2_col1" class="data row2 col1" >0.276763</td>
+      <td id="T_ef27c_row2_col2" class="data row2 col2" >0.416927</td>
+      <td id="T_ef27c_row2_col3" class="data row2 col3" >0.000000</td>
+      <td id="T_ef27c_row2_col4" class="data row2 col4" >162.357171</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row3" class="row_heading level0 row3" >GAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGGCTGATTCTGGTGATCAATTTATTGCTAATTCTCAACAATTGGTT</th>
+      <th id="T_ef27c_level1_row3" class="row_heading level1 row3" >GGCAAAAGGCT</th>
+      <td id="T_ef27c_row3_col0" class="data row3 col0" >0.425497</td>
+      <td id="T_ef27c_row3_col1" class="data row3 col1" >0.484412</td>
+      <td id="T_ef27c_row3_col2" class="data row3 col2" >0.090091</td>
+      <td id="T_ef27c_row3_col3" class="data row3 col3" >0.000000</td>
+      <td id="T_ef27c_row3_col4" class="data row3 col4" >116.870239</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row4" class="row_heading level0 row4" >AAGAAGAGGAAGAATAAGAATCAAGGTAAGAAGAAACCAACTTGGTTTAAATCTGGTGCTCAATTTATCTTGAATGCTCAACAATTGGTTAAAGCTGCTTCTGCTTGTAAGAAATTGTTG</th>
+      <th id="T_ef27c_level1_row4" class="row_heading level1 row4" >CGCATGGGCAC</th>
+      <td id="T_ef27c_row4_col0" class="data row4 col0" >0.252775</td>
+      <td id="T_ef27c_row4_col1" class="data row4 col1" >0.479624</td>
+      <td id="T_ef27c_row4_col2" class="data row4 col2" >0.267601</td>
+      <td id="T_ef27c_row4_col3" class="data row4 col3" >0.000000</td>
+      <td id="T_ef27c_row4_col4" class="data row4 col4" >150.214165</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row5" class="row_heading level0 row5" >AATCATGAAAGACCATCTTCTGGTCCAGAAGCTGAACATGGTTTGGAGAATGGTGCTAAAGAAATGGCTGATGATAAAGAAGAACAAGAGAAAGATAGAGATAATGAGAATCAAGGTGAA</th>
+      <th id="T_ef27c_level1_row5" class="row_heading level1 row5" >ACACAAACCAT</th>
+      <td id="T_ef27c_row5_col0" class="data row5 col0" >0.737589</td>
+      <td id="T_ef27c_row5_col1" class="data row5 col1" >0.262411</td>
+      <td id="T_ef27c_row5_col2" class="data row5 col2" >0.000000</td>
+      <td id="T_ef27c_row5_col3" class="data row5 col3" >0.000000</td>
+      <td id="T_ef27c_row5_col4" class="data row5 col4" >81.992908</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row6" class="row_heading level0 row6" >AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTGCATTTGATTCTGGTTCTCAAGCTATCTTGAATGCTCAACAAGCTGTTGAAGCTTTGTCTGCTTGTGATGATTTGGCT</th>
+      <th id="T_ef27c_level1_row6" class="row_heading level1 row6" >GGTTATTGTCG</th>
+      <td id="T_ef27c_row6_col0" class="data row6 col0" >0.266923</td>
+      <td id="T_ef27c_row6_col1" class="data row6 col1" >0.379852</td>
+      <td id="T_ef27c_row6_col2" class="data row6 col2" >0.353225</td>
+      <td id="T_ef27c_row6_col3" class="data row6 col3" >0.000000</td>
+      <td id="T_ef27c_row6_col4" class="data row6 col4" >158.500845</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row7" class="row_heading level0 row7" >CCATCTGATTATGTTTCTGCTCATGAAGTTTCTTTGGCTGAAACTTCTGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCATCTTCTGGTCCAGAA</th>
+      <th id="T_ef27c_level1_row7" class="row_heading level1 row7" >GCTTCACTTCC</th>
+      <td id="T_ef27c_row7_col0" class="data row7 col0" >0.155332</td>
+      <td id="T_ef27c_row7_col1" class="data row7 col1" >0.515782</td>
+      <td id="T_ef27c_row7_col2" class="data row7 col2" >0.328886</td>
+      <td id="T_ef27c_row7_col3" class="data row7 col3" >0.000000</td>
+      <td id="T_ef27c_row7_col4" class="data row7 col4" >164.750908</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row8" class="row_heading level0 row8" >ATTGCTGATGCTGCTCATTTGGGTCCAGAAGATGCTAAGAGAGATTTGGAAGAATGTCAGAAGATTGTTGCTGATCCATCTAATATTGAATTGGATGATCCACCAGAAGCTAGATTGGAT</th>
+      <th id="T_ef27c_level1_row8" class="row_heading level1 row8" >AATGCATAAAC</th>
+      <td id="T_ef27c_row8_col0" class="data row8 col0" >0.451797</td>
+      <td id="T_ef27c_row8_col1" class="data row8 col1" >0.428628</td>
+      <td id="T_ef27c_row8_col2" class="data row8 col2" >0.119574</td>
+      <td id="T_ef27c_row8_col3" class="data row8 col3" >0.000000</td>
+      <td id="T_ef27c_row8_col4" class="data row8 col4" >118.009397</td>
+    </tr>
+    <tr>
+      <th id="T_ef27c_level0_row9" class="row_heading level0 row9" >GACCCAGTTGATCCTAAATTGGCTGATCCAGAACCAAGAAATGCTGTTAGAATTTGTGATGATGATCATATTGCTGATGATGAAGTTGATCCAGATGATGAAGTTGATGCTCATGAAGTT</th>
+      <th id="T_ef27c_level1_row9" class="row_heading level1 row9" >GCTCAGTAACC</th>
+      <td id="T_ef27c_row9_col0" class="data row9 col0" >0.376720</td>
+      <td id="T_ef27c_row9_col1" class="data row9 col1" >0.357401</td>
+      <td id="T_ef27c_row9_col2" class="data row9 col2" >0.265878</td>
+      <td id="T_ef27c_row9_col3" class="data row9 col3" >0.000000</td>
+      <td id="T_ef27c_row9_col4" class="data row9 col4" >140.108949</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="support-for-custom-anchor-sequences">
+<h3>Support for custom anchor sequences<a class="headerlink" href="#support-for-custom-anchor-sequences" title="Permalink to this heading"></a></h3>
+<p>If your tiles or barcodes have a custom anchor sequence (AKA the non-variable portion of the read that is used to locate the variable portion of the read), you can specify that in the kwargs of your Sort(). This passes the arguments to the pull_A() function used on each read to locate the sequence of interest (AKA AD or tile).</p>
+<section id="id2">
+<h4>Use the sequence directly preceding the AD/tile as an anchor sequence. Additional characters between AD/tile and preceding anchor seqeunce will not work<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<p>My preceding anchor sequence is in blue while my AD/tile sequence is in green in this example read.</p>
+<p>The anchor sequence preceding the barcode is purple while the anchor sequence anteceding is red. Barcode length is 11 by default. (Not necessary if you don’t have barcodes)</p>
+<section id="example-read">
+<h5>Example read<a class="headerlink" href="#example-read" title="Permalink to this heading"></a></h5>
+<p><span style="font-size:10px">TCCCTGCGGGCTCTACTTCATCG<span style="color:blue;font-weight:800">GCTAGC</span><span style="color:green;font-weight:500;font-size:10px"><strong>GGTTCTT…CTGCTAAA</strong></span>TGATAAATAGATGA<span style="color:purple;font-weight:800">GGGCCCG</span>TCAACATAGAA<span style="color:red;font-weight:800">GGAGAGAA</span>ACATCTAAAAAAGCGATA</span></p>
+</section>
+</section>
+<section id="specify-alternate-values-in-a-dictionary-and-pass-that-dictionary-to-sort-process">
+<h4>Specify alternate values in a dictionary and pass that dictionary to Sort.process()<a class="headerlink" href="#specify-alternate-values-in-a-dictionary-and-pass-that-dictionary-to-sort-process" title="Permalink to this heading"></a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># these are the default values which would work for my example read above</span>
+<span class="c1"># no input is required if they work for you</span>
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ad_preceder&quot;</span><span class="p">:</span><span class="s2">&quot;GCTAGC&quot;</span><span class="p">,</span> <span class="s2">&quot;bc_preceder&quot;</span><span class="p">:</span><span class="s2">&quot;GGGCCCG&quot;</span><span class="p">,</span> <span class="s2">&quot;bc_anteceder&quot;</span><span class="p">:</span><span class="s2">&quot;GGAGAGAA&quot;</span><span class="p">,</span> <span class="s2">&quot;bclength&quot;</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span> <span class="s2">&quot;ad_length&quot;</span><span class="p">:</span><span class="mi">120</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">activities_barcoded</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">my_sort</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">barcoded</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-output-for-pull-ad">
+<h4>Example output for pull_AD<a class="headerlink" href="#example-output-for-pull-ad" title="Permalink to this heading"></a></h4>
+<p>This might be useful for someone who wants to use pull_AD to analyze reads for a purpose outside of calculating activities.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">labtools.adtools.finder</span> <span class="kn">import</span> <span class="n">pull_AD</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read</span> <span class="o">=</span> <span class="s2">&quot;TCCCTGCGGGCTCTACTTCATCGGCTAGCGGTTCTTCTAAATTGAGATGTGATAATAATGCTGCTGCTCATGTTAAATTGGATTCATTTCCAGCTGGTGTTAGATTTGATACATCTGATGAAGAATTGTTGGAACATTTGGCTGCTAAATGATAAATAGATGAGGGCCCGTCAACATAGAAGGAGAGAAACATCTAAAAAAGCGATA&quot;</span>
+<span class="n">pull_AD</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;GGTTCTTCTAAATTGAGATGTGATAATAATGCTGCTGCTCATGTTAAATTGGATTCATTTCCAGCTGGTGTTAGATTTGATACATCTGATGAAGAATTGTTGGAACATTTGGCTGCTAAA&#39;,
+ &#39;TCAACATAGAA&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="counting-tiles-in-a-fastq-file">
+<h3>Counting tiles in a fastq file<a class="headerlink" href="#counting-tiles-in-a-fastq-file" title="Permalink to this heading"></a></h3>
+<p>This essentially applies the pull_AD function shown above to every read in the fastq file. You can also pass the kwargs dict to it to specify custom anchor sequences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">labtools.adtools.pair_counter</span> <span class="kn">import</span> <span class="n">seq_counter</span>
+<span class="n">seq_counter</span><span class="p">(</span><span class="s2">&quot;../exampledata/mini.fastq&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">labtools.adtools.pair_counter</span> <span class="kn">import</span> <span class="n">seq_counter</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">seq_counter</span><span class="p">(</span><span class="s2">&quot;../exampledata/mini.fastq&quot;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;labtools.adtools.pair_counter&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Use barcoded = True  to count tile and barcode pairs</p></li>
+<li><p>Use the design_file flag to look for specific tiles</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">seq_counter</span><span class="p">(</span><span class="s2">&quot;../exampledata/bin1.fastq&quot;</span><span class="p">,</span> <span class="n">barcoded</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">design_to_use</span><span class="o">=</span><span class="s2">&quot;../exampledata/unique_seqs.csv&quot;</span><span class="p">)</span>
+<span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTAAATTCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT  ATCGTTACGTC    11.0
+GAAGCTTTGTCTTTGTGTGATGATTTGTTGGGTGATCAAGATAGAGAAGAGAATGATAATGATGGTGATTTGAAAGATAAACAACCATGTATTGCTGATTATGCTCATTTGGGTCCAGAA  ACCATTTAGCG    1.0 
+GATTTGGCTGAAGATGATGAAGTTATGTGTATGGAAGATGAAGTTCAATCTATTCAACCAAATCATGAAAGACCAGATGATGGTCCAGAATTGGAACATGGTTTGGAGAATGGTGCTAAA  GGAAGGTAGTA    5.0 
+GGTCAAAGGAAGAGAAGGAAGATTACTCCAACTTTGGTTAATGATGAACCAGTTAGATGGCATAAGACTGGTAGAACTAAACCAGTTATGTTGTCTGGTGTTCAAAGAGGTTGTAAGAAA  TAGCTCAAACC    4.0 
+TCTGAATTGACTTCTACTTTGGGTATTTCTCATAGATTGCCACAATCTTTGACTCCATGTGTTAAGACTGGTTCTTTGCAATCTGGTGGTTTGGTTCAATCTGTTCCATTTGAAGAATTG  GAGACCAAATC    21.0
+                                                                                                                                         ... 
+CAAGCTATTGCTAATGATCAACAAGCTGTTGAAGCTGCTTCTGCTTGTGATGATGCTGCTGGTTCTCAAGATAGAGAAGAGAATACTAATTCTGGTTCTGCTAAAGATAAACAACCATGT  TCGTCTGACAC    1.0 
+AAAGATAGAGATAATGAGAATCAAGGTGAAGAAGATCCAACTTGGTTTGATTCTGGTTCTCAATTTATCTTGAATGCTCAACAATTGGTTGAAGCTTTGTCTTTGTGTGATGATTTGTTG  TTCTTTCCCTA    1.0 
+CATTTGGGTATTGAAGAAGATGAGAAAGAAGGTGATGAAGTTGTTTCTAAGATCTTCTATCAACAACCACAACAATTGGTTGTTAAGAGAGGTGATAAAGCTGAACAAGAAGTTGATGAA  ACTCCCCGCAA    1.0 
+GAAGATCCAACTGCATTTGATTCTGGTGATCAAGCTATCTTGAATGATCAACAAGCTGTTGAAGCTTTGTCTGCTTGTGATGATTTGGCTGGTTCTCAAGATAGAGAAGAGAATACTAAT  GGTTGAAGTGC    1.0 
+GAAGAAACTGTTGTCTTGCCACCATCTGTTAAGACTACTAAAGATGGTGATAATTTGCAATCTCAAGATCAGAAATTGTGGGAAGGTGATTCTCAATTTGAATTGTTGGATTCTCAACAA  ACCACCGACGA    1.0 
+Length: 684, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="predictors-coming-soon">
+<h2>Predictors (coming soon?)<a class="headerlink" href="#predictors-coming-soon" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="labtools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jordan Stefani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

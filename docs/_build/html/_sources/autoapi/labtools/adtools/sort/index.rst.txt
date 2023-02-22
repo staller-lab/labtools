@@ -1,0 +1,71 @@
+:py:mod:`labtools.adtools.sort`
+===============================
+
+.. py:module:: labtools.adtools.sort
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   labtools.adtools.sort.Sort
+
+
+
+
+.. py:class:: Sort(data_files, bin_counts, bin_values, design_file=None)
+
+   A sort object.
+
+   .. attribute:: data_files
+
+      List of str paths to fastq files in order of bins.
+
+      :type: list
+
+   .. attribute:: bin_counts
+
+      List of number of cells per bin in order of data files.
+
+      :type: list
+
+   .. attribute:: bin_values
+
+      List of mean or median fluorescence values per bin in order of data files.
+
+      :type: list
+
+   .. attribute:: design_file
+
+      Path to design csv file containing "ArrayDNA" header with DNA sequences to search
+
+      :type: str
+
+   .. py:method:: process(csv=False, **kwargs)
+
+      Calculate the activity for each tile.
+
+      :param csv: Use a csv input for predetermined AD counts (for example, bowtie output).
+      :type csv: bool, default False
+      :param \*\*kwargs: Extra arguments to pull_AD (for example changing the anchor sequences).
+      :type \*\*kwargs: dict, optional
+
+      :returns: * **processed_sort** (*pandas.DataFrame*)
+                * *numreads*
+                * *reads*
+
+      .. rubric:: Examples
+
+      >>>Sort.process()
+
+
+   .. py:method:: downsample(subset_size)
+
+      Perform downsampling on raw reads, then analyze.
+
+
+
