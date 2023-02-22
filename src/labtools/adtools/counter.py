@@ -3,7 +3,7 @@ from labtools.adtools.seqlib import read_fastq, read_fastq_big
 import pandas as pd
 
 def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
-    """Counts occurences of ADs or AD-barcode pairs.
+    """Counts occurences of ADs or AD-barcode pairs in a fastq file.
     
     Parameters
     ----------
