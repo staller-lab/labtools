@@ -67,50 +67,52 @@ class Sort():
 
         return processed_sort, numreads, reads
 
-    def downsample(self, subset_size):
-        """Perform downsampling on raw reads, then analyze."""
 
-        sort_list = []
-        for sample in self.data_files:
-            numreads = get_numreads(sample)
-            subsample_list = []
+# not functional right now because read_fastq_big does not accept subset argument
+    # def downsample(self, subset_size):
+    #     """Perform downsampling on raw reads, then analyze."""
+
+    #     sort_list = []
+    #     for sample in self.data_files:
+    #         numreads = get_numreads(sample)
+    #         subsample_list = []
             
-            for num in range(0, numreads, subset_size):
-                subsample = seq_counter(sample, design_to_use = self.design_file, subset = num)
-                subsample_list.append(subsample)
-            sort_list.append(subsample_list)
+    #         for num in range(0, numreads, subset_size):
+    #             subsample = seq_counter(sample, design_to_use = self.design_file, subset = num)
+    #             subsample_list.append(subsample)
+    #         sort_list.append(subsample_list)
         
-        all_subsamples = []
+    #     all_subsamples = []
 
-        min_reads = min([len(sort) for sort in sort_list])
-        for subsample in range(0, min_reads):
-            group = [sort_list[i][subsample] for i in range(0, len(sort_list))]
-            df, _ = sort_normalizer(group, self.bin_counts)
-            final = calculate_activity(df, self.bin_values)
-            all_subsamples.append(final)
+    #     min_reads = min([len(sort) for sort in sort_list])
+    #     for subsample in range(0, min_reads):
+    #         group = [sort_list[i][subsample] for i in range(0, len(sort_list))]
+    #         df, _, _ = sort_normalizer(group, self.bin_counts)
+    #         final = calculate_activity(df, self.bin_values)
+    #         all_subsamples.append(final)
 
-        for i in range(1, len(all_subsamples)):
-            all_subsamples[0][f"{i}"] = all_subsamples[i].Activity
+    #     for i in range(1, len(all_subsamples)):
+    #         all_subsamples[0][f"{i}"] = all_subsamples[i].Activity
 
-        downsampling_df = all_subsamples[0].iloc[:,len(sort_list):]
+    #     downsampling_df = all_subsamples[0].iloc[:,len(sort_list):]
 
-        RMSE_list = []
-        for j in downsampling_df:
-            if j == "Activity":
-                RMSE = downsampling_df.Activity
-            else:
-                RMSE = ((downsampling_df.Activity - downsampling_df[j]) ** 2 ) ** 0.5
-            RMSE.rename(j, inplace = True)
-            RMSE_list.append(RMSE)
+    #     RMSE_list = []
+    #     for j in downsampling_df:
+    #         if j == "Activity":
+    #             RMSE = downsampling_df.Activity
+    #         else:
+    #             RMSE = ((downsampling_df.Activity - downsampling_df[j]) ** 2 ) ** 0.5
+    #         RMSE.rename(j, inplace = True)
+    #         RMSE_list.append(RMSE)
 
-        errors = pd.DataFrame(RMSE_list)
-        plot_error = errors.transpose().iloc[:,1:]
+    #     errors = pd.DataFrame(RMSE_list)
+    #     plot_error = errors.transpose().iloc[:,1:]
 
-        fig, axes = plt.subplots(1,1, figsize=(18, 10), sharex = True)
-        axes.set_title("Subsampling RMSE", size=14)
-        #axes.set_ylim(0,75)
-        axes.set_ylabel("RMSE")
-        axes.set_xlabel(f"Number of {subset_size} reads")
-        sns.boxplot(data = plot_error)
+    #     fig, axes = plt.subplots(1,1, figsize=(18, 10), sharex = True)
+    #     axes.set_title("Subsampling RMSE", size=14)
+    #     #axes.set_ylim(0,75)
+    #     axes.set_ylabel("RMSE")
+    #     axes.set_xlabel(f"Number of {subset_size} reads")
+    #     sns.boxplot(data = plot_error)
 
-        return errors.transpose()
+    #     return errors.transpose()

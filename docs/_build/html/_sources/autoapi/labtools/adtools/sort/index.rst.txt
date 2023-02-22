@@ -63,9 +63,4 @@ Classes
       >>>Sort.process()
 
 
-   .. py:method:: downsample(subset_size)
-
-      Perform downsampling on raw reads, then analyze.
-
-
 

@@ -141,55 +141,57 @@
 
         <span class="n">processed_sort</span> <span class="o">=</span> <span class="n">calculate_activity</span><span class="p">(</span><span class="n">normed_sort</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_values</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">processed_sort</span><span class="p">,</span> <span class="n">numreads</span><span class="p">,</span> <span class="n">reads</span></div>
+        <span class="k">return</span> <span class="n">processed_sort</span><span class="p">,</span> <span class="n">numreads</span><span class="p">,</span> <span class="n">reads</span></div></div>
 
-<div class="viewcode-block" id="Sort.downsample"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/sort/index.html#labtools.adtools.sort.Sort.downsample">[docs]</a>    <span class="k">def</span> <span class="nf">downsample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subset_size</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform downsampling on raw reads, then analyze.&quot;&quot;&quot;</span>
 
-        <span class="n">sort_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_files</span><span class="p">:</span>
-            <span class="n">numreads</span> <span class="o">=</span> <span class="n">get_numreads</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
-            <span class="n">subsample_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># not functional right now because read_fastq_big does not accept subset argument</span>
+    <span class="c1"># def downsample(self, subset_size):</span>
+    <span class="c1">#     &quot;&quot;&quot;Perform downsampling on raw reads, then analyze.&quot;&quot;&quot;</span>
+
+    <span class="c1">#     sort_list = []</span>
+    <span class="c1">#     for sample in self.data_files:</span>
+    <span class="c1">#         numreads = get_numreads(sample)</span>
+    <span class="c1">#         subsample_list = []</span>
             
-            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numreads</span><span class="p">,</span> <span class="n">subset_size</span><span class="p">):</span>
-                <span class="n">subsample</span> <span class="o">=</span> <span class="n">seq_counter</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">design_to_use</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">design_file</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="n">num</span><span class="p">)</span>
-                <span class="n">subsample_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subsample</span><span class="p">)</span>
-            <span class="n">sort_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subsample_list</span><span class="p">)</span>
+    <span class="c1">#         for num in range(0, numreads, subset_size):</span>
+    <span class="c1">#             subsample = seq_counter(sample, design_to_use = self.design_file, subset = num)</span>
+    <span class="c1">#             subsample_list.append(subsample)</span>
+    <span class="c1">#         sort_list.append(subsample_list)</span>
         
-        <span class="n">all_subsamples</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#     all_subsamples = []</span>
 
-        <span class="n">min_reads</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">sort</span><span class="p">)</span> <span class="k">for</span> <span class="n">sort</span> <span class="ow">in</span> <span class="n">sort_list</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">subsample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_reads</span><span class="p">):</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="p">[</span><span class="n">sort_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">subsample</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sort_list</span><span class="p">))]</span>
-            <span class="n">df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sort_normalizer</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_counts</span><span class="p">)</span>
-            <span class="n">final</span> <span class="o">=</span> <span class="n">calculate_activity</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_values</span><span class="p">)</span>
-            <span class="n">all_subsamples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">final</span><span class="p">)</span>
+    <span class="c1">#     min_reads = min([len(sort) for sort in sort_list])</span>
+    <span class="c1">#     for subsample in range(0, min_reads):</span>
+    <span class="c1">#         group = [sort_list[i][subsample] for i in range(0, len(sort_list))]</span>
+    <span class="c1">#         df, _, _ = sort_normalizer(group, self.bin_counts)</span>
+    <span class="c1">#         final = calculate_activity(df, self.bin_values)</span>
+    <span class="c1">#         all_subsamples.append(final)</span>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_subsamples</span><span class="p">)):</span>
-            <span class="n">all_subsamples</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_subsamples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Activity</span>
+    <span class="c1">#     for i in range(1, len(all_subsamples)):</span>
+    <span class="c1">#         all_subsamples[0][f&quot;{i}&quot;] = all_subsamples[i].Activity</span>
 
-        <span class="n">downsampling_df</span> <span class="o">=</span> <span class="n">all_subsamples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="nb">len</span><span class="p">(</span><span class="n">sort_list</span><span class="p">):]</span>
+    <span class="c1">#     downsampling_df = all_subsamples[0].iloc[:,len(sort_list):]</span>
 
-        <span class="n">RMSE_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">downsampling_df</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="s2">&quot;Activity&quot;</span><span class="p">:</span>
-                <span class="n">RMSE</span> <span class="o">=</span> <span class="n">downsampling_df</span><span class="o">.</span><span class="n">Activity</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">RMSE</span> <span class="o">=</span> <span class="p">((</span><span class="n">downsampling_df</span><span class="o">.</span><span class="n">Activity</span> <span class="o">-</span> <span class="n">downsampling_df</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
-            <span class="n">RMSE</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-            <span class="n">RMSE_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RMSE</span><span class="p">)</span>
+    <span class="c1">#     RMSE_list = []</span>
+    <span class="c1">#     for j in downsampling_df:</span>
+    <span class="c1">#         if j == &quot;Activity&quot;:</span>
+    <span class="c1">#             RMSE = downsampling_df.Activity</span>
+    <span class="c1">#         else:</span>
+    <span class="c1">#             RMSE = ((downsampling_df.Activity - downsampling_df[j]) ** 2 ) ** 0.5</span>
+    <span class="c1">#         RMSE.rename(j, inplace = True)</span>
+    <span class="c1">#         RMSE_list.append(RMSE)</span>
 
-        <span class="n">errors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">RMSE_list</span><span class="p">)</span>
-        <span class="n">plot_error</span> <span class="o">=</span> <span class="n">errors</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="c1">#     errors = pd.DataFrame(RMSE_list)</span>
+    <span class="c1">#     plot_error = errors.transpose().iloc[:,1:]</span>
 
-        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="n">axes</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Subsampling RMSE&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-        <span class="c1">#axes.set_ylim(0,75)</span>
-        <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;RMSE&quot;</span><span class="p">)</span>
-        <span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of </span><span class="si">{</span><span class="n">subset_size</span><span class="si">}</span><span class="s2"> reads&quot;</span><span class="p">)</span>
-        <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">plot_error</span><span class="p">)</span>
+    <span class="c1">#     fig, axes = plt.subplots(1,1, figsize=(18, 10), sharex = True)</span>
+    <span class="c1">#     axes.set_title(&quot;Subsampling RMSE&quot;, size=14)</span>
+    <span class="c1">#     #axes.set_ylim(0,75)</span>
+    <span class="c1">#     axes.set_ylabel(&quot;RMSE&quot;)</span>
+    <span class="c1">#     axes.set_xlabel(f&quot;Number of {subset_size} reads&quot;)</span>
+    <span class="c1">#     sns.boxplot(data = plot_error)</span>
 
-        <span class="k">return</span> <span class="n">errors</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div></div>
+    <span class="c1">#     return errors.transpose()</span>
 </pre></div>
 
            </div>
