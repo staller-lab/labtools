@@ -1,8 +1,6 @@
 # labtools
 
-tools for sequence design and analysis
-
-[View the in progress documentation.](https://massivejords.github.io/tools/docs/_build/html/index.html)
+Tools useful in Staller Lab for sequence design and analysis. Someone should rename me to something better.
 
 ## Installation
 
@@ -12,14 +10,16 @@ pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.1-
 
 ## Usage
 
-- TODO
+[View the in progress documentation.](https://massivejords.github.io/tools/docs/_build/html/index.html)
+
+```python
+import labtools
+from labtools.adtools import sort
+```
 
 ## License
 
 `labtools` was created by Jordan Stefani. It is licensed under the terms of the MIT license.
-
-
-
 
 
 ## Credits

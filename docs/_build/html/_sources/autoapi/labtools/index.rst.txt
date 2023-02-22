@@ -11,6 +11,7 @@ Subpackages
    :maxdepth: 3
 
    adtools/index.rst
+   predictors/index.rst
 
 
 Submodules
