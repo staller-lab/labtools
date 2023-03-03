@@ -45,7 +45,7 @@ def read_fasta(filename):
                 name = line[1:]
                 seqs = []
             else:
-                name = line[1]
+                name = line[1:]
         else:
             seqs.append(line)
     yield(name, ''.join(seqs))
