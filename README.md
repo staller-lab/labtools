@@ -5,7 +5,7 @@ Tools useful in Staller Lab for sequence design and analysis. Someone should ren
 ## Installation
 
 ```bash 
-pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.1-py3-none-any.whl?raw=true
+pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.3-py3-none-any.whl?raw=true
 ```
 
 ## Usage
