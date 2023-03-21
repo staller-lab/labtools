@@ -7,7 +7,6 @@
 
 example.ipynb
 changelog.md
-contributing.md
-conduct.md
+FACS_Analysis_Explanation.ipynb
 autoapi/index
 ```
