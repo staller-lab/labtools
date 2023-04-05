@@ -1,14 +1,20 @@
-from labtools.adtools.finder import pull_AD
+from labtools.adtools.finder import pull_AD, pull_barcode
 from labtools.adtools.seqlib import read_fastq, read_fastq_big
 import pandas as pd
 
-def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
+def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False, **kwargs):
     """Counts occurences of ADs or AD-barcode pairs in a fastq file.
     
     Parameters
     ----------
     fastq : str 
         Path to fastq or fastq.gz file.
+    design_to_use : str, default None
+        Path to csv file containing ArrayDNA column.
+    barcoded : bool, default False
+        Whether to count ADs with different barcodes separately.
+    only_bcs : bool, default False
+        Whether or not to only look for barcodes in the sequence.
     
     Returns
     ----------
@@ -22,15 +28,38 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
     GAAGAATTGTTTTTACATTTGTCTGCTAAGATTGGTAGATCTTCTAGGAAACCACATCCATTCTTGGATGAATTTATTCATACTTTGGTTGAAGAAGATGGTATTTGTAGAACTCATCCA    3
     dtype: int64
     """
-    seqCounts = {}
-    for line in read_fastq_big(fastq):
-        AD,bc = pull_AD(line[1], barcoded, **kwargs)
-        
-        if barcoded and AD != None:
-            AD = (AD, bc)
-        if AD not in seqCounts and AD != None: seqCounts[AD] = 1
-        elif AD != None: seqCounts[AD] += 1
-    counts = pd.Series(seqCounts)
+
+    if type(fastq) == list:
+        seqCounts = {}
+        for file in fastq:
+            for line in read_fastq_big(file, **kwargs):
+                AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                
+                if barcoded and AD != None:
+                    AD = (AD, bc)
+                if AD not in seqCounts and AD != None: seqCounts[AD] = 1
+                elif AD != None: seqCounts[AD] += 1
+        counts = pd.Series(seqCounts)
+    elif only_bcs == True and design_to_use == None:
+        seqCounts = {}
+        for line in read_fastq_big(fastq, **kwargs):
+            bc = pull_barcode(line[1],**kwargs)
+            
+            if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+            elif bc != None: seqCounts[bc] += 1
+        counts = pd.Series(seqCounts)
+    elif only_bcs == True and design_to_use != None:
+        raise(TypeError, "cannot use a design file with only barcodes")
+    else:
+        seqCounts = {}
+        for line in read_fastq_big(fastq, **kwargs):
+            AD,bc = pull_AD(line[1], barcoded, **kwargs)
+            
+            if barcoded and AD != None:
+                AD = (AD, bc)
+            if AD not in seqCounts and AD != None: seqCounts[AD] = 1
+            elif AD != None: seqCounts[AD] += 1
+        counts = pd.Series(seqCounts)
     
     if design_to_use:
         design = pd.read_csv(design_to_use)

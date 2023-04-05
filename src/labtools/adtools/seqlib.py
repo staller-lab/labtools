@@ -1,5 +1,6 @@
 import gzip
 from random import sample
+import subprocess
 from sklearn.utils.random import sample_without_replacement
 
 # fasta reader
@@ -107,17 +108,19 @@ def read_fastq(filename, subset=None):
         yield(name.rstrip(), seq.rstrip(), qual.rstrip())
     fp.close()
 
-def read_fastq_big(filename):
+def read_fastq_big(filename, subset = None, **kwargs):
     """Generator for fastq file without opening into memory.
     
     Yields 4 lines of a fastq file at a time (name, seq, +, error).
     Useful in situations where the fastq file is large and opening into RAM
-    would crash computer. Does not currently support subsetting.
+    would crash computer. Supports subsetting with sklearn.sample_without_replacement().
     
     Parameters
     ----------
     filename : str 
         Path to fastq or fastq.gz file.
+    subset: int
+        Number of reads to randomly subsample from file.
     
     Yields
     ----------
@@ -143,8 +146,19 @@ def read_fastq_big(filename):
         opener = gzip.open(filename, 'rt')
     else: opener = open(filename)
 
+    numreads = get_numreads(filename)
+    # every 4 lines is a read in fastq
+    all_reads = range(0, numreads*4, 4)
+    if subset:
+        # a list of indices to subsample
+        subset_indices = sample_without_replacement(len(all_reads), subset)
+        # get the actual read number from the index (aka the index*4)
+        subset_reads = [all_reads[i] for i in subset_indices]
+    else: subset_reads = all_reads
+        
     with opener as file:
         linenum = 0
+        readnum = 0
         for line in file:
             linenum += 1
             if linenum == 5:
@@ -154,16 +168,48 @@ def read_fastq_big(filename):
             elif linenum == 3: opt = line
             elif linenum == 4: 
                 qual = line
-                yield(name.rstrip(), seq.rstrip(), qual.rstrip())
+                if (readnum+1) in subset_reads:
+                    yield(name.rstrip(), seq.rstrip(), qual.rstrip())
+            readnum += 1
     opener.close()
 
 def get_numreads(filename):
-    """Returns number of reads in a fastq file.
+    """Returns number of reads in a fastq or fastq.gz file.
     
     Parameters
     ----------
     filename : str 
         Path to fastq or fastq.gz file.
+    
+    Returns
+    ----------
+    numreads : int
+        Number of reads in the fastq file.
+    
+    Examples
+    ----------
+    >>> get_numreads("example.fastq")
+    124
+    """
+
+    fp = None
+    if filename.endswith(".gz"): 
+        bashCommand = f"zgrep -c '@' {filename}"
+    else:
+        bashCommand = f"grep -c '@' {filename}"
+    
+    process = subprocess.run(bashCommand, shell=True, capture_output=True, text=True)
+    numreads = int(process.stdout)
+        
+    return numreads
+
+def get_numreads_old(filename):
+    """Returns number of reads in a fastq file.
+    
+    Parameters
+    ----------
+    filename : str 
+        Path to fastq file.
     
     Returns
     ----------
