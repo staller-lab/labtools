@@ -70,7 +70,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
     return counts
 
 def create_map(ad_bcs):
-    """Converts output of seq_counter with AD,bc pairs to a dict  map.
+    """Converts output of seq_counter with AD,bc pairs to a dict map.
     
     If the barcode is found with two different ADs, it is not included in 
     the dictionary.

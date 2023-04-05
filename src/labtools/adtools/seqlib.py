@@ -2,6 +2,7 @@ import gzip
 from random import sample
 import subprocess
 from sklearn.utils.random import sample_without_replacement
+import csv
 
 # fasta reader
 def read_fasta(filename):
@@ -230,3 +231,37 @@ def get_numreads_old(filename):
     numreads = len(range(0, len(lines), 4))
 
     return numreads
+
+def write_bc_dict(bc_dict, name):
+    """Writes bc_dict to a csv.
+        
+    Parameters
+    ----------
+    bc_dict : dict 
+        Dictionary output from counter.create_map().
+    name : str
+        Filename for output csv. Ex "Library1_dictionary"
+    """
+    with open(f'{name}', 'w') as f:
+        w = csv.DictWriter(f, bc_dict.keys())
+        w.writeheader()
+        w.writerow(bc_dict)
+
+def read_bc_dict(filename):
+    """Reads bc_dict from a csv.
+        
+    Parameters
+    ----------
+    filename : str
+        Path to csv containing a single dictionary.
+
+    Returns
+    ----------
+    bc_dict : dict
+        Dictionary.     
+    """
+    with open(filename, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for d in reader:
+            bc_dict = d
+    return(bc_dict)
