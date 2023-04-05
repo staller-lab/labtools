@@ -69,6 +69,67 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
             counts = counts.where(counts.index.isin(design.ArrayDNA)).dropna()
     return counts
 
+def create_map(ad_bcs):
+    """Converts output of seq_counter with AD,bc pairs to a dict  map.
+    
+    If the barcode is found with two different ADs, it is not included in 
+    the dictionary.
+
+    Parameters
+    ----------
+    ad_bcs : pd.Series 
+        output counts from seq_counter with barcoded = True.
+
+    Returns
+    ----------
+    bc_dict : dict
+        Dictionary with barcodes as keys and 1 AD as value.
+    """
+    bc_dict = {}
+    for line in zip(ad_bcs.index, ad_bcs):
+        ad = line[0][0]
+        bc = line[0][1]
+        count = line[1]
+        if bc not in bc_dict:
+            bc_dict[bc] = ad
+        elif bc in bc_dict and bc_dict[bc] == ad:
+            pass
+        elif bc in bc_dict and bc_dict[bc] != ad:
+            pass
+            #bc_dict[bc] = "multiple_matches"
+    return(bc_dict)
+
+def convert_bcs_from_map(bcs, bc_dict):
+    """Takes bc only data and uses a barcode dictionary to return AD counts.
+    
+    If the barcode is found with two different ADs, it is not included in 
+    the dictionary.
+
+    Parameters
+    ----------
+    bcs : pd.Series 
+        output counts from seq_counter with only_bcs = True.
+    bc_dict : dict
+        Dictionary with barcodes as keys and 1 AD as value from create_map().
+
+    Returns
+    ----------
+    converted : pd.Series
+        Pandas series where indices are AD sequences and values are counts.
+    """
+    ads = []
+    for bc in bcs.index:
+        ad = None
+        if bc in bc_dict:
+            ad = bc_dict[bc]
+        ads.append(ad)
+    ad_col = pd.Series(ads, name = "AD")
+    x = pd.DataFrame(bcs).reset_index()
+    x["AD"] = ads
+    convereted = x[[0, "AD"]].groupby("AD").sum()[0]
+    return convereted
+
+
 def sort_normalizer(pair_counts, bin_counts):
     """Normalize by reads per sample, reads per tile and reads per bin.
     
