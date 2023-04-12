@@ -14,18 +14,26 @@ Functions
 .. autoapisummary::
 
    labtools.adtools.counter.seq_counter
+   labtools.adtools.counter.create_map
+   labtools.adtools.counter.convert_bcs_from_map
    labtools.adtools.counter.sort_normalizer
    labtools.adtools.counter.calculate_activity
    labtools.adtools.counter.main
 
 
 
-.. py:function:: seq_counter(fastq, design_to_use=None, barcoded=False, **kwargs)
+.. py:function:: seq_counter(fastq, design_to_use=None, barcoded=False, only_bcs=False, **kwargs)
 
    Counts occurences of ADs or AD-barcode pairs in a fastq file.
 
    :param fastq: Path to fastq or fastq.gz file.
    :type fastq: str
+   :param design_to_use: Path to csv file containing ArrayDNA column.
+   :type design_to_use: str, default None
+   :param barcoded: Whether to count ADs with different barcodes separately.
+   :type barcoded: bool, default False
+   :param only_bcs: True, False or the barcode map to use. If True, no map is used.
+   :type only_bcs: default False
 
    :returns: **counts** -- Pandas series where indices are AD or AD/barcode sequences and values are counts.
    :rtype: pandas.core.series.Series
@@ -36,6 +44,36 @@ Functions
    GGTTCTTCTAAATTGAGATGTGATAATAATGCTGCTGCTCATGTTAAATTGGATTCATTTCCAGCTGGTGTTAGATTTGATACATCTGATGAAGAATTGTTGGAACATTTGGCTGCTAAA    1
    GAAGAATTGTTTTTACATTTGTCTGCTAAGATTGGTAGATCTTCTAGGAAACCACATCCATTCTTGGATGAATTTATTCATACTTTGGTTGAAGAAGATGGTATTTGTAGAACTCATCCA    3
    dtype: int64
+
+
+.. py:function:: create_map(ad_bcs)
+
+   Converts output of seq_counter with AD,bc pairs to a dict map.
+
+   If the barcode is found with two different ADs, it is not included in
+   the dictionary.
+
+   :param ad_bcs: output counts from seq_counter with barcoded = True.
+   :type ad_bcs: pd.Series
+
+   :returns: **bc_dict** -- Dictionary with barcodes as keys and 1 AD as value.
+   :rtype: dict
+
+
+.. py:function:: convert_bcs_from_map(bcs, bc_dict)
+
+   Takes bc only data and uses a barcode dictionary to return AD counts.
+
+   If the barcode is found with two different ADs, it is not included in
+   the dictionary.
+
+   :param bcs: output counts from seq_counter with only_bcs = True.
+   :type bcs: pd.Series
+   :param bc_dict: Dictionary with barcodes as keys and 1 AD as value from create_map().
+   :type bc_dict: dict
+
+   :returns: **converted** -- Pandas series where indices are AD sequences and values are counts.
+   :rtype: pd.Series
 
 
 .. py:function:: sort_normalizer(pair_counts, bin_counts)

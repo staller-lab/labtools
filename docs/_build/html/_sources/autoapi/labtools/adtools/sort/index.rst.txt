@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: Sort(data_files, bin_counts, bin_values, design_file=None)
+.. py:class:: Sort(data_files, bin_counts, bin_values, design_file=None, bc_dict=False)
 
    A sort object.
 
@@ -61,6 +61,11 @@ Classes
       .. rubric:: Examples
 
       >>>Sort.process()
+
+
+   .. py:method:: downsample(subset_size)
+
+      Perform downsampling on raw reads, then analyze.
 
 
 

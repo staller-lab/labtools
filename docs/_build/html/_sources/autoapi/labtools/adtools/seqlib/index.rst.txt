@@ -17,6 +17,9 @@ Functions
    labtools.adtools.seqlib.read_fastq
    labtools.adtools.seqlib.read_fastq_big
    labtools.adtools.seqlib.get_numreads
+   labtools.adtools.seqlib.get_numreads_old
+   labtools.adtools.seqlib.write_bc_dict
+   labtools.adtools.seqlib.read_bc_dict
 
 
 
@@ -69,16 +72,18 @@ Functions
    CTGATGCTAGATGCTGATA
 
 
-.. py:function:: read_fastq_big(filename)
+.. py:function:: read_fastq_big(filename, subset=None, **kwargs)
 
    Generator for fastq file without opening into memory.
 
    Yields 4 lines of a fastq file at a time (name, seq, +, error).
    Useful in situations where the fastq file is large and opening into RAM
-   would crash computer. Does not currently support subsetting.
+   would crash computer. Supports subsetting with sklearn.sample_without_replacement().
 
    :param filename: Path to fastq or fastq.gz file.
    :type filename: str
+   :param subset: Number of reads to randomly subsample from file.
+   :type subset: int
 
    :Yields: **(name, seq, qual)** (*(str, str, str)*) -- tuple of str containing name, seq and quality for entry.
 
@@ -97,7 +102,7 @@ Functions
 
 .. py:function:: get_numreads(filename)
 
-   Returns number of reads in a fastq file.
+   Returns number of reads in a fastq or fastq.gz file.
 
    :param filename: Path to fastq or fastq.gz file.
    :type filename: str
@@ -109,5 +114,42 @@ Functions
 
    >>> get_numreads("example.fastq")
    124
+
+
+.. py:function:: get_numreads_old(filename)
+
+   Returns number of reads in a fastq file.
+
+   :param filename: Path to fastq file.
+   :type filename: str
+
+   :returns: **numreads** -- Number of reads in the fastq file.
+   :rtype: int
+
+   .. rubric:: Examples
+
+   >>> get_numreads("example.fastq")
+   124
+
+
+.. py:function:: write_bc_dict(bc_dict, name)
+
+   Writes bc_dict to a csv.
+
+   :param bc_dict: Dictionary output from counter.create_map().
+   :type bc_dict: dict
+   :param name: Filename for output csv. Ex "Library1_dictionary"
+   :type name: str
+
+
+.. py:function:: read_bc_dict(filename)
+
+   Reads bc_dict from a csv.
+
+   :param filename: Path to csv containing a single dictionary.
+   :type filename: str
+
+   :returns: **bc_dict** -- Dictionary.
+   :rtype: dict
 
 

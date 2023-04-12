@@ -50,7 +50,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FACS_Analysis_Explanation.html">How to analyse FACS data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
 </ul>
 
@@ -81,7 +81,9 @@
   <h1>Source code for labtools.adtools.seqlib</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.random</span> <span class="kn">import</span> <span class="n">sample_without_replacement</span>
+<span class="kn">import</span> <span class="nn">csv</span>
 
 <span class="c1"># fasta reader</span>
 <div class="viewcode-block" id="read_fasta"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.read_fasta">[docs]</a><span class="k">def</span> <span class="nf">read_fasta</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -188,17 +190,19 @@
         <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">seq</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">qual</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="read_fastq_big"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.read_fastq_big">[docs]</a><span class="k">def</span> <span class="nf">read_fastq_big</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="read_fastq_big"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.read_fastq_big">[docs]</a><span class="k">def</span> <span class="nf">read_fastq_big</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generator for fastq file without opening into memory.</span>
 <span class="sd">    </span>
 <span class="sd">    Yields 4 lines of a fastq file at a time (name, seq, +, error).</span>
 <span class="sd">    Useful in situations where the fastq file is large and opening into RAM</span>
-<span class="sd">    would crash computer. Does not currently support subsetting.</span>
+<span class="sd">    would crash computer. Supports subsetting with sklearn.sample_without_replacement().</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str </span>
 <span class="sd">        Path to fastq or fastq.gz file.</span>
+<span class="sd">    subset: int</span>
+<span class="sd">        Number of reads to randomly subsample from file.</span>
 <span class="sd">    </span>
 <span class="sd">    Yields</span>
 <span class="sd">    ----------</span>
@@ -224,8 +228,19 @@
         <span class="n">opener</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span> <span class="n">opener</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
+    <span class="n">numreads</span> <span class="o">=</span> <span class="n">get_numreads</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="c1"># every 4 lines is a read in fastq</span>
+    <span class="n">all_reads</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numreads</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">subset</span><span class="p">:</span>
+        <span class="c1"># a list of indices to subsample</span>
+        <span class="n">subset_indices</span> <span class="o">=</span> <span class="n">sample_without_replacement</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_reads</span><span class="p">),</span> <span class="n">subset</span><span class="p">)</span>
+        <span class="c1"># get the actual read number from the index (aka the index*4)</span>
+        <span class="n">subset_reads</span> <span class="o">=</span> <span class="p">[</span><span class="n">all_reads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">subset_indices</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">subset_reads</span> <span class="o">=</span> <span class="n">all_reads</span>
+        
     <span class="k">with</span> <span class="n">opener</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">linenum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">readnum</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
             <span class="n">linenum</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
@@ -235,16 +250,48 @@
             <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">line</span>
             <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span> 
                 <span class="n">qual</span> <span class="o">=</span> <span class="n">line</span>
-                <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">seq</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">qual</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">readnum</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">subset_reads</span><span class="p">:</span>
+                    <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">seq</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">qual</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">readnum</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">opener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="get_numreads"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.get_numreads">[docs]</a><span class="k">def</span> <span class="nf">get_numreads</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns number of reads in a fastq file.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns number of reads in a fastq or fastq.gz file.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str </span>
 <span class="sd">        Path to fastq or fastq.gz file.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    numreads : int</span>
+<span class="sd">        Number of reads in the fastq file.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; get_numreads(&quot;example.fastq&quot;)</span>
+<span class="sd">    124</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fp</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gz&quot;</span><span class="p">):</span> 
+        <span class="n">bashCommand</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;zgrep -c &#39;@&#39; </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bashCommand</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;grep -c &#39;@&#39; </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span>
+    
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">bashCommand</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">numreads</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">numreads</span></div>
+
+<div class="viewcode-block" id="get_numreads_old"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.get_numreads_old">[docs]</a><span class="k">def</span> <span class="nf">get_numreads_old</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns number of reads in a fastq file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str </span>
+<span class="sd">        Path to fastq file.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ----------</span>
@@ -265,6 +312,40 @@
     <span class="n">numreads</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">numreads</span></div>
+
+<div class="viewcode-block" id="write_bc_dict"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.write_bc_dict">[docs]</a><span class="k">def</span> <span class="nf">write_bc_dict</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Writes bc_dict to a csv.</span>
+<span class="sd">        </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bc_dict : dict </span>
+<span class="sd">        Dictionary output from counter.create_map().</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Filename for output csv. Ex &quot;Library1_dictionary&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">bc_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="read_bc_dict"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.read_bc_dict">[docs]</a><span class="k">def</span> <span class="nf">read_bc_dict</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reads bc_dict from a csv.</span>
+<span class="sd">        </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        Path to csv containing a single dictionary.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bc_dict : dict</span>
+<span class="sd">        Dictionary.     </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+            <span class="n">bc_dict</span> <span class="o">=</span> <span class="n">d</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

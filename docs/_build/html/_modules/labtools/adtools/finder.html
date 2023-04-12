@@ -50,7 +50,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FACS_Analysis_Explanation.html">How to analyse FACS data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
 </ul>
 
@@ -129,6 +129,7 @@
                 <span class="n">barcode</span> <span class="o">=</span> <span class="n">searched_read</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="n">bclength</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">searched_read</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">bc_anteceder</span><span class="p">,</span> <span class="n">roi</span><span class="p">[</span><span class="n">ad_length</span><span class="p">:],</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1"># there might be an error here pls check</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">searched_read</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                     <span class="n">barcode</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="n">bclength</span><span class="p">:]</span>
             <span class="k">if</span> <span class="n">barcode</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">barcode</span><span class="p">)</span> <span class="o">!=</span> <span class="n">bclength</span><span class="p">:</span>
@@ -138,6 +139,47 @@
         <span class="k">else</span><span class="p">:</span> <span class="n">AD</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[:</span><span class="n">ad_length</span><span class="p">]</span>
         
     <span class="k">return</span> <span class="n">AD</span><span class="p">,</span> <span class="n">barcode</span></div>
+
+<div class="viewcode-block" id="pull_barcode"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/finder/index.html#labtools.adtools.finder.pull_barcode">[docs]</a><span class="k">def</span> <span class="nf">pull_barcode</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">bc_preceder</span> <span class="o">=</span> <span class="s2">&quot;GGGCCCG&quot;</span><span class="p">,</span> <span class="n">bc_anteceder</span> <span class="o">=</span> <span class="s2">&quot;GGAGAGAA&quot;</span><span class="p">,</span> <span class="n">bclength</span> <span class="o">=</span> <span class="mi">11</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the barcode in a read.</span>
+<span class="sd">    </span>
+<span class="sd">    Takes a read sequence and uses customizable anchor sequences to locate a </span>
+<span class="sd">    variable sequence (barcode) in the read.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    read : str </span>
+<span class="sd">        The biological read of interest.</span>
+<span class="sd">    bc_preceder : str, default &quot;GGGCCCG&quot;</span>
+<span class="sd">        The anchor sequence directly before the barcode.</span>
+<span class="sd">    bc_anteceder : str, default &quot;GGAGAGAA&quot;</span>
+<span class="sd">        The anchor sequence directly after the barcode.</span>
+<span class="sd">    bc_length : int, default 11</span>
+<span class="sd">        The length of the barcode sequence if used.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    barcode : str</span>
+<span class="sd">        The barcode, if used and located. Else None.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; pull_barcode(&quot;ACTTTTATVGCTAGCATGGCTGGTAGATCTTGGTTGATTGATTCTAATAGAATTGCTACTAAGATTATGTCTGCTTCTGCTTCTTCTGATCCAAGACAAGTTGTTTGGAAATCTAATCCATCTAGACATTGTCCAGCTGATCGATGCTAGTAGAGAGAGA&quot;)</span>
+<span class="sd">    ATGGCTGGTAGATCTTGGTTGATTGATTCTAATAGAATTGCTACTAAGATTATGTCTGCTTCTGCTTCTTCTGATCCAAGACAAGTTGTTTGGAAATCTAATCCATCTAGACATTGTCCA</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">barcode</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">searched_read</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">bc_preceder</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">searched_read</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">barcode</span> <span class="o">=</span> <span class="n">searched_read</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="n">bclength</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">searched_read</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">bc_anteceder</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">searched_read</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">barcode</span> <span class="o">=</span> <span class="n">searched_read</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="n">bclength</span><span class="p">:]</span>
+    
+    <span class="k">return</span> <span class="n">barcode</span></div>
 </pre></div>
 
            </div>

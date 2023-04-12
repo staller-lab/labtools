@@ -13,8 +13,8 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
         Path to csv file containing ArrayDNA column.
     barcoded : bool, default False
         Whether to count ADs with different barcodes separately.
-    only_bcs : bool, default False
-        Whether or not to only look for barcodes in the sequence.
+    only_bcs : default False
+        True, False or the barcode map to use. If True, no map is used.
     
     Returns
     ----------
@@ -40,7 +40,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 if AD not in seqCounts and AD != None: seqCounts[AD] = 1
                 elif AD != None: seqCounts[AD] += 1
         counts = pd.Series(seqCounts)
-    elif only_bcs == True and design_to_use == None:
+    elif only_bcs != False and design_to_use == None:
         seqCounts = {}
         for line in read_fastq_big(fastq, **kwargs):
             bc = pull_barcode(line[1],**kwargs)
@@ -48,8 +48,8 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
             if bc not in seqCounts and bc != None: seqCounts[bc] = 1
             elif bc != None: seqCounts[bc] += 1
         counts = pd.Series(seqCounts)
-    elif only_bcs == True and design_to_use != None:
-        raise(TypeError, "cannot use a design file with only barcodes")
+    elif only_bcs != False and design_to_use != None:
+        raise TypeError("Using a design file is not compatible with only barcodes.")
     else:
         seqCounts = {}
         for line in read_fastq_big(fastq, **kwargs):

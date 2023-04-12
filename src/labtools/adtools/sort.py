@@ -1,5 +1,5 @@
 from labtools.adtools.counter import *
-from labtools.adtools.seqlib import get_numreads
+from labtools.adtools.seqlib import get_numreads, read_bc_dict
 from labtools.adtools.counter import seq_counter
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -20,11 +20,12 @@ class Sort():
         Path to design csv file containing "ArrayDNA" header with DNA sequences to search
     """
 
-    def __init__(self, data_files, bin_counts, bin_values, design_file = None):
+    def __init__(self, data_files, bin_counts, bin_values, design_file = None, bc_dict = False):
         self.data_files = data_files
         self.bin_counts = bin_counts
         self.bin_values = bin_values
         self.design_file = design_file
+        self.bc_dict = bc_dict
 
     def process(self, csv=False, **kwargs):
         """Calculate the activity for each tile.
@@ -58,7 +59,11 @@ class Sort():
                 sort_list.append(parsed_sample)
         else: 
             for sample in self.data_files:
-                parsed_sample = seq_counter(sample, design_to_use = self.design_file, **kwargs)
+                parsed_sample = seq_counter(sample, design_to_use = self.design_file, 
+                                            only_bcs = self.bc_dict, **kwargs)
+                if self.bc_dict != False and self.bc_dict != True:
+                    bd = read_bc_dict(self.bc_dict)
+                    parsed_sample = convert_bcs_from_map(parsed_sample, bd)
                 sort_list.append(parsed_sample)
         
         normed_sort, numreads, reads = sort_normalizer(sort_list, self.bin_counts)
