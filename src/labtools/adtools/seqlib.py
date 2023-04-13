@@ -90,7 +90,7 @@ def read_fastq(filename, subset=None):
     name = None
     seqs = []
 
-    fp = None 
+    fp = None
     if filename.endswith('.gz'): fp = gzip.open(filename, 'rt')
     else: fp = open(filename)
     lines = fp.readlines()
@@ -109,7 +109,7 @@ def read_fastq(filename, subset=None):
         yield(name.rstrip(), seq.rstrip(), qual.rstrip())
     fp.close()
 
-def read_fastq_big(filename, subset = None, **kwargs):
+def read_fastq_big(filename, subset = None, progress = True, **kwargs):
     """Generator for fastq file without opening into memory.
     
     Yields 4 lines of a fastq file at a time (name, seq, +, error).
@@ -142,37 +142,74 @@ def read_fastq_big(filename, subset = None, **kwargs):
     """
     name = None
     seqs = []
+    print(f"Opening file {filename.split('/')[-1]} ...")
 
     if filename.endswith('.gz'): 
         opener = gzip.open(filename, 'rt')
     else: opener = open(filename)
 
-    numreads = get_numreads(filename)
-    # every 4 lines is a read in fastq
-    all_reads = range(0, numreads*4, 4)
-    if subset:
-        # a list of indices to subsample
-        subset_indices = sample_without_replacement(len(all_reads), subset)
-        # get the actual read number from the index (aka the index*4)
-        subset_reads = [all_reads[i] for i in subset_indices]
-    else: subset_reads = all_reads
+
+    if subset != None:
+        print("Counting reads...", end = '\r')
+        numreads = get_numreads(filename)
+        # every 4 lines is a read in fastq
+        all_reads = range(0, numreads*4, 4)
+        if subset:
+            # a list of indices to subsample
+            subset_indices = sample_without_replacement(len(all_reads), subset)
+            # get the actual read number from the index (aka the index*4)
+            subset_reads = [all_reads[i] for i in subset_indices]
         
-    with opener as file:
-        linenum = 0
-        readnum = 0
-        for line in file:
-            linenum += 1
-            if linenum == 5:
-                linenum = 1
-            if linenum == 1: name = line
-            elif linenum == 2: seq = line
-            elif linenum == 3: opt = line
-            elif linenum == 4: 
-                qual = line
-                if (readnum+1) in subset_reads:
+        with opener as file:
+            print("Reading lines...", end = '\r')
+            linenum = 0
+            total_line_num = 0
+            yielded_reads = 0
+
+            for line in file:
+                linenum += 1
+                if linenum == 5:
+                    linenum = 1
+                if linenum == 1: name = line
+                elif linenum == 2: seq = line
+                elif linenum == 3: opt = line
+                elif linenum == 4: 
+                    qual = line
+                    if (total_line_num) in subset_reads:
+                        yield(name.rstrip(), seq.rstrip(), qual.rstrip())
+                        yielded_reads += 1
+                    total_line_num += 4
+                    if total_line_num%10000 == 0:
+                        print(f"Reading lines... Completed {total_line_num} reads with {yielded_reads} yielded", end = '\r')
+            print(f"Total parsed reads = {total_line_num:,} with {yielded_reads} yielded                      ")
+        opener.close()
+    else:
+        with opener as file:
+            linenum = 0
+            readnum = 0
+            print(f"Reading lines... {readnum} reads completed", end = '\r')
+            char_list = ['|', '/', '-', '\\']
+            c = 0
+
+            for line in file:
+                linenum += 1
+                if linenum == 5:
+                    linenum = 1
+                if linenum == 1: name = line
+                elif linenum == 2: seq = line
+                elif linenum == 3: opt = line
+                elif linenum == 4: 
+                    qual = line
                     yield(name.rstrip(), seq.rstrip(), qual.rstrip())
-            readnum += 1
-    opener.close()
+                    readnum += 1
+                    if readnum%100000 == 0:
+                        char = char_list[c]
+                        c += 1
+                        if c == 4:
+                            c = 0
+                        print(f"Reading lines {char} {readnum} reads completed", end = '\r')
+            print(f"Total parsed reads = {readnum:,}                      ")
+        opener.close()
 
 def get_numreads(filename):
     """Returns number of reads in a fastq or fastq.gz file.
