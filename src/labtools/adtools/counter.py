@@ -28,39 +28,58 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
     GAAGAATTGTTTTTACATTTGTCTGCTAAGATTGGTAGATCTTCTAGGAAACCACATCCATTCTTGGATGAATTTATTCATACTTTGGTTGAAGAAGATGGTATTTGTAGAACTCATCCA    3
     dtype: int64
     """
+    seqCounts = {}
 
+    # merge lists of fastq files pertaining to the same sample
     if type(fastq) == list:
-        seqCounts = {}
-        for file in fastq:
-            for line in read_fastq_big(file, **kwargs):
+        # compute by only counting barcodes
+        if only_bcs != False and design_to_use == None:
+            for file in fastq:
+                for line in read_fastq_big(file, **kwargs):
+                    bc = pull_barcode(line[1],**kwargs)
+                    
+                    if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+                    elif bc != None: seqCounts[bc] += 1
+                counts = pd.Series(seqCounts)
+        # deny barcode search if a design file is provided
+        elif only_bcs != False and design_to_use != None:
+            raise TypeError("Using a design file is not compatible with only barcodes.")
+        # compute by counting ADs or ADs + barcodes
+        else:        
+            for file in fastq:
+                for line in read_fastq_big(file, **kwargs):
+                    AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                    
+                    if barcoded and AD != None:
+                        AD = (AD, bc)
+                    if AD not in seqCounts and AD != None: seqCounts[AD] = 1
+                    elif AD != None: seqCounts[AD] += 1
+            counts = pd.Series(seqCounts)
+    # fastq files are not provided in lists (one file per sample)
+    else:
+        # compute by only counting barcodes
+        if only_bcs != False and design_to_use == None:
+            for line in read_fastq_big(fastq, **kwargs):
+                bc = pull_barcode(line[1],**kwargs)
+                
+                if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+                elif bc != None: seqCounts[bc] += 1
+            counts = pd.Series(seqCounts)
+        # deny barcode search if a design file is provided
+        elif only_bcs != False and design_to_use != None:
+            raise TypeError("Using a design file is not compatible with only barcodes.")
+        # compute by counting ADs or ADs + barcodes
+        else:
+            for line in read_fastq_big(fastq, **kwargs):
                 AD,bc = pull_AD(line[1], barcoded, **kwargs)
                 
                 if barcoded and AD != None:
                     AD = (AD, bc)
                 if AD not in seqCounts and AD != None: seqCounts[AD] = 1
                 elif AD != None: seqCounts[AD] += 1
-        counts = pd.Series(seqCounts)
-    elif only_bcs != False and design_to_use == None:
-        seqCounts = {}
-        for line in read_fastq_big(fastq, **kwargs):
-            bc = pull_barcode(line[1],**kwargs)
-            
-            if bc not in seqCounts and bc != None: seqCounts[bc] = 1
-            elif bc != None: seqCounts[bc] += 1
-        counts = pd.Series(seqCounts)
-    elif only_bcs != False and design_to_use != None:
-        raise TypeError("Using a design file is not compatible with only barcodes.")
-    else:
-        seqCounts = {}
-        for line in read_fastq_big(fastq, **kwargs):
-            AD,bc = pull_AD(line[1], barcoded, **kwargs)
-            
-            if barcoded and AD != None:
-                AD = (AD, bc)
-            if AD not in seqCounts and AD != None: seqCounts[AD] = 1
-            elif AD != None: seqCounts[AD] += 1
-        counts = pd.Series(seqCounts)
+            counts = pd.Series(seqCounts)
     
+    # remove non-perfect matches if required
     if design_to_use:
         design = pd.read_csv(design_to_use)
         if barcoded:
