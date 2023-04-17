@@ -72,7 +72,7 @@ Functions
    CTGATGCTAGATGCTGATA
 
 
-.. py:function:: read_fastq_big(filename, subset=None, **kwargs)
+.. py:function:: read_fastq_big(filename, subset=None, progress=True, **kwargs)
 
    Generator for fastq file without opening into memory.
 

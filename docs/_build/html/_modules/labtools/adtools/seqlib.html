@@ -171,7 +171,7 @@
     <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">seqs</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="n">fp</span> <span class="o">=</span> <span class="kc">None</span> 
+    <span class="n">fp</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">):</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span> <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
@@ -190,7 +190,7 @@
         <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">seq</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">qual</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="read_fastq_big"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.read_fastq_big">[docs]</a><span class="k">def</span> <span class="nf">read_fastq_big</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="read_fastq_big"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.read_fastq_big">[docs]</a><span class="k">def</span> <span class="nf">read_fastq_big</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">progress</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generator for fastq file without opening into memory.</span>
 <span class="sd">    </span>
 <span class="sd">    Yields 4 lines of a fastq file at a time (name, seq, +, error).</span>
@@ -223,37 +223,74 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">seqs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Opening file </span><span class="si">{</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">):</span> 
         <span class="n">opener</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span> <span class="n">opener</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
-    <span class="n">numreads</span> <span class="o">=</span> <span class="n">get_numreads</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="c1"># every 4 lines is a read in fastq</span>
-    <span class="n">all_reads</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numreads</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">subset</span><span class="p">:</span>
-        <span class="c1"># a list of indices to subsample</span>
-        <span class="n">subset_indices</span> <span class="o">=</span> <span class="n">sample_without_replacement</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_reads</span><span class="p">),</span> <span class="n">subset</span><span class="p">)</span>
-        <span class="c1"># get the actual read number from the index (aka the index*4)</span>
-        <span class="n">subset_reads</span> <span class="o">=</span> <span class="p">[</span><span class="n">all_reads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">subset_indices</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span> <span class="n">subset_reads</span> <span class="o">=</span> <span class="n">all_reads</span>
+
+    <span class="k">if</span> <span class="n">subset</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Counting reads...&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">numreads</span> <span class="o">=</span> <span class="n">get_numreads</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># every 4 lines is a read in fastq</span>
+        <span class="n">all_reads</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numreads</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">subset</span><span class="p">:</span>
+            <span class="c1"># a list of indices to subsample</span>
+            <span class="n">subset_indices</span> <span class="o">=</span> <span class="n">sample_without_replacement</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_reads</span><span class="p">),</span> <span class="n">subset</span><span class="p">)</span>
+            <span class="c1"># get the actual read number from the index (aka the index*4)</span>
+            <span class="n">subset_reads</span> <span class="o">=</span> <span class="p">[</span><span class="n">all_reads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">subset_indices</span><span class="p">]</span>
         
-    <span class="k">with</span> <span class="n">opener</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-        <span class="n">linenum</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">readnum</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">linenum</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-                <span class="n">linenum</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">name</span> <span class="o">=</span> <span class="n">line</span>
-            <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">line</span>
-            <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">line</span>
-            <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span> 
-                <span class="n">qual</span> <span class="o">=</span> <span class="n">line</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">readnum</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">subset_reads</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">opener</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading lines...&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">linenum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">total_line_num</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">yielded_reads</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">linenum</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="n">linenum</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">name</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span> 
+                    <span class="n">qual</span> <span class="o">=</span> <span class="n">line</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">total_line_num</span><span class="p">)</span> <span class="ow">in</span> <span class="n">subset_reads</span><span class="p">:</span>
+                        <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">seq</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">qual</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                        <span class="n">yielded_reads</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">total_line_num</span> <span class="o">+=</span> <span class="mi">4</span>
+                    <span class="k">if</span> <span class="n">total_line_num</span><span class="o">%</span><span class="mi">10000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading lines... Completed </span><span class="si">{</span><span class="n">total_line_num</span><span class="si">}</span><span class="s2"> reads with </span><span class="si">{</span><span class="n">yielded_reads</span><span class="si">}</span><span class="s2"> yielded&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total parsed reads = </span><span class="si">{</span><span class="n">total_line_num</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">yielded_reads</span><span class="si">}</span><span class="s2"> yielded                      &quot;</span><span class="p">)</span>
+        <span class="n">opener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">opener</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">linenum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">readnum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading lines... </span><span class="si">{</span><span class="n">readnum</span><span class="si">}</span><span class="s2"> reads completed&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">char_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">]</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">linenum</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="n">linenum</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">name</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">linenum</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span> 
+                    <span class="n">qual</span> <span class="o">=</span> <span class="n">line</span>
                     <span class="k">yield</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">seq</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span> <span class="n">qual</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
-            <span class="n">readnum</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">opener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+                    <span class="n">readnum</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">readnum</span><span class="o">%</span><span class="mi">100000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">char</span> <span class="o">=</span> <span class="n">char_list</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+                        <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                            <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading lines </span><span class="si">{</span><span class="n">char</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">readnum</span><span class="si">}</span><span class="s2"> reads completed&quot;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total parsed reads = </span><span class="si">{</span><span class="n">readnum</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">                      &quot;</span><span class="p">)</span>
+        <span class="n">opener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="get_numreads"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/seqlib/index.html#labtools.adtools.seqlib.get_numreads">[docs]</a><span class="k">def</span> <span class="nf">get_numreads</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns number of reads in a fastq or fastq.gz file.</span>
