@@ -1,14 +1,20 @@
-from labtools.adtools.finder import pull_AD
+from labtools.adtools.finder import pull_AD, pull_barcode
 from labtools.adtools.seqlib import read_fastq, read_fastq_big
 import pandas as pd
 
-def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
+def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False, **kwargs):
     """Counts occurences of ADs or AD-barcode pairs in a fastq file.
     
     Parameters
     ----------
     fastq : str 
         Path to fastq or fastq.gz file.
+    design_to_use : str, default None
+        Path to csv file containing ArrayDNA column.
+    barcoded : bool, default False
+        Whether to count ADs with different barcodes separately.
+    only_bcs : default False
+        True, False or the barcode map to use. If True, no map is used.
     
     Returns
     ----------
@@ -23,15 +29,57 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
     dtype: int64
     """
     seqCounts = {}
-    for line in read_fastq_big(fastq):
-        AD,bc = pull_AD(line[1], barcoded, **kwargs)
-        
-        if barcoded and AD != None:
-            AD = (AD, bc)
-        if AD not in seqCounts and AD != None: seqCounts[AD] = 1
-        elif AD != None: seqCounts[AD] += 1
-    counts = pd.Series(seqCounts)
+
+    # merge lists of fastq files pertaining to the same sample
+    if type(fastq) == list:
+        # compute by only counting barcodes
+        if only_bcs != False and design_to_use == None:
+            for file in fastq:
+                for line in read_fastq_big(file, **kwargs):
+                    bc = pull_barcode(line[1],**kwargs)
+                    
+                    if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+                    elif bc != None: seqCounts[bc] += 1
+                counts = pd.Series(seqCounts)
+        # deny barcode search if a design file is provided
+        elif only_bcs != False and design_to_use != None:
+            raise TypeError("Using a design file is not compatible with only barcodes.")
+        # compute by counting ADs or ADs + barcodes
+        else:        
+            for file in fastq:
+                for line in read_fastq_big(file, **kwargs):
+                    AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                    
+                    if barcoded and AD != None:
+                        AD = (AD, bc)
+                    if AD not in seqCounts and AD != None: seqCounts[AD] = 1
+                    elif AD != None: seqCounts[AD] += 1
+            counts = pd.Series(seqCounts)
+    # fastq files are not provided in lists (one file per sample)
+    else:
+        # compute by only counting barcodes
+        if only_bcs != False and design_to_use == None:
+            for line in read_fastq_big(fastq, **kwargs):
+                bc = pull_barcode(line[1],**kwargs)
+                
+                if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+                elif bc != None: seqCounts[bc] += 1
+            counts = pd.Series(seqCounts)
+        # deny barcode search if a design file is provided
+        elif only_bcs != False and design_to_use != None:
+            raise TypeError("Using a design file is not compatible with only barcodes.")
+        # compute by counting ADs or ADs + barcodes
+        else:
+            for line in read_fastq_big(fastq, **kwargs):
+                AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                
+                if barcoded and AD != None:
+                    AD = (AD, bc)
+                if AD not in seqCounts and AD != None: seqCounts[AD] = 1
+                elif AD != None: seqCounts[AD] += 1
+            counts = pd.Series(seqCounts)
     
+    # remove non-perfect matches if required
     if design_to_use:
         design = pd.read_csv(design_to_use)
         if barcoded:
@@ -39,6 +87,67 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, **kwargs):
         else:
             counts = counts.where(counts.index.isin(design.ArrayDNA)).dropna()
     return counts
+
+def create_map(ad_bcs):
+    """Converts output of seq_counter with AD,bc pairs to a dict map.
+    
+    If the barcode is found with two different ADs, it is not included in 
+    the dictionary.
+
+    Parameters
+    ----------
+    ad_bcs : pd.Series 
+        output counts from seq_counter with barcoded = True.
+
+    Returns
+    ----------
+    bc_dict : dict
+        Dictionary with barcodes as keys and 1 AD as value.
+    """
+    bc_dict = {}
+    for line in zip(ad_bcs.index, ad_bcs):
+        ad = line[0][0]
+        bc = line[0][1]
+        count = line[1]
+        if bc not in bc_dict:
+            bc_dict[bc] = ad
+        elif bc in bc_dict and bc_dict[bc] == ad:
+            pass
+        elif bc in bc_dict and bc_dict[bc] != ad:
+            pass
+            #bc_dict[bc] = "multiple_matches"
+    return(bc_dict)
+
+def convert_bcs_from_map(bcs, bc_dict):
+    """Takes bc only data and uses a barcode dictionary to return AD counts.
+    
+    If the barcode is found with two different ADs, it is not included in 
+    the dictionary.
+
+    Parameters
+    ----------
+    bcs : pd.Series 
+        output counts from seq_counter with only_bcs = True.
+    bc_dict : dict
+        Dictionary with barcodes as keys and 1 AD as value from create_map().
+
+    Returns
+    ----------
+    converted : pd.Series
+        Pandas series where indices are AD sequences and values are counts.
+    """
+    ads = []
+    for bc in bcs.index:
+        ad = None
+        if bc in bc_dict:
+            ad = bc_dict[bc]
+        ads.append(ad)
+    ad_col = pd.Series(ads, name = "AD")
+    x = pd.DataFrame(bcs).reset_index()
+    x["AD"] = ads
+    convereted = x[[0, "AD"]].groupby("AD").sum()[0]
+    return convereted
+
 
 def sort_normalizer(pair_counts, bin_counts):
     """Normalize by reads per sample, reads per tile and reads per bin.

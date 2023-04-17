@@ -1,6 +1,8 @@
 import gzip
 from random import sample
+import subprocess
 from sklearn.utils.random import sample_without_replacement
+import csv
 
 # fasta reader
 def read_fasta(filename):
@@ -88,7 +90,7 @@ def read_fastq(filename, subset=None):
     name = None
     seqs = []
 
-    fp = None 
+    fp = None
     if filename.endswith('.gz'): fp = gzip.open(filename, 'rt')
     else: fp = open(filename)
     lines = fp.readlines()
@@ -107,17 +109,19 @@ def read_fastq(filename, subset=None):
         yield(name.rstrip(), seq.rstrip(), qual.rstrip())
     fp.close()
 
-def read_fastq_big(filename):
+def read_fastq_big(filename, subset = None, progress = True, **kwargs):
     """Generator for fastq file without opening into memory.
     
     Yields 4 lines of a fastq file at a time (name, seq, +, error).
     Useful in situations where the fastq file is large and opening into RAM
-    would crash computer. Does not currently support subsetting.
+    would crash computer. Supports subsetting with sklearn.sample_without_replacement().
     
     Parameters
     ----------
     filename : str 
         Path to fastq or fastq.gz file.
+    subset: int
+        Number of reads to randomly subsample from file.
     
     Yields
     ----------
@@ -138,32 +142,112 @@ def read_fastq_big(filename):
     """
     name = None
     seqs = []
+    print(f"Opening file {filename.split('/')[-1]} ...")
 
     if filename.endswith('.gz'): 
         opener = gzip.open(filename, 'rt')
     else: opener = open(filename)
 
-    with opener as file:
-        linenum = 0
-        for line in file:
-            linenum += 1
-            if linenum == 5:
-                linenum = 1
-            if linenum == 1: name = line
-            elif linenum == 2: seq = line
-            elif linenum == 3: opt = line
-            elif linenum == 4: 
-                qual = line
-                yield(name.rstrip(), seq.rstrip(), qual.rstrip())
-    opener.close()
+
+    if subset != None:
+        print("Counting reads...", end = '\r')
+        numreads = get_numreads(filename)
+        # every 4 lines is a read in fastq
+        all_reads = range(0, numreads*4, 4)
+        if subset:
+            # a list of indices to subsample
+            subset_indices = sample_without_replacement(len(all_reads), subset)
+            # get the actual read number from the index (aka the index*4)
+            subset_reads = [all_reads[i] for i in subset_indices]
+        
+        with opener as file:
+            print("Reading lines...", end = '\r')
+            linenum = 0
+            total_line_num = 0
+            yielded_reads = 0
+
+            for line in file:
+                linenum += 1
+                if linenum == 5:
+                    linenum = 1
+                if linenum == 1: name = line
+                elif linenum == 2: seq = line
+                elif linenum == 3: opt = line
+                elif linenum == 4: 
+                    qual = line
+                    if (total_line_num) in subset_reads:
+                        yield(name.rstrip(), seq.rstrip(), qual.rstrip())
+                        yielded_reads += 1
+                    total_line_num += 4
+                    if total_line_num%10000 == 0:
+                        print(f"Reading lines... Completed {total_line_num} reads with {yielded_reads} yielded", end = '\r')
+            print(f"Total parsed reads = {total_line_num:,} with {yielded_reads} yielded                      ")
+        opener.close()
+    else:
+        with opener as file:
+            linenum = 0
+            readnum = 0
+            print(f"Reading lines... {readnum} reads completed", end = '\r')
+            char_list = ['|', '/', '-', '\\']
+            c = 0
+
+            for line in file:
+                linenum += 1
+                if linenum == 5:
+                    linenum = 1
+                if linenum == 1: name = line
+                elif linenum == 2: seq = line
+                elif linenum == 3: opt = line
+                elif linenum == 4: 
+                    qual = line
+                    yield(name.rstrip(), seq.rstrip(), qual.rstrip())
+                    readnum += 1
+                    if readnum%100000 == 0:
+                        char = char_list[c]
+                        c += 1
+                        if c == 4:
+                            c = 0
+                        print(f"Reading lines {char} {readnum} reads completed", end = '\r')
+            print(f"Total parsed reads = {readnum:,}                      ")
+        opener.close()
 
 def get_numreads(filename):
-    """Returns number of reads in a fastq file.
+    """Returns number of reads in a fastq or fastq.gz file.
     
     Parameters
     ----------
     filename : str 
         Path to fastq or fastq.gz file.
+    
+    Returns
+    ----------
+    numreads : int
+        Number of reads in the fastq file.
+    
+    Examples
+    ----------
+    >>> get_numreads("example.fastq")
+    124
+    """
+
+    fp = None
+    if filename.endswith(".gz"): 
+        bashCommand = f"zgrep -c '@' {filename}"
+    else:
+        bashCommand = f"grep -c '@' {filename}"
+    
+    process = subprocess.run(bashCommand, shell=True, capture_output=True, text=True)
+    numreads = int(process.stdout)
+        
+    return numreads
+
+def get_numreads_old(filename):
+    """Returns number of reads in a fastq file.
+    
+    Parameters
+    ----------
+    filename : str 
+        Path to fastq file.
     
     Returns
     ----------
@@ -184,3 +268,37 @@ def get_numreads(filename):
     numreads = len(range(0, len(lines), 4))
 
     return numreads
+
+def write_bc_dict(bc_dict, name):
+    """Writes bc_dict to a csv.
+        
+    Parameters
+    ----------
+    bc_dict : dict 
+        Dictionary output from counter.create_map().
+    name : str
+        Filename for output csv. Ex "Library1_dictionary"
+    """
+    with open(f'{name}', 'w') as f:
+        w = csv.DictWriter(f, bc_dict.keys())
+        w.writeheader()
+        w.writerow(bc_dict)
+
+def read_bc_dict(filename):
+    """Reads bc_dict from a csv.
+        
+    Parameters
+    ----------
+    filename : str
+        Path to csv containing a single dictionary.
+
+    Returns
+    ----------
+    bc_dict : dict
+        Dictionary.     
+    """
+    with open(filename, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for d in reader:
+            bc_dict = d
+    return(bc_dict)

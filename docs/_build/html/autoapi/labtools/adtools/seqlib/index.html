@@ -110,11 +110,20 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.read_fastq" title="labtools.adtools.seqlib.read_fastq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_fastq</span></code></a>(filename[, subset])</p></td>
 <td><p>Generator for reading entries in a fastq file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.read_fastq_big" title="labtools.adtools.seqlib.read_fastq_big"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_fastq_big</span></code></a>(filename)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.read_fastq_big" title="labtools.adtools.seqlib.read_fastq_big"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_fastq_big</span></code></a>(filename[, subset, progress])</p></td>
 <td><p>Generator for fastq file without opening into memory.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.get_numreads" title="labtools.adtools.seqlib.get_numreads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_numreads</span></code></a>(filename)</p></td>
+<td><p>Returns number of reads in a fastq or fastq.gz file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.get_numreads_old" title="labtools.adtools.seqlib.get_numreads_old"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_numreads_old</span></code></a>(filename)</p></td>
 <td><p>Returns number of reads in a fastq file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.write_bc_dict" title="labtools.adtools.seqlib.write_bc_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_bc_dict</span></code></a>(bc_dict, name)</p></td>
+<td><p>Writes bc_dict to a csv.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.seqlib.read_bc_dict" title="labtools.adtools.seqlib.read_bc_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_bc_dict</span></code></a>(filename)</p></td>
+<td><p>Reads bc_dict from a csv.</p></td>
 </tr>
 </tbody>
 </table>
@@ -176,14 +185,17 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.seqlib.read_fastq_big">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fastq_big</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#read_fastq_big"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.read_fastq_big" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_fastq_big</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#read_fastq_big"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.read_fastq_big" title="Permalink to this definition"></a></dt>
 <dd><p>Generator for fastq file without opening into memory.</p>
 <p>Yields 4 lines of a fastq file at a time (name, seq, +, error).
 Useful in situations where the fastq file is large and opening into RAM
-would crash computer. Does not currently support subsetting.</p>
+would crash computer. Supports subsetting with sklearn.sample_without_replacement().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to fastq or fastq.gz file.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Path to fastq or fastq.gz file.</p></li>
+<li><p><strong>subset</strong> (<em>int</em>) – Number of reads to randomly subsample from file.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>(name, seq, qual)</strong> (<em>(str, str, str)</em>) – tuple of str containing name, seq and quality for entry.</p>
@@ -206,7 +218,7 @@ would crash computer. Does not currently support subsetting.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.seqlib.get_numreads">
 <span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">get_numreads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#get_numreads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.get_numreads" title="Permalink to this definition"></a></dt>
-<dd><p>Returns number of reads in a fastq file.</p>
+<dd><p>Returns number of reads in a fastq or fastq.gz file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to fastq or fastq.gz file.</p>
@@ -223,6 +235,59 @@ would crash computer. Does not currently support subsetting.</p>
 <span class="go">124</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="labtools.adtools.seqlib.get_numreads_old">
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">get_numreads_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#get_numreads_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.get_numreads_old" title="Permalink to this definition"></a></dt>
+<dd><p>Returns number of reads in a fastq file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to fastq file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>numreads</strong> – Number of reads in the fastq file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_numreads</span><span class="p">(</span><span class="s2">&quot;example.fastq&quot;</span><span class="p">)</span>
+<span class="go">124</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="labtools.adtools.seqlib.write_bc_dict">
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">write_bc_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bc_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#write_bc_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.write_bc_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Writes bc_dict to a csv.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bc_dict</strong> (<em>dict</em>) – Dictionary output from counter.create_map().</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Filename for output csv. Ex “Library1_dictionary”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="labtools.adtools.seqlib.read_bc_dict">
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.seqlib.</span></span><span class="sig-name descname"><span class="pre">read_bc_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/seqlib.html#read_bc_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.seqlib.read_bc_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Reads bc_dict from a csv.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to csv containing a single dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>bc_dict</strong> – Dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

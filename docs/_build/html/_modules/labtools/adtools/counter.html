@@ -50,7 +50,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../example.html">Example usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FACS_Analysis_Explanation.html">How to analyse FACS data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
 </ul>
 
@@ -79,17 +79,23 @@
            <div itemprop="articleBody">
              
   <h1>Source code for labtools.adtools.counter</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">labtools.adtools.finder</span> <span class="kn">import</span> <span class="n">pull_AD</span>
+<span></span><span class="kn">from</span> <span class="nn">labtools.adtools.finder</span> <span class="kn">import</span> <span class="n">pull_AD</span><span class="p">,</span> <span class="n">pull_barcode</span>
 <span class="kn">from</span> <span class="nn">labtools.adtools.seqlib</span> <span class="kn">import</span> <span class="n">read_fastq</span><span class="p">,</span> <span class="n">read_fastq_big</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<div class="viewcode-block" id="seq_counter"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.seq_counter">[docs]</a><span class="k">def</span> <span class="nf">seq_counter</span><span class="p">(</span><span class="n">fastq</span><span class="p">,</span> <span class="n">design_to_use</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">barcoded</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="seq_counter"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.seq_counter">[docs]</a><span class="k">def</span> <span class="nf">seq_counter</span><span class="p">(</span><span class="n">fastq</span><span class="p">,</span> <span class="n">design_to_use</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">barcoded</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">only_bcs</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Counts occurences of ADs or AD-barcode pairs in a fastq file.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    fastq : str </span>
 <span class="sd">        Path to fastq or fastq.gz file.</span>
+<span class="sd">    design_to_use : str, default None</span>
+<span class="sd">        Path to csv file containing ArrayDNA column.</span>
+<span class="sd">    barcoded : bool, default False</span>
+<span class="sd">        Whether to count ADs with different barcodes separately.</span>
+<span class="sd">    only_bcs : default False</span>
+<span class="sd">        True, False or the barcode map to use. If True, no map is used.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ----------</span>
@@ -104,15 +110,57 @@
 <span class="sd">    dtype: int64</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">seqCounts</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read_fastq_big</span><span class="p">(</span><span class="n">fastq</span><span class="p">):</span>
-        <span class="n">AD</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">pull_AD</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">barcoded</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        
-        <span class="k">if</span> <span class="n">barcoded</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">AD</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
+
+    <span class="c1"># merge lists of fastq files pertaining to the same sample</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">fastq</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="c1"># compute by only counting barcodes</span>
+        <span class="k">if</span> <span class="n">only_bcs</span> <span class="o">!=</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">design_to_use</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">fastq</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read_fastq_big</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                    <span class="n">bc</span> <span class="o">=</span> <span class="n">pull_barcode</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">bc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">bc</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">bc</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
+        <span class="c1"># deny barcode search if a design file is provided</span>
+        <span class="k">elif</span> <span class="n">only_bcs</span> <span class="o">!=</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">design_to_use</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Using a design file is not compatible with only barcodes.&quot;</span><span class="p">)</span>
+        <span class="c1"># compute by counting ADs or ADs + barcodes</span>
+        <span class="k">else</span><span class="p">:</span>        
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">fastq</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read_fastq_big</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                    <span class="n">AD</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">pull_AD</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">barcoded</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">barcoded</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">AD</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
+    <span class="c1"># fastq files are not provided in lists (one file per sample)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># compute by only counting barcodes</span>
+        <span class="k">if</span> <span class="n">only_bcs</span> <span class="o">!=</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">design_to_use</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read_fastq_big</span><span class="p">(</span><span class="n">fastq</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="n">bc</span> <span class="o">=</span> <span class="n">pull_barcode</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">bc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">bc</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">bc</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
+        <span class="c1"># deny barcode search if a design file is provided</span>
+        <span class="k">elif</span> <span class="n">only_bcs</span> <span class="o">!=</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">design_to_use</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Using a design file is not compatible with only barcodes.&quot;</span><span class="p">)</span>
+        <span class="c1"># compute by counting ADs or ADs + barcodes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read_fastq_big</span><span class="p">(</span><span class="n">fastq</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="n">AD</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">pull_AD</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">barcoded</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">barcoded</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">AD</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
     
+    <span class="c1"># remove non-perfect matches if required</span>
     <span class="k">if</span> <span class="n">design_to_use</span><span class="p">:</span>
         <span class="n">design</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">design_to_use</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">barcoded</span><span class="p">:</span>
@@ -120,6 +168,67 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">ArrayDNA</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">counts</span></div>
+
+<div class="viewcode-block" id="create_map"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.create_map">[docs]</a><span class="k">def</span> <span class="nf">create_map</span><span class="p">(</span><span class="n">ad_bcs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts output of seq_counter with AD,bc pairs to a dict map.</span>
+<span class="sd">    </span>
+<span class="sd">    If the barcode is found with two different ADs, it is not included in </span>
+<span class="sd">    the dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ad_bcs : pd.Series </span>
+<span class="sd">        output counts from seq_counter with barcoded = True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bc_dict : dict</span>
+<span class="sd">        Dictionary with barcodes as keys and 1 AD as value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bc_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ad_bcs</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ad_bcs</span><span class="p">):</span>
+        <span class="n">ad</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bc</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">bc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bc_dict</span><span class="p">:</span>
+            <span class="n">bc_dict</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">=</span> <span class="n">ad</span>
+        <span class="k">elif</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bc_dict</span> <span class="ow">and</span> <span class="n">bc_dict</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">==</span> <span class="n">ad</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bc_dict</span> <span class="ow">and</span> <span class="n">bc_dict</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ad</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c1">#bc_dict[bc] = &quot;multiple_matches&quot;</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">bc_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="convert_bcs_from_map"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.convert_bcs_from_map">[docs]</a><span class="k">def</span> <span class="nf">convert_bcs_from_map</span><span class="p">(</span><span class="n">bcs</span><span class="p">,</span> <span class="n">bc_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Takes bc only data and uses a barcode dictionary to return AD counts.</span>
+<span class="sd">    </span>
+<span class="sd">    If the barcode is found with two different ADs, it is not included in </span>
+<span class="sd">    the dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bcs : pd.Series </span>
+<span class="sd">        output counts from seq_counter with only_bcs = True.</span>
+<span class="sd">    bc_dict : dict</span>
+<span class="sd">        Dictionary with barcodes as keys and 1 AD as value from create_map().</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    converted : pd.Series</span>
+<span class="sd">        Pandas series where indices are AD sequences and values are counts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">ad</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bc_dict</span><span class="p">:</span>
+            <span class="n">ad</span> <span class="o">=</span> <span class="n">bc_dict</span><span class="p">[</span><span class="n">bc</span><span class="p">]</span>
+        <span class="n">ads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
+    <span class="n">ad_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ads</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;AD&quot;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">bcs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">x</span><span class="p">[</span><span class="s2">&quot;AD&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ads</span>
+    <span class="n">convereted</span> <span class="o">=</span> <span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;AD&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;AD&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">convereted</span></div>
+
 
 <div class="viewcode-block" id="sort_normalizer"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.sort_normalizer">[docs]</a><span class="k">def</span> <span class="nf">sort_normalizer</span><span class="p">(</span><span class="n">pair_counts</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize by reads per sample, reads per tile and reads per bin.</span>
