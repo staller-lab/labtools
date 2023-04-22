@@ -6,6 +6,10 @@
     $('.c1:contains(@hidden)').closest('div.input').hide()
     $('.c1:contains(@hidden)').closest('div.output').hide()
   </script>
+  <script>
+    $('c1:contains(@hide2)').closest('div.input').hide()
+    $('.c1:contains(@hide2)').closest('div.input').hide()
+  </script>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -83,13 +87,14 @@
   <section id="labtools">
 <h1>labtools<a class="headerlink" href="#labtools" title="Permalink to this heading"></a></h1>
 <p>Tools useful in Staller Lab for sequence design and analysis. Someone should rename me to something better.</p>
+<p>Please let me know if the trying to install this inconveniences you. I am still trying to understand dependencies and would like to fix any/all annoyances!</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
-<p>INSTALL THE DEVELOPMENT VERSION</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/massivejords/tools/blob/feature-dev/dist/labtools-0.1.1-py3-none-any.whl?raw<span class="o">=</span><span class="nb">true</span>
+<p>install the latest version (might be weird, but probably still better)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/massivejords/tools/blob/main/dist/labtools-0.1.2-py3-none-any.whl?raw<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
-<p>INSTALL THE “stable” VERSION</p>
+<p>install the “stable” VERSION (has some dependency issues that might make it hard to install)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.3-py3-none-any.whl?raw<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
