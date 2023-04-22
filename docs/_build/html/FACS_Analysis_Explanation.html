@@ -89,7 +89,7 @@
 <p>When we put cells on the sorter, we are measuring them on 1 dimension: fluorescence (whether that is GFP or GFP/RFP or something else). Our goal is to measure each tile’s true average fluorescence value. We cannot determine the true measured fluoresence score of every cell (that would be a LOT of tubes), so we sort them into usually 4-8 different tubes depending on their fluorescence score. Each tube or ‘bin’ is defined by the median fluorescence value of the cells sorted into it. So for each tile, we end up with a discrete distribution of the number of cells at one of the 4-8 measured positions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @hidden</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @hide2</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
