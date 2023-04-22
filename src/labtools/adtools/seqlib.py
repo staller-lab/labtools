@@ -142,7 +142,7 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
     """
     name = None
     seqs = []
-    print(f"Opening file {filename.split('/')[-1]} ...")
+    print(f"Opening file {filename.split('/')[-1]} ...", flush = True)
 
     if filename.endswith('.gz'): 
         opener = gzip.open(filename, 'rt')
@@ -150,7 +150,7 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
 
 
     if subset != None:
-        print("Counting reads...", end = '\r')
+        print("Counting reads...", end = '\r', flush = True)
         numreads = get_numreads(filename)
         # every 4 lines is a read in fastq
         all_reads = range(0, numreads*4, 4)
@@ -161,7 +161,7 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
             subset_reads = [all_reads[i] for i in subset_indices]
         
         with opener as file:
-            print("Reading lines...", end = '\r')
+            print("Reading lines...", end = '\r', flush = True)
             linenum = 0
             total_line_num = 0
             yielded_reads = 0
@@ -180,14 +180,14 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
                         yielded_reads += 1
                     total_line_num += 4
                     if total_line_num%10000 == 0:
-                        print(f"Reading lines... Completed {total_line_num} reads with {yielded_reads} yielded", end = '\r')
-            print(f"Total parsed reads = {total_line_num:,} with {yielded_reads} yielded                      ")
+                        print(f"Reading lines... Completed {total_line_num} reads with {yielded_reads} yielded", end = '\r', flush = True)
+            print(f"Total parsed reads = {total_line_num:,} with {yielded_reads} yielded                      ", flush = True)
         opener.close()
     else:
         with opener as file:
             linenum = 0
             readnum = 0
-            print(f"Reading lines... {readnum} reads completed", end = '\r')
+            print(f"Reading lines... {readnum} reads completed", end = '\r', flush = True)
             char_list = ['|', '/', '-', '\\']
             c = 0
 
@@ -207,8 +207,8 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
                         c += 1
                         if c == 4:
                             c = 0
-                        print(f"Reading lines {char} {readnum} reads completed", end = '\r')
-            print(f"Total parsed reads = {readnum:,}                      ")
+                        print(f"Reading lines {char} {readnum} reads completed", end = '\r', flush = True)
+            print(f"Total parsed reads = {readnum:,}                      ", flush = True)
         opener.close()
 
 def get_numreads(filename):

@@ -4,12 +4,12 @@ Tools useful in Staller Lab for sequence design and analysis. Someone should ren
 
 ## Installation
 
-INSTALL THE DEVELOPMENT VERSION
+install the latest version (might be weird, but probably still better)
 
 ```bash 
-pip install https://github.com/massivejords/tools/blob/feature-dev/dist/labtools-0.1.1-py3-none-any.whl?raw=true
+pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.1.1-py3-none-any.whl?raw=true
 ```
-INSTALL THE "stable" VERSION
+INSTALL THE "stable" VERSION (has some dependency issues that might make it hard to install)
 
 ```bash 
 pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.3-py3-none-any.whl?raw=true
