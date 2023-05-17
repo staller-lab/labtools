@@ -46,7 +46,7 @@ Functions
    dtype: int64
 
 
-.. py:function:: create_map(ad_bcs)
+.. py:function:: create_map(ad_bcs, filter=False)
 
    Converts output of seq_counter with AD,bc pairs to a dict map.
 
@@ -55,6 +55,8 @@ Functions
 
    :param ad_bcs: output counts from seq_counter with barcoded = True.
    :type ad_bcs: pd.Series
+   :param filter: Number of reads below which to ignore the barcode.
+   :type filter: int, default False
 
    :returns: **bc_dict** -- Dictionary with barcodes as keys and 1 AD as value.
    :rtype: dict

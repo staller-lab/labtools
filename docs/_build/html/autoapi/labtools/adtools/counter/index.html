@@ -111,7 +111,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.counter.seq_counter" title="labtools.adtools.counter.seq_counter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seq_counter</span></code></a>(fastq[, design_to_use, barcoded, only_bcs])</p></td>
 <td><p>Counts occurences of ADs or AD-barcode pairs in a fastq file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.counter.create_map" title="labtools.adtools.counter.create_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_map</span></code></a>(ad_bcs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.counter.create_map" title="labtools.adtools.counter.create_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_map</span></code></a>(ad_bcs[, filter])</p></td>
 <td><p>Converts output of seq_counter with AD,bc pairs to a dict map.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.counter.convert_bcs_from_map" title="labtools.adtools.counter.convert_bcs_from_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_bcs_from_map</span></code></a>(bcs, bc_dict)</p></td>
@@ -159,13 +159,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.counter.create_map">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.counter.</span></span><span class="sig-name descname"><span class="pre">create_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad_bcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/counter.html#create_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.counter.create_map" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.counter.</span></span><span class="sig-name descname"><span class="pre">create_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ad_bcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/counter.html#create_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.counter.create_map" title="Permalink to this definition"></a></dt>
 <dd><p>Converts output of seq_counter with AD,bc pairs to a dict map.</p>
 <p>If the barcode is found with two different ADs, it is not included in
 the dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ad_bcs</strong> (<em>pd.Series</em>) – output counts from seq_counter with barcoded = True.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ad_bcs</strong> (<em>pd.Series</em>) – output counts from seq_counter with barcoded = True.</p></li>
+<li><p><strong>filter</strong> (<em>int</em><em>, </em><em>default False</em>) – Number of reads below which to ignore the barcode.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>bc_dict</strong> – Dictionary with barcodes as keys and 1 AD as value.</p>
