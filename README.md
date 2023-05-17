@@ -1,19 +1,22 @@
 # labtools
 
-Tools useful in Staller Lab for sequence design and analysis. Someone should rename me to something better.
+Tools useful in Staller Lab for sequence design and analysis. This project is still very much in development and as such is not hosted anywhere official. It is meant for usage by Staller Lab members and collaborators and may change regularly or have bugs at this stage! I plan to rename it and host it somewhere in the future.
 
-Please let me know if the trying to install this inconveniences you. I am still trying to understand dependencies and would like to fix any/all annoyances!
+#### [See examples](https://massivejords.github.io/tools/docs/_build/html/example.html)
+
+I am still working on implementing test procedures to help with the development process as I make changes. Please let me know if anything looks strange or does not work as intended.
+
+Additionally, please let me know if the trying to install this inconveniences you. I am still trying to understand dependencies and would like to fix any/all annoyances!
 
 ## Installation
 
-
-install the latest version (might be weird, but probably still better)
+You can install the latest version using this command (it might be weird as I make adjustments, but probably still better)
 
 ```bash 
 pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.1.2-py3-none-any.whl?raw=true
 ```
 
-install the "stable" VERSION (has some dependency issues that might make it hard to install)
+Install the older, "stable" VERSION (has some dependency issues that might make it hard to install, but it verifiably does what it is supposed to do)
 
 ```bash 
 pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.0.3-py3-none-any.whl?raw=true
