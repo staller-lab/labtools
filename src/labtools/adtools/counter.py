@@ -165,7 +165,7 @@ def convert_bcs_from_map(bcs, bc_dict):
     return converted
 
 
-def sort_normalizer(pair_counts, bin_counts):
+def sort_normalizer(pair_counts, bin_counts, thresh = 10):
     """Normalize by reads per sample, reads per tile and reads per bin.
     
     Parameters
@@ -174,15 +174,17 @@ def sort_normalizer(pair_counts, bin_counts):
         List of pandas series where indices are AD or AD/barcode sequences and values are counts.
     bin_counts : list
         List of number of cells per bin in the same order as the pair counts.
+    thresh : int, default 10
+        Number of reads above which to count the unique sequence.
     
     Returns
     ----------
     df : pandas.DataFrame
         Pandas dataframe containing the normalized read counts.
-    numreads : 
-        unknown
-    reads :
-        unknown
+    numreads : pandas.DataFrame
+        Total read counts for each unique sequence.
+    reads : pandas.DataFrame
+        Read counts per bin for each unique sequence.
     
     Examples
     ----------
@@ -191,7 +193,7 @@ def sort_normalizer(pair_counts, bin_counts):
     df = pd.DataFrame(pair_counts)
     df.fillna(0, inplace=True)
     # 10 is the read minimum, should make this user defined
-    df = df.loc[:, (df.sum() > 10)]
+    df = df.loc[:, (df.sum() > thresh)]
     df = df.transpose()
     numreads = df.sum(axis = 1)
     reads = df.copy(deep = True)
