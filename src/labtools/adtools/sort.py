@@ -66,7 +66,7 @@ class Sort():
                     parsed_sample = convert_bcs_from_map(parsed_sample, bd)
                 sort_list.append(parsed_sample)
         
-        normed_sort, numreads, reads = sort_normalizer(sort_list, self.bin_counts, **kwargs)
+        normed_sort, numreads, reads = sort_normalizer(sort_list, self.bin_counts, thresh = kwargs.get("thresh", 10))
 
         processed_sort = calculate_activity(normed_sort, self.bin_values)
 
