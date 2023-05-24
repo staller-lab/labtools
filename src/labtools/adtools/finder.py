@@ -53,7 +53,7 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                     barcode = roi[0][-bclength:]
             if barcode == None or len(barcode) != bclength:
                 barcode = None
-            else: AD = roi[:ad_length]
+            AD = roi[:ad_length]
         else: AD = roi[:ad_length]
         
     return AD, barcode
