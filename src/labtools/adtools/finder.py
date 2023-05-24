@@ -51,7 +51,7 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                 # there might be an error here pls check
                 if len(searched_read) == 2:
                     barcode = roi[0][-bclength:]
-            if len(barcode) != bclength:
+            if barcode == None or len(barcode) != bclength:
                 barcode = None
             else: AD = roi[:ad_length]
         else: AD = roi[:ad_length]
