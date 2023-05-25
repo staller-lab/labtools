@@ -48,9 +48,8 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                 barcode = searched_read[1][:bclength]
             else:
                 searched_read = re.split(bc_anteceder, roi[ad_length:], maxsplit=1)
-                # there might be an error here pls check
                 if len(searched_read) == 2:
-                    barcode = roi[0][-bclength:]
+                    barcode = searched_read[0][-bclength:]
             if barcode == None or len(barcode) != bclength:
                 barcode = None
             AD = roi[:ad_length]
