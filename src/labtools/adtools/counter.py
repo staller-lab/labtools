@@ -50,10 +50,10 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 for line in read_fastq_big(file, **kwargs):
                     AD,bc = pull_AD(line[1], barcoded, **kwargs)
                     
-                    if barcoded and AD != None:
+                    if barcoded and AD[0] != None:
                         AD = (AD, bc)
-                    if AD not in seqCounts and AD != None: seqCounts[AD] = 1
-                    elif AD != None: seqCounts[AD] += 1
+                    if AD not in seqCounts and AD[0] != None: seqCounts[AD] = 1
+                    elif AD[0] != None: seqCounts[AD] += 1
             counts = pd.Series(seqCounts)
     # fastq files are not provided in lists (one file per sample)
     else:
@@ -73,7 +73,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
             for line in read_fastq_big(fastq, **kwargs):
                 AD,bc = pull_AD(line[1], barcoded, **kwargs)
                 
-                if barcoded and AD != None:
+                if barcoded and AD[0] != None:
                     AD = (AD, bc)
                 # repair?
                 if AD not in seqCounts and AD[0] != None: seqCounts[AD] = 1
