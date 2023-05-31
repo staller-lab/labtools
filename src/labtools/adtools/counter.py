@@ -75,8 +75,9 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 
                 if barcoded and AD != None:
                     AD = (AD, bc)
-                if AD not in seqCounts and AD != None: seqCounts[AD] = 1
-                elif AD != None: seqCounts[AD] += 1
+                # repair?
+                if AD not in seqCounts and AD[0] != None: seqCounts[AD] = 1
+                elif AD[0] != None: seqCounts[AD] += 1
             counts = pd.Series(seqCounts)
     
     # remove non-perfect matches if required
