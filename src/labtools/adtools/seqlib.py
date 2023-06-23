@@ -3,6 +3,7 @@ from random import sample
 import subprocess
 from sklearn.utils.random import sample_without_replacement
 import csv
+import linecache
 
 # fasta reader
 def read_fasta(filename):
@@ -142,52 +143,48 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
     """
     name = None
     seqs = []
-    print(f"Opening file {filename.split('/')[-1]} ...", flush = True)
+    if progress: 
+        print(f"Opening file {filename.split('/')[-1]} ...", flush = True)
 
-    if filename.endswith('.gz'): 
+    if filename.endswith('.gz') and subset != None:
+        raise NotImplementedError("No implementation for subsetting from a gzip file, please unzip.")
+    elif filename.endswith('.gz'):
         opener = gzip.open(filename, 'rt')
     else: opener = open(filename)
 
 
     if subset != None:
-        print("Counting reads...", end = '\r', flush = True)
+        if progress: 
+            print("Counting reads...", end = '\r', flush = True)
         numreads = get_numreads(filename)
         # every 4 lines is a read in fastq
         all_reads = range(0, numreads*4, 4)
-        if subset:
+        if subset != None:
             # a list of indices to subsample
             subset_indices = sample_without_replacement(len(all_reads), subset)
             # get the actual read number from the index (aka the index*4)
             subset_reads = [all_reads[i] for i in subset_indices]
-        
-        with opener as file:
-            print("Reading lines...", end = '\r', flush = True)
+            if progress: 
+                print("Reading lines...", end = '\r', flush = True)
             linenum = 0
             total_line_num = 0
             yielded_reads = 0
 
-            for line in file:
-                linenum += 1
-                if linenum == 5:
-                    linenum = 1
-                if linenum == 1: name = line
-                elif linenum == 2: seq = line
-                elif linenum == 3: opt = line
-                elif linenum == 4: 
-                    qual = line
-                    if (total_line_num) in subset_reads:
-                        yield(name.rstrip(), seq.rstrip(), qual.rstrip())
-                        yielded_reads += 1
-                    total_line_num += 4
-                    if total_line_num%10000 == 0:
-                        print(f"Reading lines... Completed {total_line_num} reads with {yielded_reads} yielded", end = '\r', flush = True)
-            print(f"Total parsed reads = {total_line_num:,} with {yielded_reads} yielded                      ", flush = True)
-        opener.close()
+            for line in subset_reads:
+                name = linecache.getline(filename, line+1)
+                seq = linecache.getline(filename, line+2)
+                qual = linecache.getline(filename, line+4)
+
+                yield(name.rstrip(), seq.rstrip(), qual.rstrip())
+                yielded_reads += 1
+            if progress:
+                print(f"Total parsed reads = {numreads} with {yielded_reads} yielded                      ", flush = True)
     else:
         with opener as file:
             linenum = 0
             readnum = 0
-            print(f"Reading lines... {readnum} reads completed", end = '\r', flush = True)
+            if progress: 
+                print(f"Reading lines... {readnum} reads completed", end = '\r', flush = True)
             char_list = ['|', '/', '-', '\\']
             c = 0
 
@@ -207,8 +204,10 @@ def read_fastq_big(filename, subset = None, progress = True, **kwargs):
                         c += 1
                         if c == 4:
                             c = 0
-                        print(f"Reading lines {char} {readnum} reads completed", end = '\r', flush = True)
-            print(f"Total parsed reads = {readnum:,}                      ", flush = True)
+                        if progress: 
+                            print(f"Reading lines {char} {readnum} reads completed", end = '\r', flush = True)
+            if progress:
+                print(f"Total parsed reads = {readnum:,}                      ", flush = True)
         opener.close()
 
 def get_numreads(filename):

@@ -17,7 +17,7 @@ Classes
 
 
 
-.. py:class:: Sort(data_files, bin_counts, bin_values, design_file=None, bc_dict=False)
+.. py:class:: Sort(data_files: list, bin_counts: list, bin_values: list, design_file: str = None, bc_dict: str = False)
 
    A sort object.
 
@@ -43,7 +43,13 @@ Classes
 
       Path to design csv file containing "ArrayDNA" header with DNA sequences to search
 
-      :type: str
+      :type: str or None
+
+   .. attribute:: bc_dict
+
+      Path to bc_dict csv file (see seqlib.write_bc_dict)
+
+      :type: str or False, default False
 
    .. py:method:: process(csv=False, **kwargs)
 
@@ -63,9 +69,19 @@ Classes
       >>>Sort.process()
 
 
-   .. py:method:: downsample(subset_size)
+   .. py:method:: downsample(subset_size: int) -> pandas.DataFrame
 
-      Perform downsampling on raw reads, then analyze.
+      Perform downsampling on raw reads, then error compared to using all reads.
+
+      :param subset_size: Size in # of reads to subset each file by.
+      :type subset_size: int
+
+      :returns: **errors**
+      :rtype: pandas.DataFrame
+
+      .. rubric:: Examples
+
+      >>>Sort.downsample(100000)
 
 
 

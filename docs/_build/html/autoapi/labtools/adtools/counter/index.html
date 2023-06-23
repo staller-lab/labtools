@@ -117,7 +117,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.counter.convert_bcs_from_map" title="labtools.adtools.counter.convert_bcs_from_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_bcs_from_map</span></code></a>(bcs, bc_dict)</p></td>
 <td><p>Takes bc only data and uses a barcode dictionary to return AD counts.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.counter.sort_normalizer" title="labtools.adtools.counter.sort_normalizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort_normalizer</span></code></a>(pair_counts, bin_counts)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#labtools.adtools.counter.sort_normalizer" title="labtools.adtools.counter.sort_normalizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort_normalizer</span></code></a>(pair_counts, bin_counts[, thresh])</p></td>
 <td><p>Normalize by reads per sample, reads per tile and reads per bin.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#labtools.adtools.counter.calculate_activity" title="labtools.adtools.counter.calculate_activity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_activity</span></code></a>(df_in, bin_values[, min_max])</p></td>
@@ -139,6 +139,7 @@
 <li><p><strong>design_to_use</strong> (<em>str</em><em>, </em><em>default None</em>) – Path to csv file containing ArrayDNA column.</p></li>
 <li><p><strong>barcoded</strong> (<em>bool</em><em>, </em><em>default False</em>) – Whether to count ADs with different barcodes separately.</p></li>
 <li><p><strong>only_bcs</strong> (<em>default False</em>) – True, False or the barcode map to use. If True, no map is used.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Add additional arguments to pass to pull_AD or pull_barcode.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -203,20 +204,21 @@ the dictionary.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="labtools.adtools.counter.sort_normalizer">
-<span class="sig-prename descclassname"><span class="pre">labtools.adtools.counter.</span></span><span class="sig-name descname"><span class="pre">sort_normalizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair_counts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_counts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/counter.html#sort_normalizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.counter.sort_normalizer" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">labtools.adtools.counter.</span></span><span class="sig-name descname"><span class="pre">sort_normalizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pair_counts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_counts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/labtools/adtools/counter.html#sort_normalizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#labtools.adtools.counter.sort_normalizer" title="Permalink to this definition"></a></dt>
 <dd><p>Normalize by reads per sample, reads per tile and reads per bin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pair_counts</strong> (<em>list</em><em> of </em><em>pandas.core.series.Series</em>) – List of pandas series where indices are AD or AD/barcode sequences and values are counts.</p></li>
 <li><p><strong>bin_counts</strong> (<em>list</em>) – List of number of cells per bin in the same order as the pair counts.</p></li>
+<li><p><strong>thresh</strong> (<em>int</em><em>, </em><em>default 10</em>) – Number of reads above which to count the unique sequence.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – Pandas dataframe containing the normalized read counts.</p></li>
-<li><p><em>numreads</em> – unknown</p></li>
-<li><p><em>reads</em> – unknown</p></li>
+<li><p><strong>numreads</strong> (<em>pandas.DataFrame</em>) – Total read counts for each unique sequence.</p></li>
+<li><p><strong>reads</strong> (<em>pandas.DataFrame</em>) – Read counts per bin for each unique sequence.</p></li>
 </ul>
 </p>
 </dd>

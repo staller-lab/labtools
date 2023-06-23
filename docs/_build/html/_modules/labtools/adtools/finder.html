@@ -133,13 +133,11 @@
                 <span class="n">barcode</span> <span class="o">=</span> <span class="n">searched_read</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="n">bclength</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">searched_read</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">bc_anteceder</span><span class="p">,</span> <span class="n">roi</span><span class="p">[</span><span class="n">ad_length</span><span class="p">:],</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="c1"># there might be an error here pls check</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">searched_read</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                    <span class="n">barcode</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="n">bclength</span><span class="p">:]</span>
+                    <span class="n">barcode</span> <span class="o">=</span> <span class="n">searched_read</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="n">bclength</span><span class="p">:]</span>
             <span class="k">if</span> <span class="n">barcode</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">barcode</span><span class="p">)</span> <span class="o">!=</span> <span class="n">bclength</span><span class="p">:</span>
-                <span class="n">AD</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">barcode</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">else</span><span class="p">:</span> <span class="n">AD</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[:</span><span class="n">ad_length</span><span class="p">]</span>
+            <span class="n">AD</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[:</span><span class="n">ad_length</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span> <span class="n">AD</span> <span class="o">=</span> <span class="n">roi</span><span class="p">[:</span><span class="n">ad_length</span><span class="p">]</span>
         
     <span class="k">return</span> <span class="n">AD</span><span class="p">,</span> <span class="n">barcode</span></div>

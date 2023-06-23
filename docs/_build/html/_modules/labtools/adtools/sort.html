@@ -101,11 +101,14 @@
 <span class="sd">        List of number of cells per bin in order of data files.</span>
 <span class="sd">    bin_values : list</span>
 <span class="sd">        List of mean or median fluorescence values per bin in order of data files.</span>
-<span class="sd">    design_file : str</span>
+<span class="sd">    design_file : str or None</span>
 <span class="sd">        Path to design csv file containing &quot;ArrayDNA&quot; header with DNA sequences to search</span>
+<span class="sd">    bc_dict : str or False, default False</span>
+<span class="sd">        Path to bc_dict csv file (see seqlib.write_bc_dict)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">,</span> <span class="n">bin_values</span><span class="p">,</span> <span class="n">design_file</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bc_dict</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_files</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">bin_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> 
+                 <span class="n">design_file</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bc_dict</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_files</span> <span class="o">=</span> <span class="n">data_files</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">bin_counts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bin_values</span> <span class="o">=</span> <span class="n">bin_values</span>
@@ -151,7 +154,7 @@
                     <span class="n">parsed_sample</span> <span class="o">=</span> <span class="n">convert_bcs_from_map</span><span class="p">(</span><span class="n">parsed_sample</span><span class="p">,</span> <span class="n">bd</span><span class="p">)</span>
                 <span class="n">sort_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parsed_sample</span><span class="p">)</span>
         
-        <span class="n">normed_sort</span><span class="p">,</span> <span class="n">numreads</span><span class="p">,</span> <span class="n">reads</span> <span class="o">=</span> <span class="n">sort_normalizer</span><span class="p">(</span><span class="n">sort_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_counts</span><span class="p">)</span>
+        <span class="n">normed_sort</span><span class="p">,</span> <span class="n">numreads</span><span class="p">,</span> <span class="n">reads</span> <span class="o">=</span> <span class="n">sort_normalizer</span><span class="p">(</span><span class="n">sort_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_counts</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;thresh&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
         <span class="n">processed_sort</span> <span class="o">=</span> <span class="n">calculate_activity</span><span class="p">(</span><span class="n">normed_sort</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_values</span><span class="p">)</span>
 
@@ -159,15 +162,31 @@
 
 
 
-<div class="viewcode-block" id="Sort.downsample"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/sort/index.html#labtools.adtools.sort.Sort.downsample">[docs]</a>    <span class="k">def</span> <span class="nf">downsample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subset_size</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform downsampling on raw reads, then analyze.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Sort.downsample"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/sort/index.html#labtools.adtools.sort.Sort.downsample">[docs]</a>    <span class="k">def</span> <span class="nf">downsample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subset_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform downsampling on raw reads, then error compared to using all reads.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        subset_size : int</span>
+<span class="sd">            Size in # of reads to subset each file by. </span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        errors : pandas.DataFrame</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        ----------</span>
+<span class="sd">        &gt;&gt;&gt;Sort.downsample(100000)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
         <span class="n">sort_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_files</span><span class="p">:</span>
             <span class="n">numreads</span> <span class="o">=</span> <span class="n">get_numreads</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
             <span class="n">subsample_list</span> <span class="o">=</span> <span class="p">[]</span>
             
             <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">numreads</span><span class="p">,</span> <span class="n">subset_size</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">num</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">subsample</span> <span class="o">=</span> <span class="n">seq_counter</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">design_to_use</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">design_file</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="n">num</span><span class="p">)</span>
                 <span class="n">subsample_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subsample</span><span class="p">)</span>
             <span class="n">sort_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subsample_list</span><span class="p">)</span>
@@ -180,6 +199,7 @@
             <span class="n">df</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sort_normalizer</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_counts</span><span class="p">)</span>
             <span class="n">final</span> <span class="o">=</span> <span class="n">calculate_activity</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_values</span><span class="p">)</span>
             <span class="n">all_subsamples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">final</span><span class="p">)</span>
+        
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_subsamples</span><span class="p">)):</span>
             <span class="n">all_subsamples</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_subsamples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Activity</span>

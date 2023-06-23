@@ -15,6 +15,8 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
         Whether to count ADs with different barcodes separately.
     only_bcs : default False
         True, False or the barcode map to use. If True, no map is used.
+    **kwargs : dict
+        Add additional arguments to pass to pull_AD or pull_barcode.
     
     Returns
     ----------
@@ -85,7 +87,6 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                     
                 elif AD != None and AD not in seqCounts: seqCounts[AD] = 1
                 elif AD != None: seqCounts[AD] += 1
-
             counts = pd.Series(seqCounts)
     
     # remove non-perfect matches if required

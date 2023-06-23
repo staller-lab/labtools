@@ -16,11 +16,14 @@ class Sort():
         List of number of cells per bin in order of data files.
     bin_values : list
         List of mean or median fluorescence values per bin in order of data files.
-    design_file : str
+    design_file : str or None
         Path to design csv file containing "ArrayDNA" header with DNA sequences to search
+    bc_dict : str or False, default False
+        Path to bc_dict csv file (see seqlib.write_bc_dict)
     """
 
-    def __init__(self, data_files, bin_counts, bin_values, design_file = None, bc_dict = False):
+    def __init__(self, data_files: list, bin_counts: list, bin_values: list, 
+                 design_file: str=None, bc_dict: str=False):
         self.data_files = data_files
         self.bin_counts = bin_counts
         self.bin_values = bin_values
@@ -74,15 +77,31 @@ class Sort():
 
 
 
-    def downsample(self, subset_size):
-        """Perform downsampling on raw reads, then analyze."""
+    def downsample(self, subset_size: int) -> pd.DataFrame:
+        """Perform downsampling on raw reads, then error compared to using all reads.
 
+        Parameters
+        ----------
+        subset_size : int
+            Size in # of reads to subset each file by. 
+            
+        Returns
+        ----------
+        errors : pandas.DataFrame
+
+        Examples
+        ----------
+        >>>Sort.downsample(100000)
+        """
+        
         sort_list = []
         for sample in self.data_files:
             numreads = get_numreads(sample)
             subsample_list = []
             
             for num in range(0, numreads, subset_size):
+                if num == 0:
+                    num = None
                 subsample = seq_counter(sample, design_to_use = self.design_file, subset = num)
                 subsample_list.append(subsample)
             sort_list.append(subsample_list)
@@ -95,6 +114,7 @@ class Sort():
             df, _, _ = sort_normalizer(group, self.bin_counts)
             final = calculate_activity(df, self.bin_values)
             all_subsamples.append(final)
+        
 
         for i in range(1, len(all_subsamples)):
             all_subsamples[0][f"{i}"] = all_subsamples[i].Activity

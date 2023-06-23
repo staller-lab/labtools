@@ -100,6 +100,8 @@
 <span class="sd">        Whether to count ADs with different barcodes separately.</span>
 <span class="sd">    only_bcs : default False</span>
 <span class="sd">        True, False or the barcode map to use. If True, no map is used.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Add additional arguments to pass to pull_AD or pull_barcode.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ----------</span>
@@ -136,8 +138,12 @@
                     <span class="n">AD</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">pull_AD</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">barcoded</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                     
                     <span class="k">if</span> <span class="n">barcoded</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">AD</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                        <span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+                    
+                        <span class="k">if</span> <span class="n">pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                        <span class="k">elif</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
     <span class="c1"># fastq files are not provided in lists (one file per sample)</span>
@@ -159,8 +165,12 @@
                 <span class="n">AD</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">pull_AD</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">barcoded</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
                 
                 <span class="k">if</span> <span class="n">barcoded</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">AD</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="n">AD</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+                
+                    <span class="k">if</span> <span class="n">pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span> <span class="ow">and</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">elif</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    
+                <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">AD</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqCounts</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="k">elif</span> <span class="n">AD</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="n">seqCounts</span><span class="p">[</span><span class="n">AD</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">seqCounts</span><span class="p">)</span>
     
@@ -250,7 +260,7 @@
     <span class="k">return</span> <span class="n">converted</span></div>
 
 
-<div class="viewcode-block" id="sort_normalizer"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.sort_normalizer">[docs]</a><span class="k">def</span> <span class="nf">sort_normalizer</span><span class="p">(</span><span class="n">pair_counts</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">):</span>
+<div class="viewcode-block" id="sort_normalizer"><a class="viewcode-back" href="../../../autoapi/labtools/adtools/counter/index.html#labtools.adtools.counter.sort_normalizer">[docs]</a><span class="k">def</span> <span class="nf">sort_normalizer</span><span class="p">(</span><span class="n">pair_counts</span><span class="p">,</span> <span class="n">bin_counts</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize by reads per sample, reads per tile and reads per bin.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -259,15 +269,17 @@
 <span class="sd">        List of pandas series where indices are AD or AD/barcode sequences and values are counts.</span>
 <span class="sd">    bin_counts : list</span>
 <span class="sd">        List of number of cells per bin in the same order as the pair counts.</span>
+<span class="sd">    thresh : int, default 10</span>
+<span class="sd">        Number of reads above which to count the unique sequence.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df : pandas.DataFrame</span>
 <span class="sd">        Pandas dataframe containing the normalized read counts.</span>
-<span class="sd">    numreads : </span>
-<span class="sd">        unknown</span>
-<span class="sd">    reads :</span>
-<span class="sd">        unknown</span>
+<span class="sd">    numreads : pandas.DataFrame</span>
+<span class="sd">        Total read counts for each unique sequence.</span>
+<span class="sd">    reads : pandas.DataFrame</span>
+<span class="sd">        Read counts per bin for each unique sequence.</span>
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    ----------</span>
@@ -276,7 +288,7 @@
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pair_counts</span><span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># 10 is the read minimum, should make this user defined</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">)]</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
     <span class="n">numreads</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">reads</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
