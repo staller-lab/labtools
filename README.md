@@ -13,7 +13,7 @@ Additionally, please let me know if the trying to install this inconveniences yo
 You can install the latest version using this command (it might be weird as I make adjustments, but probably still better)
 
 ```bash 
-pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.1.2-py3-none-any.whl?raw=true
+pip install https://github.com/massivejords/tools/blob/main/dist/labtools-0.1.9-py3-none-any.whl?raw=true
 ```
 
 Install the older, "stable" VERSION (has some dependency issues that might make it hard to install, but it verifiably does what it is supposed to do)
