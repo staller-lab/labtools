@@ -1,7 +1,7 @@
 import re
 
 def pull_AD(read, barcoded = False, ad_preceder = "GCTAGC", 
-bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 11, **kwargs):
+bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 11, loss_table=None, **kwargs):
     """Find the activation domain tile in a read.
     
     Takes a read sequence and uses customizable anchor sequences to locate a 
@@ -50,10 +50,22 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                 searched_read = re.split(bc_anteceder, roi[ad_length:], maxsplit=1)
                 if len(searched_read) == 2:
                     barcode = searched_read[0][-bclength:]
+                # LT: increment loss table when no barcode is found
+                else:
+                    loss_table['bc_flanks'] += 1
+            # LT: increment loss table when barcode length is wrong
+            if barcode is not None and len(barcode) != bclength:
+                loss_table['bc_length'] += 1
             if barcode == None or len(barcode) != bclength:
                 barcode = None
+                # LT: increment loss table for all instances where barcode is None
+                if barcode == None:
+                    loss_table['total_bc_not_found'] += 1
             AD = roi[:ad_length]
         else: AD = roi[:ad_length]
+    # LT: increment loss table when AD is not found from ad_preceder search
+    else:
+        loss_table['ad_preceder'] += 1
         
     return AD, barcode
 
