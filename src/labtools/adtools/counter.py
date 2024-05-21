@@ -30,6 +30,9 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
     GAAGAATTGTTTTTACATTTGTCTGCTAAGATTGGTAGATCTTCTAGGAAACCACATCCATTCTTGGATGAATTTATTCATACTTTGGTTGAAGAAGATGGTATTTGTAGAACTCATCCA    3
     dtype: int64
     """
+    # LT: Extract loss_table from kwargs and make design_loss_table to hold temporary loss_table calculations
+    loss_table = kwargs.pop('loss_table', None)
+    design_loss_table = {'total': 0, 'filtered': 0}
     seqCounts = {}
 
     # merge lists of fastq files pertaining to the same sample
@@ -55,11 +58,17 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                     if barcoded and AD != None:
                         pair = (AD, bc)
                     
-                        if pair not in seqCounts and pair[0] != None: seqCounts[AD] = 1
-                        elif pair[0] != None: seqCounts[AD] += 1
+                        if pair not in seqCounts and pair[0] != None: seqCounts[pair] = 1
+                        elif pair[0] != None: seqCounts[pair] += 1
+                            # LT: increment total read counts for design_loss_table
+                            design_loss_table['total'] += 1
 
                     elif AD != None and AD not in seqCounts: seqCounts[AD] = 1
+                        # LT: increment total read counts for design_loss_table
+                        design_loss_table['total'] += 1
                     elif AD != None: seqCounts[AD] += 1
+                        # LT: increment total read counts for design_loss_table
+                        design_loss_table['total'] += 1
             counts = pd.Series(seqCounts)
     # fastq files are not provided in lists (one file per sample)
     else:
@@ -82,11 +91,16 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 if barcoded and AD != None:
                     pair = (AD, bc)
                 
-                    if pair not in seqCounts and pair[0] != None: seqCounts[AD] = 1
-                    elif pair[0] != None: seqCounts[AD] += 1
-                    
+                    if pair not in seqCounts and pair[0] != None: seqCounts[pair] = 1
+                    elif pair[0] != None: seqCounts[pair] += 1
+                    # LT: increment total read counts for design_loss_table
+                    design_loss_table['total'] += 1
                 elif AD != None and AD not in seqCounts: seqCounts[AD] = 1
+                    # LT: increment total read counts for design_loss_table
+                    design_loss_table['total'] += 1
                 elif AD != None: seqCounts[AD] += 1
+                    # LT: increment total read counts for design_loss_table
+                    design_loss_table['total'] += 1
             counts = pd.Series(seqCounts)
     
     # remove non-perfect matches if required
@@ -96,7 +110,9 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
             counts = counts.where(counts.index.droplevel(1).isin(design.ArrayDNA)).dropna()
         else:
             counts = counts.where(counts.index.isin(design.ArrayDNA)).dropna()
-    return counts
+    # LT: Update loss_table with the number of reads filtered because of the design file
+    design_loss_table['filtered'] = design_loss_table['total'] - counts.sum()
+    return counts, design_loss_table
 
 def create_map(ad_bcs, filter = False):
     """Converts output of seq_counter with AD,bc pairs to a dict map.
@@ -175,7 +191,7 @@ def convert_bcs_from_map(bcs, bc_dict):
     return converted
 
 
-def sort_normalizer(pair_counts, bin_counts, thresh = 10):
+def sort_normalizer(pair_counts, bin_counts, loss_table=None, thresh = 10):
     """Normalize by reads per sample, reads per tile and reads per bin.
     
     Parameters
@@ -184,6 +200,8 @@ def sort_normalizer(pair_counts, bin_counts, thresh = 10):
         List of pandas series where indices are AD or AD/barcode sequences and values are counts.
     bin_counts : list
         List of number of cells per bin in the same order as the pair counts.
+    loss_table: dictionary
+        Dictionary that stores the value of reads removed during various filtering steps.
     thresh : int, default 10
         Number of reads above which to count the unique sequence.
     
@@ -202,6 +220,8 @@ def sort_normalizer(pair_counts, bin_counts, thresh = 10):
     """
     df = pd.DataFrame(pair_counts)
     df.fillna(0, inplace=True)
+    # LT: counting reads that will be removed by thresholding
+    loss_table['thresh'] += df.loc[:, (df.sum() <= thresh)].sum().sum()
     # 10 is the read minimum, should make this user defined
     df = df.loc[:, (df.sum() > thresh)]
     df = df.transpose()
