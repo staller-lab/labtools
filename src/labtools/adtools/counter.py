@@ -41,7 +41,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
         if only_bcs != False and design_to_use == None:
             for file in fastq:
                 for line in read_fastq_big(file, **kwargs):
-                    bc = pull_barcode(line[1],**kwargs)
+                    bc = pull_barcode(line[1], loss_table=loss_table, **kwargs)
                     
                     if bc not in seqCounts and bc != None: seqCounts[bc] = 1
                         # LT: increment total read counts for design_loss_table
@@ -57,7 +57,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
         else:        
             for file in fastq:
                 for line in read_fastq_big(file, **kwargs):
-                    AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                    AD,bc = pull_AD(line[1], barcoded, loss_table=loss_table, **kwargs)
                     
                     if barcoded and AD != None:
                         pair = (AD, bc)
@@ -79,7 +79,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
         # compute by only counting barcodes
         if only_bcs != False and design_to_use == None:
             for line in read_fastq_big(fastq, **kwargs):
-                bc = pull_barcode(line[1],**kwargs)
+                bc = pull_barcode(line[1], loss_table=loss_table, **kwargs)
                 
                 if bc not in seqCounts and bc != None: seqCounts[bc] = 1
                     # LT: increment total read counts for design_loss_table
@@ -94,7 +94,7 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
         # compute by counting ADs or ADs + barcodes
         else:
             for line in read_fastq_big(fastq, **kwargs):
-                AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                AD,bc = pull_AD(line[1], barcoded, loss_table=loss_table, **kwargs)
                 
                 if barcoded and AD != None:
                     pair = (AD, bc)
