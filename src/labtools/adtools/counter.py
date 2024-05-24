@@ -43,9 +43,10 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 for line in read_fastq_big(file, **kwargs):
                     if loss_table is not None:
                         bc,loss_reason = pull_barcode(line[1], loss_table=loss_table, **kwargs)
-                        loss_table[loss_reason] += 1
+                        if loss_reason is not None:
+                            loss_table[loss_reason] += 1
                     else:
-                        bc = pull_barcode(line[1], **kwargs)
+                        bc,loss_reason = pull_barcode(line[1], **kwargs)
                     
                     if bc not in seqCounts and bc != None: seqCounts[bc] = 1
                         # LT: increment total read counts for design_loss_table
@@ -63,9 +64,10 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 for line in read_fastq_big(file, **kwargs):
                     if loss_table is not None:
                         AD,bc,loss_reason = pull_AD(line[1], barcoded, loss_table=loss_table, **kwargs)
-                        loss_table[loss_reason] += 1
+                        if loss_reason is not None:
+                            loss_table[loss_reason] += 1
                     else:
-                        AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                        AD,bc,loss_reason = pull_AD(line[1], barcoded, **kwargs)
                     
                     if barcoded and AD != None:
                         pair = (AD, bc)
@@ -89,9 +91,10 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
             for line in read_fastq_big(fastq, **kwargs):
                 if loss_table is not None:
                     bc,loss_reason = pull_barcode(line[1], loss_table=loss_table, **kwargs)
-                    loss_table[loss_reason] += 1
+                    if loss_reason is not None:
+                        loss_table[loss_reason] += 1
                 else:
-                    bc = pull_barcode(line[1], **kwargs)
+                    bc,loss_reason = pull_barcode(line[1], **kwargs)
                 
                 if bc not in seqCounts and bc != None: seqCounts[bc] = 1
                     # LT: increment total read counts for design_loss_table
@@ -108,9 +111,10 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
             for line in read_fastq_big(fastq, **kwargs):
                 if loss_table is not None:
                     AD,bc,loss_reason = pull_AD(line[1], barcoded, loss_table=loss_table, **kwargs)
-                    loss_table[loss_reason] += 1
+                    if loss_reason is not None:
+                        loss_table[loss_reason] += 1
                 else:
-                    AD,bc = pull_AD(line[1], barcoded, **kwargs)
+                    AD,bc,loss_reason = pull_AD(line[1], barcoded, **kwargs)
                 
                 if barcoded and AD != None:
                     pair = (AD, bc)
