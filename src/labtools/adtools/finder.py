@@ -66,7 +66,7 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
         else: AD = roi[:ad_length]
     # LT: Increment loss_table if the ad_preceder sequence was not found
     else:
-    loss_table['ad_preceder'] += 1
+        loss_table['ad_preceder'] += 1
         
     return AD, barcode
 
