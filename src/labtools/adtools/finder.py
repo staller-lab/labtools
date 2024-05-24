@@ -30,8 +30,8 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
         The sequence of interest, if located. Else None.
     barcode : str
         The barcode, if used and located. Else None.
-    AD_bc_loss_table: dictionary
-        A dictionary recording if and why the AD or barcode was not found.
+    loss_reason: str
+        If the AD or barcode was not found, the reason why.
     
     Examples
     ----------
@@ -41,7 +41,6 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
     searched_read = re.split(ad_preceder, read, maxsplit=1)
     AD = None
     barcode = None
-    AD_bc_loss_table = {'bc_flanks': 0, 'bc_length': 0, 'total_bc_not_found': 0}
 
     if len(searched_read) == 2:
         roi = searched_read[1]
@@ -53,25 +52,21 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                 searched_read = re.split(bc_anteceder, roi[ad_length:], maxsplit=1)
                 if len(searched_read) == 2:
                     barcode = searched_read[0][-bclength:]
-                # LT: Increment loss_table if barcode is not found by either flanking sequence
+                # LT: Record if a barcode is not found by either flanking sequence
                 else:
-                    AD_bc_loss_table['bc_flanks'] += 1
+                    loss_reason = 'bc_flanks'
             if barcode is not None and len(barcode != bclength:
-                # LT: Increment loss_table if barcode is not the correct length
-                AD_bc_loss_table['bc_length'] += 1
+                # LT: Record if barcode is not the correct length
+                loss_reason = 'bc_length'
             if barcode == None or len(barcode) != bclength:
-                AD_bc_loss_table['bc_length'] += 1
                 barcode = None
-                # LT: Increment loss_table to show total number of reads without barcodes
-                if barcode == None:
-                    AD_bc_loss_table['total_bc_not_found'] += 1
             AD = roi[:ad_length]
         else: AD = roi[:ad_length]
     # LT: Increment loss_table if the ad_preceder sequence was not found
     else:
-        AD_bc_loss_table['ad_preceder'] += 1
+        loss_reason = 'ad_preceder'
     
-    return AD, barcode, AD_bc_loss_table
+    return AD, barcode, loss_reason
 
 def pull_barcode(read, bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", bclength = 11, **kwargs):
     """Find the barcode in a read.
@@ -94,8 +89,8 @@ def pull_barcode(read, bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", bclen
     ----------
     barcode : str
         The barcode, if used and located. Else None.
-    bc_loss_table: dictionary
-        A dictionary recording if the barcode was not found.
+    loss_reason: str
+        If a barcode was not found, the reason why.
     
     Examples
     ----------
@@ -105,7 +100,6 @@ def pull_barcode(read, bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", bclen
 
     barcode = None
     searched_read = re.split(bc_preceder, read, maxsplit=1)
-    bc_loss_table = {'bc_flanks': 0}
 
     if len(searched_read) == 2:
         barcode = searched_read[1][:bclength]
@@ -116,6 +110,6 @@ def pull_barcode(read, bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", bclen
             barcode = searched_read[0][-bclength:]
         # LT: Increment loss_table if barcode is not found by either flanking sequence
         else:
-            AD_bc_loss_table['bc_flanks'] += 1
+            loss_reason = 'bc_flanks'
     
-    return barcode, bc_loss_table
+    return barcode, loss_reason
