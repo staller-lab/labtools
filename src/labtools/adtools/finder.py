@@ -61,7 +61,7 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                 barcode = None
                 # LT: Increment loss_table to show total number of reads without barcodes
                 if barcode == None:
-                loss_table['total_bc_not_found'] += 1
+                    loss_table['total_bc_not_found'] += 1
             AD = roi[:ad_length]
         else: AD = roi[:ad_length]
     # LT: Increment loss_table if the ad_preceder sequence was not found
