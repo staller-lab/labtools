@@ -48,10 +48,12 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                     else:
                         bc,loss_reason = pull_barcode(line[1], **kwargs)
                     
-                    if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+                    if bc not in seqCounts and bc != None: 
+                        seqCounts[bc] = 1
                         # LT: increment total read counts for design_loss_table
                         design_loss_table['total'] += 1
-                    elif bc != None: seqCounts[bc] += 1
+                    elif bc != None: 
+                        seqCounts[bc] += 1
                         # LT: increment total read counts for design_loss_table
                         design_loss_table['total'] += 1
                 counts = pd.Series(seqCounts)
@@ -73,14 +75,16 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                         pair = (AD, bc)
                     
                         if pair not in seqCounts and pair[0] != None: seqCounts[pair] = 1
-                        elif pair[0] != None: seqCounts[AD] += 1
+                        elif pair[0] != None: seqCounts[pair] += 1
                         # LT: increment total read counts for design_loss_table
                         design_loss_table['total'] += 1
 
-                    elif AD != None and AD not in seqCounts: seqCounts[pair] = 1
+                    elif AD != None and AD not in seqCounts: 
+                        seqCounts[AD] = 1
                         # LT: increment total read counts for design_loss_table
                         design_loss_table['total'] += 1
-                    elif AD != None: seqCounts[AD] += 1
+                    elif AD != None: 
+                        seqCounts[AD] += 1
                         # LT: increment total read counts for design_loss_table
                         design_loss_table['total'] += 1
             counts = pd.Series(seqCounts)
@@ -96,10 +100,12 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 else:
                     bc,loss_reason = pull_barcode(line[1], **kwargs)
                 
-                if bc not in seqCounts and bc != None: seqCounts[bc] = 1
+                if bc not in seqCounts and bc != None: 
+                    seqCounts[bc] = 1
                     # LT: increment total read counts for design_loss_table
                     design_loss_table['total'] += 1
-                elif bc != None: seqCounts[bc] += 1
+                elif bc != None: 
+                    seqCounts[bc] += 1
                     # LT: increment total read counts for design_loss_table
                     design_loss_table['total'] += 1
             counts = pd.Series(seqCounts)
@@ -119,15 +125,17 @@ def seq_counter(fastq, design_to_use = None, barcoded = False, only_bcs = False,
                 if barcoded and AD != None:
                     pair = (AD, bc)
                 
-                    if pair not in seqCounts and pair[0] != None: seqCounts[AD] = 1
-                    elif pair[0] != None: seqCounts[AD] += 1
+                    if pair not in seqCounts and pair[0] != None: seqCounts[pair] = 1
+                    elif pair[0] != None: seqCounts[pair] += 1
                     # LT: increment total read counts for design_loss_table
                     design_loss_table['total'] += 1
                     
-                elif AD != None and AD not in seqCounts: seqCounts[AD] = 1
+                elif AD != None and AD not in seqCounts: 
+                    seqCounts[AD] = 1
                     # LT: increment total read counts for design_loss_table
                     design_loss_table['total'] += 1
-                elif AD != None: seqCounts[AD] += 1
+                elif AD != None: 
+                    seqCounts[AD] += 1
                     # LT: increment total read counts for design_loss_table
                     design_loss_table['total'] += 1
             counts = pd.Series(seqCounts)
