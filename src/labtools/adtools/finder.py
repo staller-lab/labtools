@@ -56,7 +56,7 @@ bc_preceder = "GGGCCCG", bc_anteceder = "GGAGAGAA", ad_length = 120, bclength = 
                 # LT: Record if a barcode is not found by either flanking sequence
                 else:
                     loss_reason = 'bc_flanks'
-            if barcode is not None and len(barcode != bclength:
+            if barcode is not None and len(barcode) != bclength:
                 # LT: Record if barcode is not the correct length
                 loss_reason = 'bc_length'
             if barcode == None or len(barcode) != bclength:
