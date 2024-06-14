@@ -67,7 +67,7 @@ class Sort():
                 sort_list.append(parsed_sample)
         else: 
             for sample in self.data_files:
-                parsed_sample = seq_counter(sample, loss_table=loss_table, design_to_use = self.design_file, 
+                parsed_sample, design_loss_table = seq_counter(sample, loss_table=loss_table, design_to_use = self.design_file, 
                                             only_bcs = self.bc_dict, **kwargs)
                 # LT: Assign calculations from temporary design_loss_table to loss_table for each file.
                 loss_table['design_file'] += design_loss_table['filtered']
