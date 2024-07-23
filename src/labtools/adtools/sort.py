@@ -79,9 +79,10 @@ class Sort():
         normed_sort, numreads, reads, loss_table = sort_normalizer(sort_list, self.bin_counts, 
                                                                    thresh = kwargs.get("thresh", 10), 
                                                                   loss_table=loss_table)
-        # LT: Count reads where barcode is None and record in the loss_table
-        normnobcs = reads[reads.index.get_level_values(1).isna()]
-        loss_table['bc_is_na'] += normnobcs.sum(axis=1).sum()
+        if barcoded = True:
+            # LT: Count reads where barcode is None and record in the loss_table
+            normnobcs = reads[reads.index.get_level_values(1).isna()]
+            loss_table['bc_is_na'] += normnobcs.sum(axis=1).sum()
 
         processed_sort = calculate_activity(normed_sort, self.bin_values)
 
