@@ -53,10 +53,10 @@ class Sort():
 
         sort_list = []
         # LT: Initialize loss_table
-        # Note: bc_flanks and bc_length are not actually removed. 
+        # Note: bc_flanks and bc_length are not actually removed.
         # Those reads become bc_is_na if they pass the design file and thresholding.
         loss_table = {'ad_preceder': 0, 'design_file': 0, 'thresh': 0, # This line shows truly removed reads. Sum of this line + sum of included reads should = total reads.
-                      'bc_is_na': 0, 'bc_flanks': 0, 'bc_length': 0}
+                      'bc_flanks': 0, 'bc_length': 0, 'bc_is_na': 0}
         
         # super weird and needs to be double checked
         # converts output from bowtie bam to csv into same format
